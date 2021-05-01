@@ -16,7 +16,7 @@ public class ParkingDao {
 	private Statement stmt = null;
 	private ResultSet rs = null;
 
-	// SelectAll 전부 조회
+	// SelectAll 회원 전부 조회
 	public ArrayList<User> selectAll(Connection conn) {
 		ArrayList<User> list = null;
 
@@ -38,8 +38,8 @@ public class ParkingDao {
 					vo.setUser_name(rs.getString("user_name"));
 					vo.setNickname(rs.getString("nickname"));
 					vo.setAddress(rs.getString("address"));
-					vo.setLast_login(rs.getDate("last_login"));
-					vo.setPhone(Integer.parseInt(rs.getString("phone")));
+					vo.setLast_login(rs.getTimestamp("last_login"));
+					vo.setPhone(rs.getString("phone"));
 					vo.setEmail(rs.getString("email"));
 					vo.setGender(rs.getString("gender").charAt(0));
 					vo.setBirth(rs.getDate("birth"));
@@ -57,4 +57,48 @@ public class ParkingDao {
 		return list;
 	}
 
+	// Serach 회원 검색
+	public ArrayList<User> selectSearch(Connection conn, String col, String str) {
+		ArrayList<User> list = new ArrayList<User>();
+
+		String sql = "select * from USER_TB where " + col + " like '%" + str +"%' ";
+		
+		pstmt = null;
+		rs = null;
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs != null) { // 결과가 1개이상 있다면
+				if (rs.next()) {
+					list = new ArrayList<User>();
+					do {
+						User vo = new User();
+						vo.setUser_no(Integer.parseInt(rs.getString("user_no")));
+						vo.setUser_id(rs.getString("user_id"));
+						vo.setUser_pwd(rs.getString("user_pwd"));
+						vo.setUser_name(rs.getString("user_name"));
+						vo.setNickname(rs.getString("nickname"));
+						vo.setAddress(rs.getString("address"));
+						vo.setLast_login(rs.getTimestamp("last_login"));
+						vo.setPhone(rs.getString("phone"));
+						vo.setEmail(rs.getString("email"));
+						vo.setGender(rs.getString("gender").charAt(0));
+						vo.setBirth(rs.getDate("birth"));
+						vo.setUser_authority(Integer.parseInt(rs.getString("user_authority")));
+						list.add(vo);
+					} while (rs.next());
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+	
 }

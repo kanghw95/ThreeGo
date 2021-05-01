@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import threego.model.dao.ParkingDao;
 import threego.model.service.ParkingService;
 import threego.model.vo.User;
 
 /**
- * Servlet implementation class ParkingSelectAllUserCtrl
+ * Servlet implementation class SearchUserCtrl
  */
-@WebServlet("/p_selectall.do")
-public class SelectAllUserCtrl extends HttpServlet {
+@WebServlet("/p_searchuser.do")
+public class SearchUserCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SelectAllUserCtrl() {
+	public SearchUserCtrl() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -33,15 +34,20 @@ public class SelectAllUserCtrl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String search = request.getParameter("searchuser");
+		System.out.println(search);
+
+		ArrayList<User> searchlist = new ParkingService().selectSearch("user_name", search);
 		
-		ArrayList<User> list = new ParkingService().selectAll();
-		if (list != null) {
-			request.setAttribute("list", list);
+		if (searchlist != null) {
+			System.out.println("조회 성공");
+			System.out.println(searchlist);
+			request.setAttribute("list",searchlist);
 			request.getRequestDispatcher("view/user/UserAllView.jsp").forward(request, response);
 		} else {
+			System.out.println("조회 실패");
 			request.getRequestDispatcher("view/user/UserAllView.jsp").forward(request, response);
 		}
-
 	}
 
 	/**
@@ -50,7 +56,7 @@ public class SelectAllUserCtrl extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		doGet(request, response);
 	}
 
 }
