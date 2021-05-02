@@ -30,18 +30,18 @@
 			<label>남:<input type="radio" name="gender" value='M'></label>
 			<label>여:<input type="radio" name="gender" value='F'></label><br>
 			<label>생일: <input type="text" id="birth" name="birth"></label><br>
-			
 			<hr>
 	
 			<input type="submit" value="회원가입">
 			<input type="button" value="취소" onclick="history.back()">
 		</form>
 	<script>
+//이메일 인증번호 발송하기
 $(function() {
 	$("#btnemail").click(function() {
 		var email = $("#email").val();
 		console.log(email);
-		var url = "<%=request.getContextPath()%>/EmailCtrl";
+		var url = "<%=request.getContextPath()%>/emailctrl";
 		$.ajax({
 			type : "post",
 			url : url,
@@ -53,22 +53,59 @@ $(function() {
 		});
 	});
 
-//인증번호 교차검증 미구현
+//이메일 인증번호 확인
 $(function() {
 	$("#btnemailcheck").click(function() {
 		var emailnum = $("#emailnum").val();
 		console.log(emailnum);
-		var url = "<%=request.getContextPath()%>/EmailCtrl";
+		var url = "<%=request.getContextPath()%>/emailcheckctrl";
 		$.ajax({
 			type : "post",
 			url : url,
-			data :  { emailnum : emailnum},
+			data :  { AuthenticationUser : emailnum},
 			success : function(check) {
 					alert(check);
 				}
 			});
 		});
 	});
+//아이디 중복 체크
+$(function() {
+	$("#btnid").click(function() {
+		var id = $("#id").val();
+		console.log(id);
+		var url = "<%=request.getContextPath()%>/idcheck";
+				$.ajax({
+					type : "post",
+					url : url,
+					data : {
+						id : id
+					},
+					success : function(check) {
+						alert(check);
+					}
+				});
+			});
+		});
+		
+//아이디 중복 체크
+$(function() {
+	$("#btnnick").click(function() {
+		var nickname = $("#nickname").val();
+		console.log(nickname);
+		var url = "<%=request.getContextPath()%>/nickcheck";
+				$.ajax({
+					type : "post",
+					url : url,
+					data : {
+						nickname : nickname
+					},
+					success : function(check) {
+						alert(check);
+					}
+				});
+			});
+		});
 	</script>
 </body>
 </html>
