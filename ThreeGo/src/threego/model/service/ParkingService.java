@@ -4,8 +4,11 @@ import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
+import common.JDBCTemplate;
 import threego.model.dao.ParkingDao;
+import threego.model.vo.Parking;
 import threego.model.vo.User;
 
 
@@ -49,6 +52,20 @@ public class ParkingService {
 		Connection conn = getConnection();
 		result = new ParkingDao().login(conn, vo);
 		close(conn);
+		return result;
+	}
+	
+	public List<Parking> getParkingAll(){
+		Connection conn = JDBCTemplate.getConnection();
+		List<Parking> list = new ParkingDao().getParkingAll(conn);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+	
+	public Parking getParkingRead(Parking inputVo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Parking result = new ParkingDao().getParkingRead(conn, inputVo);
+		JDBCTemplate.close(conn);
 		return result;
 	}
 }
