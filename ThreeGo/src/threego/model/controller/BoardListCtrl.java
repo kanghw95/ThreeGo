@@ -1,6 +1,6 @@
 package threego.model.controller;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -44,7 +44,7 @@ public class BoardListCtrl extends HttpServlet {
 	private void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		final int pageSize = 10;  // 
 		final int pageBlock = 5;  // 
-
+System.out.println("이동완료");
 		BoardService sv = new BoardService();
 		
 		int cnt = 0;   // 
@@ -55,8 +55,10 @@ public class BoardListCtrl extends HttpServlet {
 			search = null;
 		}
 		Board vo = new Board();
-		vo.setBd_content_no(1);
-		cnt= sv.getBoardCount(search,vo);
+		
+
+		
+		cnt= sv.getBoardCount(search);
 		System.out.println(cnt);
 		int pageCnt = (cnt / pageSize) + (cnt % pageSize == 0 ? 0 : 1); 
 		

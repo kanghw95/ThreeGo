@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,7 +53,8 @@ public class BoardWriteCtrl extends HttpServlet {
 
 	private void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
+		
+		
 //		String saveDirectory = "d:\\abc";   // 서버 PC 상의 절대 경로
 		String saveDirectory = "/files";   // 웹 서버 상의 절대 경로
 		String encType="utf-8";  // 인코딩 타입
@@ -76,10 +78,40 @@ public class BoardWriteCtrl extends HttpServlet {
 		// 저장된 file 의 정보(file 경로 + file name) 를 읽어오기  --> DB에 저장할 내용임
 		String fileName = "";
 		Enumeration<?> files = mReq.getFileNames();
-		while(files.hasMoreElements()) {
+//확장자 구하기
+		while(files.hasMoreElements() ) {
+//			BoardService svF = new BoardService();
 			String name = (String) files.nextElement();   // input type="file" name="xxxxxxx", 즉 bfilepath 와 bfilepaths
 			fileName = mReq.getFilesystemName(name);    // 서버에 저장된 파일이름
 			File f1 = mReq.getFile(name);   // 서버에 file이 정상적으로 저장되어있는지 다시 읽어와서 확인함.
+//			  int lastIndex = -1;  //확장자 구히기
+//			    lastIndex  = name.lastIndexOf('.');
+//			    String extension = "";
+//			    if(lastIndex != -1){
+//			    	  extension = name.substring( lastIndex+1, name.length() );
+//			    	 }else{
+//			    	  extension = "";
+//			    	 }
+			    
+//			  int  imgFileSize  = Math.round(f1.  fileSize/1024);
+
+				
+//				Board_Attach ao = new Board_Attach();
+//				ao.setContents_type(extension);
+//				ao.setFile_size();
+//				ao.setFullname(fileName);
+//				ao.setFilepath(saveDirectory);
+//				
+//				 int resultF = svF.getBoardWriteF(ao);
+//				 
+//				 if (resultF >0) {
+//					System.out.println("첨부파일을 업로드 했습니다");
+//				}else {
+//					System.out.println("첨부파일을 업로드 하지 않았습니다");
+//				}
+				
+			    
+			    	
 			if(f1 ==null) {
 				System.out.println("파일 업로드 실패");
 			} else {
@@ -88,48 +120,27 @@ public class BoardWriteCtrl extends HttpServlet {
 		}
 		
 		Board vo = new Board();
-		Board_Attach ao = new Board_Attach();
+		
 		
 		vo.setBd_writer(mReq.getParameter("bd_writer"));
-		System.out.println(mReq.getParameter("bd_writer"));
-		
 		vo.setBd_subject(mReq.getParameter("bd_subject"));
 		vo.setBd_content(mReq.getParameter("bd_content"));
-		ao.setFullname(mReq.getParameter("fullname"));
+		
+	
+	
 			
-//		vo.setBwriter(mReq.getParameter("bwriter"));
-//		vo.setBsubject(mReq.getParameter("bsubject"));
-//		vo.setBcontent(mReq.getParameter("bcontent"));
-//		vo.setBfilepath(request.getParameter("bfilepath"));
-//		vo.setBfilepath(fileName);
-//		vo.setBpwd(mReq.getParameter("bpwd"));
 			// hidden 으로 들어온 데이터 적용
-//		if(mReq.getParameter("bno") !=null && !mReq.getParameter("bno").equals("")) {   // 답글인 경우
-//			vo.setBno(Integer.parseInt(mReq.getParameter("bno")));
+		if(mReq.getParameter("bd_content_no") !=null && !mReq.getParameter("bd_content_no").equals("")) {   // 답글인 경우
+			vo.setBd_content_no(Integer.parseInt(mReq.getParameter("bd_content_no")));
 //			vo.setBref(Integer.parseInt(mReq.getParameter("bref")));
 //			vo.setBre_step(Integer.parseInt(mReq.getParameter("bre_step")));
 //			vo.setBre_level(Integer.parseInt(mReq.getParameter("bre_level")));
-//		} else {
-//			vo.setBno(0);  // 새글임을 표시함
-//		}
-//	
-//	  
-//			
-//		Board vo = new Board();
-//		vo.setBd_writer(request.getParameter("bd_writer"));
-//		//Enumeration enums = request.getParameterNames();
-//		
-//		System.out.println(request.getParameter("bd_writer"));  
-//	
-//		
-//		
-//		vo.setBd_subject(request.getParameter("bd_subject"));
-//		System.out.println(request.getParameter("bd_subject"));
-//		
-//		
-//		vo.setBd_content(request.getParameter("bd_content"));
-//		System.out.println(request.getParameter("bd_content"));
-			 int result = sv.boardWrite(vo ,ao);
+		} else {
+			vo.setBd_content_no(0);  // 새글임을 표시함
+		}
+
+			 int result = sv.boardWrite(vo);
+		
 			 
 			
 		PrintWriter out  = response.getWriter();
