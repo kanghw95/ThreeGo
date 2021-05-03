@@ -134,6 +134,8 @@
 		<a href="<%=request.getContextPath() %>/adminctrl?pageNum=${endPage+1}&search=${search}">다음</a>
 	</c:if>
 	
+	<br>
+	<input type="button" value="메인화면" onclick="window.location='./view/admin_main.jsp';">
 	<c:if test="${not empty search}">
 		<input type="button" value="전체글목록" onclick="window.location='<%=request.getContextPath()%>/adminctrl';">
 	</c:if>

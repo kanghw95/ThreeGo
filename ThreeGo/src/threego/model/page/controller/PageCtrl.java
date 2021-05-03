@@ -57,8 +57,8 @@ public class PageCtrl extends HttpServlet {
 		
 		if(com.equals("/main/insert")) {
 			viewPage = "/WEB-INF/view/user/UserInsert.jsp";
-		}else if(com.equals("/main/selectall")) {
-			viewPage = "/WEB-INF/view/user/UserInsert.jsp";
+		}else if(com.equals("/main/adminmain")) {
+			viewPage = "/WEB-INF/view/admin/admin_main.jsp";
 		}
 		
 		else{

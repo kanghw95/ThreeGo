@@ -183,7 +183,7 @@ public class AdminDAO {
 		}	
 		return result;
 	}
-	//게시판 보여주기.
+	//게시판 보여주기.**게시판 목록 왼성되면 그거 사용**
 	public List<User> getBoardByPage(Connection conn, int start, int end, String search) {
 		List<User> list = null;
 		String sql_1= "(select * from user_tb ";
@@ -221,6 +221,48 @@ public class AdminDAO {
 					vo.setGender(rs.getString("gender").charAt(0));
 					vo.setBirth(rs.getString("birth"));
 					vo.setUser_authority(Integer.parseInt(rs.getString("user_authority")));
+					list.add(vo);
+				}while(rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+	public List<UserQNA> getQNAByPage(Connection conn, int start, int end, String search) {
+		List<UserQNA> list = null;
+		String sql_1= "(select * from QNA ";
+		
+		if(search == null) {
+			sql_1 += " order by qna_no desc) d";
+		} else {
+			sql_1 += " where qna_subject like '%" + search+ "%' order by qna_no desc) d";
+		}
+		
+		String sql = "select * from "
+					+ " (select rownum r, d.* from " + sql_1  + " ) "
+					+ " where r >= ? and r <= ?";
+
+		pstmt = null; rs = null;
+
+		try {
+			pstmt = conn.prepareStatement(sql );
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rs = pstmt.executeQuery();			
+			if(rs.next()) {
+				list = new ArrayList<UserQNA>();
+				do {
+					UserQNA vo = new UserQNA();
+					vo.setUser_no(Integer.parseInt(rs.getString("user_no")));
+					vo.setQna_no(rs.getInt("qna_no"));
+					vo.setUser_no(rs.getInt("user_no"));//여기서 의문 : FK일시 여기서 가지고 오는게 맞는건가?
+					vo.setQna_subject(rs.getString("qna_subject"));
+					vo.setQna_content(rs.getString("qna_content"));
+					vo.setQna_pwd(rs.getString("qna_pwd"));
+					vo.setQna_open(rs.getInt("qna_open"));
 					list.add(vo);
 				}while(rs.next());
 			}

@@ -25,6 +25,6 @@
 		<input type="button" id="btnjoin" value="회원가입 " onclick="location.href ='<%=request.getContextPath() %>/main/insert'">
 		<input type="submit" id="btnlogin" value="로그인 ">
 	</form>
-
+	<input type="button" value="관리자페이지" onclick="location.href ='<%=request.getContextPath() %>/main/adminmain'">
 </body>
 </html>

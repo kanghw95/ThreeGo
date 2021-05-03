@@ -32,12 +32,15 @@ public class AdminService {
 		return result;
 	}
 	public int userStop(User vo) {
-		System.out.println("4-1");
 		Connection conn = JDBCTemplate.getConnection();
-		System.out.println("4-2");
 		int result = new AdminDAO().userStop(conn, vo);
-		System.out.println("4-3");
 		JDBCTemplate.close(conn);
 		return result;		
+	}
+	public List<UserQNA> getQNAByPage(int start, int end, String search) {
+		Connection conn = JDBCTemplate.getConnection();
+		List<UserQNA> list = new AdminDAO().getQNAByPage(conn,start,end,search);
+		JDBCTemplate.close(conn);
+		return list;
 	}
 }
