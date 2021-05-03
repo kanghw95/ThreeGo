@@ -17,11 +17,7 @@
 
 </head>
 <body>
-<%
-String user_id =null;
-if(session.getAttribute("user_id")!=null) {
-	user_id = (String)session.getAttribute("user_id");
-}%>
+
 
 	<h1>글쓰기</h1>
 	<form action="<%=request.getContextPath()%>/boardWrite.do"

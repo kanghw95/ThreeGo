@@ -60,11 +60,11 @@ public class BoardReadCtrl extends HttpServlet {
 			System.out.println("1" + vo);
 
 			
-			
-		Board_Attach ao = new Board_Attach();
-		ao.setBd_content_no(Integer.parseInt(str));
-			ao = sv.getBoardReadF(ao);
-			System.out.println("1" + ao);
+//			
+//		Board_Attach ao = new Board_Attach();
+//		ao.setBd_content_no(Integer.parseInt(str));
+//			ao = sv.getBoardReadF(ao);
+//			System.out.println("1" + ao);
 
 				
 				
@@ -77,7 +77,7 @@ public class BoardReadCtrl extends HttpServlet {
 
 					if (vo != null) {
 						request.setAttribute("boardread", vo);
-						request.setAttribute("file", ao);
+//						request.setAttribute("file", ao);
 						request.getRequestDispatcher("/board/boardread.jsp").forward(request, response);
 					} else {
 						System.out.println("존재하지 않는 게시물입니다.");

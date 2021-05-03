@@ -1,6 +1,7 @@
 package threego.model.service;
 import static common.JDBCTemplate.*;  
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,13 @@ public class BoardService {
 			return result;
 	}
 	
-	
+	public int getNext() {
+		// 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
+		Connection conn = JDBCTemplate.getConnection();
+		int result= new BoardDAO().getNext(conn );
+		JDBCTemplate.close(conn);
+		return result;
+	}
 	
 	
 	public List<Board> getBoardByPage(  int start , int end , String search){
@@ -59,9 +66,9 @@ public class BoardService {
 	}
 	
 	
-	public int getBoardWriteF(  Board_Attach inputF) {
+	public int boardWriteF(  Board_Attach inputF) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = new BoardDAO().getBoardWriteF(conn, inputF);	
+		int result = new BoardDAO().boardWriteF(conn, inputF);	
 		JDBCTemplate.close(conn);
 		return result;
 		
@@ -69,9 +76,9 @@ public class BoardService {
 		
 	}
 	
-	public Board_Attach getBoardReadF( Board_Attach inputF) {   //파일
+	public Board_Attach boardReadF( Board_Attach inputF) {   //파일
 		Connection conn = JDBCTemplate.getConnection();
-		Board_Attach result = new BoardDAO().getBoardReadF(conn, inputF);	
+		Board_Attach result = new BoardDAO().boardReadF(conn, inputF);	
 		JDBCTemplate.close(conn);
 		return result;
 	}
