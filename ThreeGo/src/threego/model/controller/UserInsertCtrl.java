@@ -34,7 +34,6 @@ public class UserInsertCtrl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("view/member/memberInsert.jsp").forward(request, response);
 	}
 
 	/**

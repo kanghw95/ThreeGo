@@ -77,11 +77,11 @@ public class AdminDAO {
 					vo.setUser_name(rs.getString("user_name"));
 					vo.setNickname(rs.getString("nickname"));
 					vo.setAddress(rs.getString("address"));
-					vo.setLast_login(rs.getDate("last_login"));
+					vo.setLast_login(rs.getString("last_login"));
 					vo.setPhone(Integer.parseInt(rs.getString("phone")));
 					vo.setEmail(rs.getString("email"));
 					vo.setGender(rs.getString("gender").charAt(0));
-					vo.setBirth(rs.getDate("birth"));
+					vo.setBirth(rs.getString("birth"));
 					vo.setUser_authority(Integer.parseInt(rs.getString("user_authority")));
 					list.add(vo);
 				} while (rs.next());

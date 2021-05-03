@@ -43,10 +43,10 @@ public class SearchUserCtrl extends HttpServlet {
 			System.out.println("조회 성공");
 			System.out.println(searchlist);
 			request.setAttribute("list",searchlist);
-			request.getRequestDispatcher("view/user/UserAllView.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/view/user/UserAllView.jsp").forward(request, response);
 		} else {
 			System.out.println("조회 실패");
-			request.getRequestDispatcher("view/user/UserAllView.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/view/user/UserAllView.jsp").forward(request, response);
 		}
 	}
 
