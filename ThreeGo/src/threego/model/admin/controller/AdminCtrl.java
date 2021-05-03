@@ -44,6 +44,7 @@ public class AdminCtrl extends HttpServlet {
 		execute(request, response);
 	}
 	protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("0");
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		//한 페이지에 10개씩, 5묶음까지 보임.
@@ -61,7 +62,9 @@ public class AdminCtrl extends HttpServlet {
 			search = null;
 		}
 //		//회원의수
+		System.out.println("1");
 		cnt= sv.getUserCount(search);
+		System.out.println("2");
 		//총 페이지 갯수
 		int pageCnt = (cnt / pageSize) + (cnt % pageSize == 0 ? 0 : 1);
 		
@@ -114,9 +117,9 @@ public class AdminCtrl extends HttpServlet {
 //		List<User> list = new AdminService().list();
 		if (list != null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("view/admin_user.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/view/admin/admin_user.jsp").forward(request, response);
 		} else {
-			request.getRequestDispatcher("view/admin_user.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/view/admin/admin_user.jsp").forward(request, response);
 		}
 	}
 

@@ -43,4 +43,10 @@ public class AdminService {
 		JDBCTemplate.close(conn);
 		return list;
 	}
+	public int getQNACount( String search) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new AdminDAO().getQNACount(conn, search);
+		JDBCTemplate.close(conn);
+		return result;
+	}
 }

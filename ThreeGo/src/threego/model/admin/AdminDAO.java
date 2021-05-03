@@ -239,12 +239,12 @@ public class AdminDAO {
 			sql_1 += " order by qna_no desc) d";
 		} else {
 			sql_1 += " where qna_subject like '%" + search+ "%' order by qna_no desc) d";
-		}
+		}					
 		
 		String sql = "select * from "
 					+ " (select rownum r, d.* from " + sql_1  + " ) "
 					+ " where r >= ? and r <= ?";
-
+		System.out.println(sql);
 		pstmt = null; rs = null;
 
 		try {
@@ -272,5 +272,27 @@ public class AdminDAO {
 			close();
 		}
 		return list;
+	}
+	//화면에 보여지는 유저 카운트.
+	public int getQNACount(Connection conn, String search) {
+		int cnt = 0;
+		String sql = "select COUNT(*) from qna";
+		if (search != null) {
+			sql += " where qna_subject like '%" + search+ "%'";
+		}
+			
+		pstmt = null; rs = null;		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}		
+		return cnt;
 	}
 }

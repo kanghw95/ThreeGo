@@ -135,9 +135,10 @@
 	</c:if>
 	
 	<br>
-	<input type="button" value="메인화면" onclick="window.location='./view/admin_main.jsp';">
+	
+	<input type="button" value="메인화면" onclick="location.href='<%=request.getContextPath()%>/main/adminmain';">
 	<c:if test="${not empty search}">
-		<input type="button" value="전체글목록" onclick="window.location='<%=request.getContextPath()%>/adminctrl';">
+		<input type="button" value="전체글목록" onclick="location.href='<%=request.getContextPath()%>/adminctrl';">
 	</c:if>
 	
 

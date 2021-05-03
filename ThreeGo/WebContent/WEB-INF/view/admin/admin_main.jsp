@@ -19,9 +19,9 @@ color : black;
 </head>
 <body>
 	<h1><a href="<%=request.getContextPath()%>/adminctrl" >회원관리</a></h1>
-	<h1><a href="./admin_board.jsp">게시판관리</a></h1>
+	<h1><a href="<%=request.getContextPath() %>/main/adminboard">게시판관리</a></h1>
 	<h1><a href="#">공지사항관리</a></h1>
-	<h1><a href="<%=request.getContextPath()%>/userqna">이용자문의사항관리</a></h1>
+	<h1><a href="<%=request.getContextPath() %>/userqna">이용자문의사항관리</a></h1>
 	<h1><a href="#">채팅</a></h1>
 
 	
