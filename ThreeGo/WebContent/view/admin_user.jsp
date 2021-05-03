@@ -104,6 +104,7 @@
 	</c:if>
 	<c:if test="${not empty list }">
 	<form action="<%=request.getContextPath() %>/adminctrl" method="get">
+	
 		<input type="search" name="search" value="${search}">
 		<button type="submit">검색</button>
 	</form>
