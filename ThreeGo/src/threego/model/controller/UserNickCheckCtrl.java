@@ -50,6 +50,8 @@ public class UserNickCheckCtrl extends HttpServlet {
 		}else {
 			out.println("(사용가능한 닉네임입니다.)");
 		}
+		out.flush();
+		out.close();
 	}
 
 }

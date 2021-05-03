@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import threego.model.service.ParkingService;
 import threego.model.vo.User;
 
 /**
  * Servlet implementation class InsertUserCtrl
  */
-@WebServlet("/insertuser")
+@WebServlet("/userinsert")
 public class UserInsertCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -44,18 +45,39 @@ public class UserInsertCtrl extends HttpServlet {
 			throws ServletException, IOException {
 
 		User vo = new User();
-		SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
-
-		vo.setUser_id(request.getParameter("user_id"));
-		vo.setUser_pwd(request.getParameter("user_pwd"));
-		vo.setUser_name(request.getParameter("user_name"));
+		String birth = request.getParameter("birth1")+"0"+request.getParameter("birth2")+"0"+request.getParameter("birth3");
+		String phone = request.getParameter("ph1")+request.getParameter("ph2")+request.getParameter("ph3");
+		String email = request.getParameter("email1")+"@"+request.getParameter("email2");
+		System.out.println(request.getParameter("id"));
+		System.out.println(request.getParameter("paswwd"));
+		System.out.println(request.getParameter("name"));
+		System.out.println(request.getParameter("nickname"));
+		System.out.println(request.getParameter("address"));
+		System.out.println(phone);
+		System.out.println(email);
+		System.out.println(request.getParameter("gender").charAt(0));
+		System.out.println(birth);
+		
+		
+		vo.setUser_id(request.getParameter("id"));
+		vo.setUser_pwd(request.getParameter("paswwd"));
+		vo.setUser_name(request.getParameter("name"));
 		vo.setNickname(request.getParameter("nickname"));
 		vo.setAddress(request.getParameter("address"));
-		vo.setPhone(request.getParameter("phone"));
-		vo.setEmail(request.getParameter("email"));
+		vo.setPhone(Integer.parseInt(phone));
+		vo.setEmail(email);
 		vo.setGender(request.getParameter("gender").charAt(0));
-//		vo.setBirth(format.format(request.getParameter("birth")));
-
+		vo.setBirth(birth);
+		
+		int insertResult = new ParkingService().userinsert(vo);
+		
+		if(insertResult>0) {  // 정상적으로 insert 성공
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		} else {  // insert 실패
+			
+		}
+		System.out.println(insertResult);
 	}
+
 
 }

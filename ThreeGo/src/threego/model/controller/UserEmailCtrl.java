@@ -114,10 +114,10 @@ public class UserEmailCtrl extends HttpServlet {
 
 				HttpSession saveKey = request.getSession();
 				saveKey.setAttribute("AuthenticationKey", AuthenticationKey);
-				out.println("(입력하신 이메일로 인증번호가 발송되었습니다.)");
+				out.println("입력하신 이메일로 인증번호가 발송되었습니다.");
 			}
 		} else {
-			out.println("(이메일이 중복입니다.)");
+			out.println("이메일이 중복입니다.");
 		}
 		out.flush();
 		out.close();

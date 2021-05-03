@@ -1,7 +1,6 @@
 package threego.model.vo;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class User {
 	private int user_no; // 회원 번호
@@ -10,11 +9,11 @@ public class User {
 	private String user_name; // 회원 이름
 	private String nickname; // 닉네임
 	private String address; // 주소
-	private Timestamp last_login; // 마지막 로그인 시간
-	private String phone; // 전화번호
+	private String last_login; // 마지막 로그인 시간
+	private int phone; // 전화번호
 	private String email; // 이메일
 	private char gender; // 성별
-	private Date birth; // 생년월일
+	private String birth; // 생년월일
 	private int user_authority; // 회원자격
 	
 	public User() {
@@ -22,7 +21,7 @@ public class User {
 	}
 	
 	public User(int user_no, String user_id, String user_pwd, String user_name, String nickname, String address,
-			Timestamp last_login, String phone, String email, char gender, Date birth, int user_authority) {
+			String last_login, int phone, String email, char gender, String birth, int user_authority) {
 		super();
 		this.user_no = user_no;
 		this.user_id = user_id;
@@ -94,19 +93,19 @@ public class User {
 		this.address = address;
 	}
 
-	public Timestamp getLast_login() {
+	public String getLast_login() {
 		return last_login;
 	}
 
-	public void setLast_login(Timestamp last_login) {
+	public void setLast_login(String last_login) {
 		this.last_login = last_login;
 	}
 
-	public String getPhone() {
+	public int getPhone() {
 		return phone;
 	}
 
-	public void setPhone(String phone) {
+	public void setPhone(int phone) {
 		this.phone = phone;
 	}
 
@@ -126,11 +125,11 @@ public class User {
 		this.gender = gender;
 	}
 
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
 
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 
