@@ -101,4 +101,40 @@ public class ParkingDao {
 		return list;
 	}
 	
+	
+	// 아이디,닉네임 중복체크용
+		public ArrayList<User> id_nickCheck(Connection conn, String col, String str) {
+			ArrayList<User> list = new ArrayList<User>();
+
+			String sql = "select * from USER_TB where " + col + " like ?";
+			
+			pstmt = null;
+			rs = null;
+
+			try {
+
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, str);
+				rs = pstmt.executeQuery();
+
+				if (rs != null) { // 결과가 1개이상 있다면
+					if (rs.next()) {
+						list = new ArrayList<User>();
+						do {
+							User vo = new User();
+							vo.setUser_id(rs.getString("user_id"));
+							vo.setNickname(rs.getString("nickname"));
+							list.add(vo);
+						} while (rs.next());
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rs);
+				JDBCTemplate.close(pstmt);
+			}
+			return list;
+		}
+	
 }

@@ -15,14 +15,14 @@ import threego.model.vo.User;
 /**
  * Servlet implementation class InsertUserCtrl
  */
-@WebServlet("/p_insertuser.do")
-public class InsertUserCtrl extends HttpServlet {
+@WebServlet("/insertuser")
+public class UserInsertCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public InsertUserCtrl() {
+	public UserInsertCtrl() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

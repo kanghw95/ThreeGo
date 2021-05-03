@@ -26,5 +26,13 @@ public class ParkingService {
 		close(conn);
 		return list;
 	}
+	
+	// 아이디,닉네임 중복체크
+	public ArrayList<User> id_nickCheck(String col, String str) {
+		Connection conn = getConnection();
+		ArrayList<User> list = new ParkingDao().id_nickCheck(conn, col, str);
+		close(conn);
+		return list;
+	}
 
 }

@@ -25,14 +25,14 @@ import threego.model.vo.User;
 /**
  * Servlet implementation class EmailCtrl
  */
-@WebServlet("/EmailCtrl")
-public class EmailCtrl extends HttpServlet {
+@WebServlet("/emailctrl")
+public class UserEmailCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public EmailCtrl() {
+	public UserEmailCtrl() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -43,6 +43,8 @@ public class EmailCtrl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		
 		String email = request.getParameter("email");
 
 		PrintWriter out = response.getWriter();
@@ -119,7 +121,6 @@ public class EmailCtrl extends HttpServlet {
 		}
 		out.flush();
 		out.close();
-
 	}
 
 	/**
