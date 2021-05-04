@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%	String ctxPathHeader = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +33,7 @@
 			<input type="button" id="btnemail" name="btnemail" value="이메일 인증하기"><br><br>
 			<label>인증번호 : <input type="text" id="emailnum" name="emailnum"></label>
 			<input type="button" id="btnemailcheck" name="btnemailcheck" value="인증번호 확인"><br><br>
-			<label>남 : <input type="radio" name="gender" value='M'></label>
+			<label>남 : <input type="radio" name="gender" value='M' checked="checked"></label>
 			<label>여 : <input type="radio" name="gender" value='F'></label><br><br>
 			생년월일 : <select name="birth1">
 		       <%for(int i=2021; i>=1900; i--){ %>
@@ -58,44 +57,14 @@
 		</form>
 	<script>
 	var right = 0; // inputcheck 비밀번호 입력체크를 위한 변수
-//이메일 인증번호 발송하기
-$(function() {
-	$("#btnemail").click(function() {
-		var email = $("#email").val();
-		console.log(email);
-		var url = "<%=request.getContextPath()%>/emailctrl";
-		$.ajax({
-			type : "post",
-			url : url,
-			data :  { email : email},
-			success : function(check) {
-					alert(check);
-				}
-			});
-		});
-	});
+	var idCheck = 0; // 아이디 중복확인 체크용
+	var nickCheck = 0; // 닉네임 중복확인 체크용
+	var emailCheck = 0; // 이메일 인증 확인 체크용
 
-//이메일 인증번호 확인
-$(function() {
-	$("#btnemailcheck").click(function() {
-		var emailnum = $("#emailnum").val();
-		console.log(emailnum);
-		var url = "<%=request.getContextPath()%>/emailcheckctrl";
-		$.ajax({
-			type : "post",
-			url : url,
-			data :  { AuthenticationUser : emailnum},
-			success : function(check) {
-					alert(check);
-				}
-			});
-		});
-	});
 //아이디 중복 체크
 $(function() {
 	$("#btnid").click(function() {
 		var id = $("#id").val();
-		console.log(id);
 		var url = "<%=request.getContextPath()%>/idcheck";
 				$.ajax({
 					type : "post",
@@ -105,16 +74,21 @@ $(function() {
 					},
 					success : function(check) {
 						alert(check);
+						var str1 = check;
+						if(str1 == "사용가능한 아이디입니다."){
+							idCheck = 1;
+						}else{
+							idCheck = 0;
+						}
 					}
 				});
+
 			});
 		});
-		
 //닉네임 중복 체크
 $(function() {
 	$("#btnnick").click(function() {
 		var nickname = $("#nickname").val();
-		console.log(nickname);
 		var url = "<%=request.getContextPath()%>/nickcheck";
 				$.ajax({
 					type : "post",
@@ -124,15 +98,60 @@ $(function() {
 					},
 					success : function(check) {
 						alert(check);
+					
+						var str1 = check;
+						if(str1 == "사용가능한 닉네임입니다."){
+							nickCheck = 1;
+						}else{
+							nickCheck = 0;
+						}
 					}
 				});
 			});
 		});
+//이메일 인증번호 발송하기
+$(function() {
+	$("#btnemail").click(function() {
+		var email1 = $("#email1").val();
+		var email2 = $("#email2").val();
+		var url = "<%=request.getContextPath()%>/emailctrl";
+		$.ajax({
+			type : "post",
+			url : url,
+			data :  { email1 : email1, email2 : email2},
+			success : function(check) {
+					alert(check);
+					
+				}
+			});
+		});
+	});
+//이메일 인증번호 확인
+$(function() {
+	$("#btnemailcheck").click(function() {
+		var emailnum = $("#emailnum").val();
+		var url = "<%=request.getContextPath()%>/emailcheckctrl";
+		$.ajax({
+			type : "post",
+			url : url,
+			data :  { AuthenticationUser : emailnum},
+			success : function(check) {
+					alert(check);
+					var str1 = check;
+					if(str1 == "인증번호 확인되었습니다."){
+						emailCheck = 1;
+					}else{
+						emailCheck = 0;
+					}
+				
+				}
+			});
+		});
+	});
 
 		//비번,비번확인
 		function passcheck() {
 			var pass = document.getElementById("paswwd").value;
-			console.log(pass);
 			var pass2 = document.getElementById("paswwdcheck").value;
 			if (pass2.length == 0 || pass2 == null) {
 				document.getElementById("chk").value = "비밀번호를 입력하세요";
@@ -239,8 +258,20 @@ $(function() {
 				document.getElementById("email2").focus();
 				return false;
 			}
-
-
+			
+			//아이디,닉네임,이메일 체크 확인
+			if (idCheck == 0) {
+				alert("아이디 중복체크를 해주세요");
+				return false;
+			} else if (nickCheck == 0) {
+				alert("닉네임 중복체크를 해주세요");
+				return false;
+			} else if(emailCheck == 0){
+				alert("이메일 인증을 완료해주세요!");
+				return false;
+			}
+			
+		
 			loginform.submit();
 		}
 	</script>

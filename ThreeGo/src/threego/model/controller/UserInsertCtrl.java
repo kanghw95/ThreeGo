@@ -71,11 +71,10 @@ public class UserInsertCtrl extends HttpServlet {
 		int insertResult = new ParkingService().userinsert(vo);
 		
 		if(insertResult>0) {  // 정상적으로 insert 성공
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
 		} else {  // insert 실패
 			
 		}
-		System.out.println(insertResult);
 	}
 
 
