@@ -1,8 +1,6 @@
 <%@page import="threego.model.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%= session.getAttribute("msg") %>
-<br>
 <%
 	User user = (User) session.getAttribute("user");
 		if (user == null) {
@@ -19,6 +17,7 @@
 		} else {
 %>
 	<div>
+		<%= session.getAttribute("msg") %>
 		<p>마지막 접속 시간 : <span><%=user.getLast_login()%></span></p><br>
 		<button type="button" id="btnLogout" onclick="location.href='<%=request.getContextPath()%>/userlogout';">로그아웃</button>
 	</div>

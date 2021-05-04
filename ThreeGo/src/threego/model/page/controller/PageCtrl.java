@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class PageController
  */
-@WebServlet("/main/*") // 무조건 여기로 오게 되어있음.
+@WebServlet("/main") // 무조건 여기로 오게 되어있음.
 public class PageCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
