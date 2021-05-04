@@ -29,7 +29,7 @@ public class UserLoginCtrl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
 	}
 
 	/**
@@ -45,19 +45,20 @@ public class UserLoginCtrl extends HttpServlet {
 		
 		User resultVo = new User();
 		resultVo = new ParkingService().login(vo);
-		
+		System.out.println(resultVo);
 		if (resultVo == null) {
 			System.out.println("아이디 없음");
+			request.getRequestDispatcher("/main/insert").forward(request, response); //없으면 바로 회원가입으로
 		} else if (passwd.equals(resultVo.getUser_pwd())) {
 			System.out.println("로그인 성공");
-			request.getSession().setAttribute("msg", id+"님 만나서 반갑습니다.");
+			request.getSession().setAttribute("msg", id+"님 접속을 환영합니다.");
+			System.out.println( id+"님 접속을 환영합니다.");
 			request.getSession().setAttribute("user", resultVo);
-			
-			response.sendRedirect("index.jsp");
+			response.sendRedirect(request.getContextPath() + "/main");
 		} else {
 			System.out.println("비번틀림");
 			request.getSession().setAttribute("msg", id+"님 비밀번호가 맞지 않습니다.");
-			response.sendRedirect("index.jsp");
+			response.sendRedirect(request.getContextPath() + "/main");
 		}
 		
 	}

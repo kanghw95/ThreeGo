@@ -206,7 +206,8 @@ public class ParkingDao {
 		rs = null;
 		User resultVo = null;
 		
-		String sql = "select * from user_tb where id = ?";
+		String sql = "select * from user_tb where user_id = ?";
+		String sql2 ="update user_tb set last_login = sysdate where user_id = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -217,8 +218,18 @@ public class ParkingDao {
 				resultVo = new User();
 				resultVo.setUser_id(rs.getString("user_id"));
 				resultVo.setUser_pwd(rs.getString("user_pwd"));
-
+				resultVo.setLast_login(rs.getString("last_login"));
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		try {
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {

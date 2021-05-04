@@ -48,7 +48,7 @@ public class UserNickCheckCtrl extends HttpServlet {
 		if(searchnickname.isEmpty() != true) {
 			out.println("(중복입니다. 다른닉네임를 입력해주세요!)");
 		}else {
-			out.println("(사용가능한 닉네임입니다.)");
+			out.print("사용가능한 닉네임입니다.");
 		}
 		out.flush();
 		out.close();
