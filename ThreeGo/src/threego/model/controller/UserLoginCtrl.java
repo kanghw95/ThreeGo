@@ -54,6 +54,7 @@ public class UserLoginCtrl extends HttpServlet {
 			request.getSession().setAttribute("msg", id+"님 접속을 환영합니다.");
 			System.out.println( id+"님 접속을 환영합니다.");
 			request.getSession().setAttribute("user", resultVo);
+			request.getSession().setAttribute("username", resultVo.getUser_name());
 			response.sendRedirect(request.getContextPath() + "/main");
 		} else {
 			System.out.println("비번틀림");

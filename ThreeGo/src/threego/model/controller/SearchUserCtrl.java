@@ -35,13 +35,11 @@ public class SearchUserCtrl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String search = request.getParameter("searchuser");
-		System.out.println(search);
-
+		
 		ArrayList<User> searchlist = new ParkingService().selectSearch("user_name", search);
 		
-		if (searchlist != null) {
+		if (searchlist != null && !searchlist.isEmpty()) {
 			System.out.println("조회 성공");
-			System.out.println(searchlist);
 			request.setAttribute("list",searchlist);
 			request.getRequestDispatcher("WEB-INF/view/user/UserAllView.jsp").forward(request, response);
 		} else {

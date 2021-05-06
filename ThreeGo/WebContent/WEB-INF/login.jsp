@@ -18,8 +18,10 @@
 %>
 	<div>
 		<%= session.getAttribute("msg") %>
+		<input type="hidden" <%= session.getAttribute("username") %>>
 		<p>마지막 접속 시간 : <span><%=user.getLast_login()%></span></p><br>
-		<button type="button" id="btnLogout" onclick="location.href='<%=request.getContextPath()%>/userlogout';">로그아웃</button>
+		<input type="button" id="btnmypage" value="마이페이지" onclick="location.href='<%=request.getContextPath()%>/usermypage';">
+		<input type="button" id="btnLogout" value="로그아웃" onclick="location.href='<%=request.getContextPath()%>/userlogout';">
 	</div>
 <%
 		}

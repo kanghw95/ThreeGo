@@ -216,8 +216,10 @@ public class ParkingDao {
 			
 			if(rs.next()) {
 				resultVo = new User();
+				resultVo.setUser_no(rs.getInt("user_no"));
 				resultVo.setUser_id(rs.getString("user_id"));
 				resultVo.setUser_pwd(rs.getString("user_pwd"));
+				resultVo.setUser_name(rs.getString("user_name"));
 				resultVo.setLast_login(rs.getString("last_login"));
 			}
 		} catch (Exception e) {
