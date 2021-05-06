@@ -1,5 +1,5 @@
-<%@page import="threego.model.vo.User"%>
-<%@page import="threego.model.service.ParkingService"%>
+<%@page import="threego.vo.User"%>
+<%@page import="threego.service.ParkingService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

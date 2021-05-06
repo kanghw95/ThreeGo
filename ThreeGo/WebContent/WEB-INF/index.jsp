@@ -10,7 +10,6 @@
 </head>
 <body>
 	<hr>
-	깃허브 확인용
 	<input type="button" value="관리자페이지" onclick="location.href ='<%=request.getContextPath() %>/main/adminmain'">
 	<input type="button" id="btnlist" value="회원조회 " onclick="location.href='<%=request.getContextPath() %>/selectalluser'"> 
 	<hr>
