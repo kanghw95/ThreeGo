@@ -1,4 +1,4 @@
-package three.model.admin;
+package threego.model.admin;
 
 public class Admin {
 	private int yh_no;

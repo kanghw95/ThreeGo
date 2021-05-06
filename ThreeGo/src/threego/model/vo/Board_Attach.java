@@ -7,10 +7,11 @@ public class Board_Attach {
 	private String fullname;
 	private int file_size;
 	private String contents_type;
+	private String filepath;
 	@Override
 	public String toString() {
-		return "Attach [file_no=" + file_no + ", bd_content_no=" + bd_content_no + ", fullname=" + fullname
-				+ ", file_size=" + file_size + ", contents_type=" + contents_type + "]";
+		return "Board_Attach [file_no=" + file_no + ", bd_content_no=" + bd_content_no + ", fullname=" + fullname
+				+ ", file_size=" + file_size + ", contents_type=" + contents_type + ", filepath=" + filepath + "]";
 	}
 	public int getFile_no() {
 		return file_no;
@@ -41,6 +42,12 @@ public class Board_Attach {
 	}
 	public void setContents_type(String contents_type) {
 		this.contents_type = contents_type;
+	}
+	public String getFilepath() {
+		return filepath;
+	}
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
 	}
 	
 	

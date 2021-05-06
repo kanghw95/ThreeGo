@@ -2,7 +2,6 @@ package threego.model.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import threego.model.service.ParkingService;
+import threego.model.service.BoardService;
+import threego.model.vo.Board;
 import threego.model.vo.User;
 
 /**
- * Servlet implementation class UserIdCheck
+ * Servlet implementation class BoardUpdateCtrl
  */
-@WebServlet("/idcheck")
-public class UserIdCheckCtrl extends HttpServlet {
+@WebServlet("/boardupdate.do")
+public class BoardUpdateCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserIdCheckCtrl() {
+    public BoardUpdateCtrl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,36 +32,32 @@ public class UserIdCheckCtrl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		execute(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
+		execute(request, response);
+	}
+	
+		private void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		BoardService sv = new BoardService();
+		Board vo = new Board();
+		
+		
+	
+		int bd_content_no = Integer.parseInt(request.getParameter("bd_content_no"));
+		vo.setBd_content_no(bd_content_no);
+		
+		vo = sv.getBoardRead(vo);
+		
 		PrintWriter out = response.getWriter();
 	
-		
-		if(id != null && !id.equals("")) {
-		ArrayList<User> searchid = new ParkingService().id_nickCheck("user_id", id);
-		
-		if(searchid.isEmpty() != true) {
-			out.println("중복입니다. 다른아이디를 입력해주세요!");
-		}else {
-			String str = "사용가능한 아이디입니다.";
-			out.print(str);
+			request.setAttribute("vo",vo);
+			request.getRequestDispatcher("/board/boardupdate.jsp").forward(request, response);
 		}
-<<<<<<< HEAD
-=======
-
-		}else {
-			out.println("아이디를 입력해주세요!");
-		}
-
->>>>>>> b3be92ef29d0474e895a6e135ba16daabdbebe93
-		out.flush();
-		out.close();
 	}
 
 
-}

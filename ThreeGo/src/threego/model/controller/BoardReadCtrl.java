@@ -1,6 +1,6 @@
 package threego.model.controller;
 
-import java.io.IOException; 
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import threego.model.service.BoardService;
 import threego.model.vo.Board;
-
-
+import threego.model.vo.Board_Attach;
 
 /**
  * Servlet implementation class BoardReadCtrl
@@ -18,50 +17,77 @@ import threego.model.vo.Board;
 @WebServlet("/boardRead.do")
 public class BoardReadCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public BoardReadCtrl() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public BoardReadCtrl() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("정상작동합니다.");
 		execute(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("정상작동합니다1.");
 		execute(request, response);
 	}
-	private void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	private void execute(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("정상작동합니다2.");
-		BoardService sv =new BoardService();
-		
+		BoardService sv = new BoardService();
+
 		Board vo = new Board();
 		String str = request.getParameter("bd_content_no");
 		System.out.println(str);
-		if(str!=null) {
+		if (str != null) {
 			vo.setBd_content_no(Integer.parseInt(str));
-		
 			vo = sv.getBoardRead(vo);
-			System.out.println("1"+vo);
-			if(vo != null) {
-				request.setAttribute("boardcontent", vo);
-				request.getRequestDispatcher("/board/boardcontent.jsp").forward(request, response);
-			} else {
-				System.out.println("존재하지 않는 게시물입니다.");
+			System.out.println("1" + vo);
+
+			
+//			
+//		Board_Attach ao = new Board_Attach();
+//		ao.setBd_content_no(Integer.parseInt(str));
+//			ao = sv.getBoardReadF(ao);
+//			System.out.println("1" + ao);
+
+				
+				
+				
+				
+				if (str != null ) {
+					vo.setBd_content_no(Integer.parseInt(str));
+					vo = sv.getBoardRead(vo);
+					System.out.println("1" + vo);
+
+					if (vo != null) {
+						request.setAttribute("boardread", vo);
+//						request.setAttribute("file", ao);
+						request.getRequestDispatcher("/board/boardread.jsp").forward(request, response);
+					} else {
+						System.out.println("존재하지 않는 게시물입니다.");
+					}
+					
+				
+				}
+
 			}
+
 		}
-		
 	}
 
-}

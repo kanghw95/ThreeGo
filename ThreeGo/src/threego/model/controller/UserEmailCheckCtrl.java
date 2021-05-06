@@ -37,7 +37,7 @@ public class UserEmailCheckCtrl extends HttpServlet {
         if(!AuthenticationKey.equals(AuthenticationUser))
         {
             System.out.println("인증번호 일치하지 않음");
-            out.print("인증번호가 일치하지 않습니다");
+            out.print("인증번호가 일치하지 않습니다.");
             return;
         }else {
             System.out.println("인증번호 일치합니다.");

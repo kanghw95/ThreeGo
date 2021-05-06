@@ -45,8 +45,11 @@ public class UserEmailCtrl extends HttpServlet {
 			throws ServletException, IOException {
 
 		
-		String email = request.getParameter("email");
-
+		String email1 = request.getParameter("email1");
+		String email2 = request.getParameter("email2");
+		String email = email1 +"@"+ email2;
+		System.out.println(email);
+		
 		PrintWriter out = response.getWriter();
 
 		ArrayList<User> searchemail = new ParkingService().selectSearch("email", email);

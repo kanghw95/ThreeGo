@@ -1,7 +1,6 @@
 package threego.model.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -14,16 +13,16 @@ import threego.model.service.ParkingService;
 import threego.model.vo.User;
 
 /**
- * Servlet implementation class UserIdCheck
+ * Servlet implementation class UserMyPageCtrl
  */
-@WebServlet("/idcheck")
-public class UserIdCheckCtrl extends HttpServlet {
+@WebServlet("/usermypage")
+public class UserMyPageCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserIdCheckCtrl() {
+    public UserMyPageCtrl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,36 +31,27 @@ public class UserIdCheckCtrl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String myname = (String) request.getSession().getAttribute("username");
+		System.out.println(myname);
+		
+		ArrayList<User> searchlist = new ParkingService().selectSearch("user_name", myname);
+		
+		if (searchlist != null && !searchlist.isEmpty()) {
+			System.out.println("조회 성공");
+			request.setAttribute("list",searchlist);
+			request.getRequestDispatcher("WEB-INF/view/user/UserMyPage.jsp").forward(request, response);
+		} else {
+			System.out.println("조회 실패");
+			request.getRequestDispatcher("WEB-INF/view/user/UserMyPage.jsp").forward(request, response);
+		}
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
-		PrintWriter out = response.getWriter();
-	
-		
-		if(id != null && !id.equals("")) {
-		ArrayList<User> searchid = new ParkingService().id_nickCheck("user_id", id);
-		
-		if(searchid.isEmpty() != true) {
-			out.println("중복입니다. 다른아이디를 입력해주세요!");
-		}else {
-			String str = "사용가능한 아이디입니다.";
-			out.print(str);
-		}
-<<<<<<< HEAD
-=======
-
-		}else {
-			out.println("아이디를 입력해주세요!");
-		}
-
->>>>>>> b3be92ef29d0474e895a6e135ba16daabdbebe93
-		out.flush();
-		out.close();
+		doGet(request, response);
 	}
-
 
 }

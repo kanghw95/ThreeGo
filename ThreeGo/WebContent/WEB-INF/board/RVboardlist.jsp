@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 <title>글목록</title>
 </head>
 <body>
-<h1>자유게시판</h1>
+<h1>후기 게시판</h1>
 <form action="<%=request.getContextPath() %>/boardlist.do" method="get">
 		<input type="search" name="search" value="${search}">
 		<button type="submit">검색</button>
@@ -15,10 +16,10 @@
 	<c:if test="${not empty search}">
 		<strong>${search}</strong>에 대한 검색 결과입니다.
 	</c:if>
-	<c:if test="${empty boardlist}">
+	<c:if test="${empty RVboardlist}">
 		게시글이 없습니다.
 	</c:if>
-	<c:if test="${not empty boardlist}">
+	<c:if test="${not empty RVboardlist}">
 		<table border="1">
 				<tr>
 				<th colspan="2">제목</th><!-- 제목이 제목+ 번호 어디를 colspan?? -->
@@ -27,7 +28,7 @@
 				<th>공감</th>
 				
 			</tr>
-		<c:forEach items="${boardlist}" var="v">
+		<c:forEach items="${RVboardlist}" var="v">
 			<tr>
 				<td><a href="<%=request.getContextPath() %>/boardRead.do?bd_content_no=${v.bd_content_no}">${v.bd_content_no}</a></td><!--맞는 주소로 바꿔야됨 -->
 				<td>${v.bd_content_no}</td>

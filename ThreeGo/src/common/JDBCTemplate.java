@@ -10,23 +10,29 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 public class JDBCTemplate {
 
 	public static Connection getConnection() {
 		Connection conn = null;
-		Properties prop = new Properties();
-		String currentPath = JDBCTemplate.class.getResource("./").getPath(); // 현재 이 클래스가 있는 경로를 알기
-		System.out.println(JDBCTemplate.class.getResource("./"));
-		System.out.println(currentPath);
 		try {
-			prop.load(new BufferedReader(new FileReader(currentPath + "driver.properties")));
+			Context i1 = new InitialContext();
+			Context i2 = (Context) i1.lookup("java:/comp/env"); // web.xml
+			DataSource ds = (DataSource) i2.lookup("jdbc/myoracle");
+			conn = ds.getConnection();
 
-			conn = DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("user"),
-					prop.getProperty("pwd"));
+			if (conn == null) {
+				System.out.println("**********연결실패**********");
+			} else {
+				System.out.println("%%%%%%%%%%연결성공%%%%%%%%%%");
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return conn;
 	}
 

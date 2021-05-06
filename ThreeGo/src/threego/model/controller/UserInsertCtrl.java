@@ -34,7 +34,6 @@ public class UserInsertCtrl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("view/member/memberInsert.jsp").forward(request, response);
 	}
 
 	/**
@@ -72,11 +71,18 @@ public class UserInsertCtrl extends HttpServlet {
 		int insertResult = new ParkingService().userinsert(vo);
 		
 		if(insertResult>0) {  // 정상적으로 insert 성공
+<<<<<<< HEAD
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		} else {  // insert 실패
 			
 		}
 		System.out.println(insertResult);
+=======
+			request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
+		} else {  // insert 실패
+			
+		}
+>>>>>>> b3be92ef29d0474e895a6e135ba16daabdbebe93
 	}
 
 

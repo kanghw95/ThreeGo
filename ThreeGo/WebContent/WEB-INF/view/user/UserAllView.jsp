@@ -45,8 +45,6 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<br>
-		total records: ${mlist.size()}
 	</c:if>
 </body>
 </html>

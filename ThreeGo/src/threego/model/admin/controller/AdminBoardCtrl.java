@@ -1,28 +1,23 @@
-package three.model.admin.controller;
+package threego.model.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import three.model.admin.Admin;
-import three.model.admin.AdminService;
-
 /**
- * Servlet implementation class AdminCtrl
+ * Servlet implementation class AdminBoardCtrl
  */
-@WebServlet("/adminctrl")
-public class AdminCtrl extends HttpServlet {
+@WebServlet("/adminboard")
+public class AdminBoardCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminCtrl() {
+    public AdminBoardCtrl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,7 +26,7 @@ public class AdminCtrl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
 		execute(request, response);
 	}
 
@@ -43,29 +38,26 @@ public class AdminCtrl extends HttpServlet {
 		execute(request, response);
 	}
 	protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Admin vo = new Admin();
-		AdminService sv= new AdminService();
-
-		//		inset 함수
-//		int no = Integer.parseInt(request.getParameter("no"));
-//		String name = request.getParameter("name");
-//		String id = request.getParameter("id");
-//		String passwd = request.getParameter("passwd");
-//		
-//		vo.setYh_no(no);
-//		vo.setYh_name(name);
-//		vo.setYh_id(id);
-//		vo.setYh_passwd(passwd);
-//		sv.insert(vo);
-		ArrayList<Admin> list = sv.list();
-		request.setAttribute("list", list);
-		if(list==null) {
-			System.out.println("비었음");
-		}else{
-			System.out.println("안비었음");
-			System.out.println(list);
+		// TODO Auto-generated method stub
+		String boardmenu =request.getParameter("menu");
+		System.out.println(boardmenu);
+		if(boardmenu.equals("park")) {
+			System.out.println("맞습니당.");
 		}
-		request.getRequestDispatcher("/view/admin_user.jsp").forward(request, response);
+		if(boardmenu.equals("sharing")) {
+			System.out.println("맞습니당.");
+		}
+		if(boardmenu.equals("drive")) {
+			System.out.println("맞습니당.");
+		}
+		if(boardmenu.equals("free")) {
+			System.out.println("맞습니당.");
+		}
+		if(boardmenu.equals("proud")) {
+			System.out.println("맞습니당.");
+		}
+
+
 	}
 
 }
