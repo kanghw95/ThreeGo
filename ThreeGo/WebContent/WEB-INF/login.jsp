@@ -1,4 +1,4 @@
-<%@page import="threego.vo.User"%>
+<%@page import="threego.model.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -9,7 +9,7 @@
 	<form id="loginfrm">
 		<p>ID : <input type="text" name="id" id="id"></p>
 		<p>PW : <input type="password" name="passwd" id="passwd"></p>
-		<input type="button" id="btnjoin" value="회원 " onclick="location.href ='<%=request.getContextPath() %>/main/insert'">
+		<input type="button" id="btnjoin" value="회원가입" onclick="location.href ='<%=request.getContextPath() %>/main/insert'">
 		<input type="button" id="btnlogin" value="로그인 ">
 	</form>
 	</div>

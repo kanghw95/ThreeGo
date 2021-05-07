@@ -17,7 +17,7 @@ public class JDBCTemplate {
 		try {
 			Context i1 = new InitialContext();
 			Context i2 = (Context) i1.lookup("java:/comp/env"); // web.xml
-			DataSource ds = (DataSource) i2.lookup("jdbc/myoracle");
+			DataSource ds = (DataSource) i2.lookup("jdbc/ThreeGo");
 			conn = ds.getConnection();
 
 			if (conn == null) {

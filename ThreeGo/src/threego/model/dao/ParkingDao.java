@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.JDBCTemplate;
-import threego.vo.Parking;
-import threego.vo.User;
+import threego.model.vo.Parking;
+import threego.model.vo.User;
 
 public class ParkingDao {
 

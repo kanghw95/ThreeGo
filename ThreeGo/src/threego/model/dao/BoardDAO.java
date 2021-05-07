@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import threego.vo.Board;
-import threego.vo.Board_Attach;
+import threego.model.vo.Board;
+import threego.model.vo.Board_Attach;
 
 public class BoardDAO {
 	private Statement stmt = null;
