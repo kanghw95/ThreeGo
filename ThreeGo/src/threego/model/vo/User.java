@@ -10,7 +10,7 @@ public class User {
 	private String nickname; // 닉네임
 	private String address; // 주소
 	private String last_login; // 마지막 로그인 시간
-	private int phone; // 전화번호
+	private String phone; // 전화번호
 	private String email; // 이메일
 	private char gender; // 성별
 	private String birth; // 생년월일
@@ -21,7 +21,7 @@ public class User {
 	}
 	
 	public User(int user_no, String user_id, String user_pwd, String user_name, String nickname, String address,
-			String last_login, int phone, String email, char gender, String birth, int user_authority) {
+			String last_login, String phone, String email, char gender, String birth, int user_authority) {
 		super();
 		this.user_no = user_no;
 		this.user_id = user_id;
@@ -101,11 +101,11 @@ public class User {
 		this.last_login = last_login;
 	}
 
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 

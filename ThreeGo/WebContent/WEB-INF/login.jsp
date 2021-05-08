@@ -11,6 +11,9 @@
 		<p>PW : <input type="password" name="passwd" id="passwd"></p>
 		<input type="button" id="btnjoin" value="회원가입" onclick="location.href ='<%=request.getContextPath() %>/main/insert'">
 		<input type="button" id="btnlogin" value="로그인 ">
+		<br><br>
+		<input type="button" id="btnidfind" value="아이디 찾기" onclick="location.href ='<%=request.getContextPath() %>/main/idfind'">
+		<input type="button" id="btnpwfind" value="비밀번호 찾기" onclick="location.href ='<%=request.getContextPath() %>/main/pwfind'">
 	</form>
 	</div>
 <%

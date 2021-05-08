@@ -1,21 +1,24 @@
 <%@page import="threego.model.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 <%User user = (User) session.getAttribute("user"); %>
-<%=user.getPhone() %>
 		<h2>회원정보 수정 페이지입니다.</h2>
-		<form action="<%=request.getContextPath()%>/userinsert" method="post" name="loginform">
+		<form action="<%=request.getContextPath()%>/usermodify" method="post" name="modform">
+			<input type="hidden" id=id name="id" value="<%=user.getUser_id()%>">
+			<input type="hidden" id="pw" name="pw" value="<%=user.getUser_pwd()%>">
 			<label>비밀번호 : <input type="password" id="paswwd" name="paswwd"></label><br><br>
 			<label>비밀번호 확인 : <input type="password" id="paswwdcheck" name="paswwdcheck" onblur="passcheck();"></label>
 			&nbsp;<input type="text" style="border-width: 0px; font-weight: bold" id="chk" name="chk" value="비밀번호를 입력하세요" readonly="readonly"><br><br>
-			<label>이름 : <input type="text" id="name" name="name" value="<%=user.getUser_name()%>"></label><br><br>
+			<label>이름 : <input type="text" id="name" name="name" value="<%=user.getUser_name()%>" readonly="readonly"></label><br><br>
 			<label>닉네임 : <input type="text" id="nickname" name="nickname" value="<%=user.getNickname()%>"></label>
 			<input type="button" id="btnnick" name="btnnick" value="닉네임 중복확인"><br><br>
 			<label>주소 : <input type="text" id="address" name="address" value="<%=user.getAddress()%>"></label><br><br>
@@ -27,43 +30,31 @@
 			       <option value="019">019</option>
 	    		 </select>
      	- <input type="text" id="ph2" name="ph2" size="5" maxlength="4"> - <input type="text"  id="ph3" name="ph3" size="5" maxlength="4"><br><br>
-			이메일 : <input type="text" size="15" id="email1" name="email1">@<input type="text" size="15" id="email2" name="email2">
+			이메일 : <input type="text" size="15" id="email1" name="email1">&nbsp;@&nbsp;<input type="text" size="15" id="email2" name="email2">
 			<input type="button" id="btnemail" name="btnemail" value="이메일 인증하기"><br><br>
 			<label>인증번호 : <input type="text" id="emailnum" name="emailnum"></label>
 			<input type="button" id="btnemailcheck" name="btnemailcheck" value="인증번호 확인"><br><br>
-			<label>남 : <input type="radio" name="gender" value='M' checked="checked"></label>
-			<label>여 : <input type="radio" name="gender" value='F'></label><br><br>
-			생년월일 : <select name="birth1">
-		       <%for(int i=2021; i>=1900; i--){ %>
-		       <option value="<%=i %>"><%=i %></option>
-		       <%} %>
-		     </select>년&nbsp;
-		     <select name="birth2">
-		       <%for(int i=1; i<=12; i++){ %>
-		       <option value="<%=i %>"><%=i %></option>
-		       <%} %>
-		     </select>월&nbsp;
-		     <select name="birth3">
-		       <%for(int i=1; i<=31; i++){ %>
-		       <option value="<%=i %>"><%=i %></option>
-		       <%} %>
-		     </select>일<br><br>
 			<hr>
 	
 			<input type="button" value="수정완료" onclick="inputCheck();">
 			<input type="button" value="취소" onclick="history.back()">
 		</form>
 <script>
+var right = 0; // inputcheck 비밀번호 입력체크를 위한 변수
+var nickCheck = 1; // 닉네임 중복확인 체크용 수정페이지에서는 기존 닉네임이기에... 1로 설정
+var emailCheck = 0; // 이메일 인증 확인 체크용
+
 //닉네임 중복 체크
 $(function() {
 	$("#btnnick").click(function() {
 		var nickname = $("#nickname").val();
+		var id = $("#id").val();
 		var url = "<%=request.getContextPath()%>/nickcheck";
 				$.ajax({
 					type : "post",
 					url : url,
 					data : {
-						nickname : nickname
+						nickname : nickname, id : id
 					},
 					success : function(check) {
 						alert(check);
@@ -148,7 +139,8 @@ $(function() {
 			var chk1 = /\d/;
 			var chk2 = /[a-z]/i;
 			//비밀번호
-			var pass =document.getElementById("paswwd").value;
+			var pass = document.getElementById("paswwd").value;
+			var pw = document.getElementById("pw").value;
 			if (pass.length < 6 || pass == null) {
 				alert("비밀번호를 입력하십시오(6글자이상)");
 				return false;
@@ -162,14 +154,12 @@ $(function() {
 				alert("비밀번호가 동일한지 확안하세요");
 				return false;
 			}
-		//이름
-		var name = document.getElementById("name").value;
-			if (name.length == 0 || name == null) {
-				alert("이름을 입력하십시오");
+			
+			if(pass == pw){
+				alert("기존과 동일한 비밀번호는 사용하실 수 없습니다.");
 				return false;
 			}
 			
-
 		//주소
 		var address = document.getElementById("address").value;
 			if (address.length == 0 || address == null) {
@@ -220,10 +210,7 @@ $(function() {
 			}
 			
 			//아이디,닉네임,이메일 체크 확인
-			if (idCheck == 0) {
-				alert("아이디 중복체크를 해주세요");
-				return false;
-			} else if (nickCheck == 0) {
+			 if (nickCheck == 0) {
 				alert("닉네임 중복체크를 해주세요");
 				return false;
 			} else if(emailCheck == 0){
@@ -231,8 +218,7 @@ $(function() {
 				return false;
 			}
 			
-		
-			loginform.submit();
+			modform.submit();
 		}
 	</script>
 </body>

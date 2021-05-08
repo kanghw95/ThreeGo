@@ -54,7 +54,7 @@ public class ParkingDao {
 					vo.setNickname(rs.getString("nickname"));
 					vo.setAddress(rs.getString("address"));
 					vo.setLast_login(rs.getString("last_login"));
-					vo.setPhone(Integer.parseInt(rs.getString("phone")));
+					vo.setPhone(rs.getString("phone"));
 					vo.setEmail(rs.getString("email"));
 					vo.setGender(rs.getString("gender").charAt(0));
 					vo.setBirth(rs.getString("birth"));
@@ -98,7 +98,7 @@ public class ParkingDao {
 						vo.setNickname(rs.getString("nickname"));
 						vo.setAddress(rs.getString("address"));
 						vo.setLast_login(rs.getString("last_login"));
-						vo.setPhone(Integer.parseInt(rs.getString("phone")));
+						vo.setPhone(rs.getString("phone"));
 						vo.setEmail(rs.getString("email"));
 						vo.setGender(rs.getString("gender").charAt(0));
 						vo.setBirth(rs.getString("birth"));
@@ -181,7 +181,7 @@ public class ParkingDao {
 				pstmt.setString(4, vo.getUser_name());
 				pstmt.setString(5, vo.getNickname());
 				pstmt.setString(6, vo.getAddress());
-				pstmt.setString(7, String.valueOf(vo.getPhone()));
+				pstmt.setString(7, vo.getPhone());
 				pstmt.setString(8, vo.getEmail());
 				pstmt.setString(9, vo.getBirth());
 
@@ -223,7 +223,7 @@ public class ParkingDao {
 				resultVo.setNickname(rs.getString("nickname"));
 				resultVo.setAddress(rs.getString("address"));
 				resultVo.setLast_login(rs.getString("last_login"));
-				resultVo.setPhone(rs.getInt("phone"));
+				resultVo.setPhone(rs.getString("phone"));
 				resultVo.setEmail(rs.getString("email"));
 				resultVo.setGender(rs.getString("gender").charAt(0));
 				resultVo.setBirth(rs.getString("birth"));
@@ -352,6 +352,37 @@ public class ParkingDao {
 			close();
 		}
 		return vo;
+	}
+
+	public int userModify(Connection conn, User vo) {
+		int result = 0;
+		int max = 1;
+		
+		pstmt = null;
+		rs = null;
+		
+		String sql = "update user_tb set user_pwd = ?, nickname = ?, address = ?, phone = ?, email = ? where user_id = ?";
+		try {
+
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, vo.getUser_pwd());
+				pstmt.setString(2, vo.getNickname());
+				pstmt.setString(3, vo.getAddress());
+				pstmt.setString(4, vo.getPhone());
+				pstmt.setString(5, vo.getEmail());
+				pstmt.setString(6, vo.getUser_id());
+
+				result = pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+
+		return result;
 	}
 
 }

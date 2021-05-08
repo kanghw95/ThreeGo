@@ -29,8 +29,8 @@
 			       <option value="019">019</option>
 	    		 </select>
      	- <input type="text" id="ph2" name="ph2" size="5" maxlength="4"> - <input type="text"  id="ph3" name="ph3" size="5" maxlength="4"><br><br>
-			이메일 : <input type="text" size="15" id="email1" name="email1">@<input type="text" size="15" id="email2" name="email2">
-			<input type="button" id="btnemail" name="btnemail" value="이메일 인증하기"><br><br>
+			이메일 : <input type="text" size="15" id="email1" name="email1">&nbsp;@&nbsp;<input type="text" size="15" id="email2" name="email2">
+			<input type="button" id="btnemail" name="btnemail" value="이메일 인증하기" onclick="emailCheck();"><br><br>
 			<label>인증번호 : <input type="text" id="emailnum" name="emailnum"></label>
 			<input type="button" id="btnemailcheck" name="btnemailcheck" value="인증번호 확인"><br><br>
 			<label>남 : <input type="radio" name="gender" value='M' checked="checked"></label>
@@ -113,7 +113,7 @@ $(function() {
 $(function() {
 	$("#btnemail").click(function() {
 		var email1 = $("#email1").val();
-		var email2 = $("#email2").val();
+		var email2 = $("#email2").val();		
 		var url = "<%=request.getContextPath()%>/emailctrl";
 		$.ajax({
 			type : "post",
@@ -180,7 +180,7 @@ $(function() {
 			var chk2 = /[a-z]/i;
 			//아이디 비밀번호
 			if (id.length == 0 || id == null) {
-				alert("아이디를 입력하십시오");
+				alert("아이디를 입력해주세요");
 				return false;
 			}
 			if (!regx.test(id)) {
@@ -205,7 +205,7 @@ $(function() {
 		//이름
 		var name = document.getElementById("name").value;
 			if (name.length == 0 || name == null) {
-				alert("이름을 입력하십시오");
+				alert("이름을 입력해주세요");
 				return false;
 			}
 			
@@ -213,7 +213,7 @@ $(function() {
 		//주소
 		var address = document.getElementById("address").value;
 			if (address.length == 0 || address == null) {
-				alert("주소를 입력해주세요!");
+				alert("주소를 입력해주세요");
 				document.getElementById("address").focus();
 				return false;
 			}
@@ -241,7 +241,7 @@ $(function() {
 			var email2 = document.getElementById("email2").value;
 			var regx2 = /^[a-zA-Z0-9.]*$/;
 			if (email1.length == 0 || email1 == null) {
-				alert("이메일을 입력하세요");
+				alert("이메일을 입력해주세요");
 				return false;
 			}
 			if (!regx.test(email1)) {
@@ -250,7 +250,7 @@ $(function() {
 				return false;
 			}
 			if (email2.length == 0 || email2 == null) {
-				alert("이메일 뒷자리를 입력하세요");
+				alert("이메일 뒷자리를 입력해주세요");
 				return false;
 			}
 			if (!regx2.test(email2)) {
@@ -271,7 +271,6 @@ $(function() {
 				return false;
 			}
 			
-		
 			loginform.submit();
 		}
 	</script>

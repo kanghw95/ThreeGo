@@ -68,4 +68,12 @@ public class ParkingService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+
+	public int userModify(User vo) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new ParkingDao().userModify(conn, vo);
+		close(conn);
+		return result;
+	}
 }
