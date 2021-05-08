@@ -22,7 +22,7 @@ import threego.model.vo.Comment_tb;
 /**
  * Servlet implementation class CommentListCtrl
  */
-@WebServlet("/commentlist.do")
+@WebServlet("/commentlist")
 public class CommentListCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -51,7 +51,7 @@ public class CommentListCtrl extends HttpServlet {
 
 	private void execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("/commentlist.do진입");
+		System.out.println("/commentlist진입");
 		
 		final int pageSize = 5; // 한페이지당 글 수
 		final int pageBlock = 3; // 화면에 나타날 페이지 링크 수 dP) 화면 하단에 1 2 3

@@ -16,7 +16,7 @@ import threego.model.vo.User;
 /**
  * Servlet implementation class BoardDeleteCtrl
  */
-@WebServlet("/boarddelete.do")
+@WebServlet("/boarddelete")
 public class BoardDeleteCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -60,7 +60,7 @@ public class BoardDeleteCtrl extends HttpServlet {
 		}else {
 			sv.getBoardDelete(vo);
 			request.setAttribute("vo",vo);
-			request.getRequestDispatcher("/board/boardwrite.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/board/boardwrite.jsp").forward(request, response);
 		}
 	}
 

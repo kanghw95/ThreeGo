@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CommentDeleteCtrl
  */
-@WebServlet("/commentdelete.do")
+@WebServlet("/commentdelete")
 public class CommentDeleteCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

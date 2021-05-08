@@ -29,7 +29,7 @@ import threego.model.vo.Board;
 /**
  * Servlet implementation class BoardWriteCtrl
  */
-@WebServlet("/boardWrite.do")
+@WebServlet("/boardWrite")
 public class BoardWriteCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -175,10 +175,10 @@ public class BoardWriteCtrl extends HttpServlet {
 				request.setAttribute("msg", "글 등록 완료");
 				// request.getRequestDispatcher("WEB-INF/board/boardwrite.jsp").forward(request,
 				// response);
-				response.sendRedirect("boardlist.do");
+				response.sendRedirect("boardlist");
 
 				out.println("<script>alert('" + msg + "')</script>");
-				out.println("<script>location.href='./boardlist.do';</script>");
+				out.println("<script>location.href='./boardlist';</script>");
 			} else { // 입력 실패
 				System.out.println("입력 실패!!");
 				request.setAttribute("msg", "글 등록 실패");

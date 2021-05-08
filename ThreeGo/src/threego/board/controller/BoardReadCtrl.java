@@ -14,7 +14,7 @@ import threego.model.vo.Board_Attach;
 /**
  * Servlet implementation class BoardReadCtrl
  */
-@WebServlet("/boardRead.do")
+@WebServlet("/boardRead")
 public class BoardReadCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

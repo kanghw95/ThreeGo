@@ -20,8 +20,8 @@
 			</tr>	
 	<input type="submit" value="신고 완료">
 	<td colspan="2">
-			<input type="button" value="메인화면" onclick="window.location='<%=request.getContextPath()%>/boardlist.do';">
-			<input type="button" value="마이페이지" onclick="window.location='<%=request.getContextPath()%>/boardlist.do';">
+			<input type="button" value="메인화면" onclick="window.location='<%=request.getContextPath()%>/boardlist';">
+			<input type="button" value="마이페이지" onclick="window.location='<%=request.getContextPath()%>/boardlist';">
 	
 	</td>
 	</table>

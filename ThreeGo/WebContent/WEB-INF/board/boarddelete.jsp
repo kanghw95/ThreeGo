@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="<%=request.getContextPath()%>/boarddelete.do" method="POST"> <!-- servlet이름 변경 -->
+<form action="<%=request.getContextPath()%>/boarddelete" method="POST"> <!-- servlet이름 변경 -->
 			<table border="1">
 				<input type="hidden" name="bd_content_no" value="${param.bd_content_no}" />
 				<h1>비밀번호를 입력해주세요.</h1>

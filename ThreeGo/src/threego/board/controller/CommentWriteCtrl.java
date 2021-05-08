@@ -16,7 +16,7 @@ import threego.model.vo.Comment_tb;
 /**
  * Servlet implementation class CommentWriteCtrl
  */
-@WebServlet("/commentwrite.do")
+@WebServlet("/commentwrite")
 public class CommentWriteCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -76,7 +76,7 @@ public class CommentWriteCtrl extends HttpServlet {
 				String msg = "글 등록 완료";
 
 				out.println("<script>alert('" + msg + "')</script>");
-				out.println("<script>location.href='./boardRead.do?bd_content_no="+no+"';</script>");
+				out.println("<script>location.href='./boardRead?bd_content_no="+no+"';</script>");
 
 
 			} else { // 입력 실패

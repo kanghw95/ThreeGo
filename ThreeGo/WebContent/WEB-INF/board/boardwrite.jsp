@@ -30,7 +30,7 @@ if(session.getAttribute("user_id")!=null) {
 }%>
 
    <h1>글쓰기</h1>
-   <form action="<%=request.getContextPath()%>/boardWrite.do"
+   <form action="<%=request.getContextPath()%>/boardWrite"
       method="post" enctype="multipart/form-data">
 
 
@@ -64,7 +64,7 @@ if(session.getAttribute("user_id")!=null) {
          </tr>
       </table>
             <input type="button" value="글목록"
-               onclick="window.location='<%=request.getContextPath()%>/boardlist.do';">
+               onclick="window.location='<%=request.getContextPath()%>/boardlist';">
 
    </form>
 </body>

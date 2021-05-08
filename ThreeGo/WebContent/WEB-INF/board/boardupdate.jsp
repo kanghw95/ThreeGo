@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>글수정</h1>
-	<form action="<%=request.getContextPath() %>/boardupdate.do" method="post" enctype="multipart/form-data">
+	<form action="<%=request.getContextPath() %>/boardupdate" method="post" enctype="multipart/form-data">
  	<input type="text" name="bre_level" value="${vo.bre_level}">
 	
 		<table border="1">
@@ -34,7 +34,7 @@
 				<td colspan="2">
 				<input type="submit" value="수정 완료">
 				
-				<input type="button" value="글목록" onclick="window.location='<%=request.getContextPath()%>/boardlist.do';">
+				<input type="button" value="글목록" onclick="window.location='<%=request.getContextPath()%>/boardlist';">
 				</td>
 			</tr>
 		</table>

@@ -41,7 +41,7 @@ height: 350px;
 			</tr>
 			<tr colspan="2">
 			<td>
-				<input type=button value="글수정" onclick="window.location='<%=request.getContextPath()%>/boardupdate.do';">
+				<input type=button value="글수정" onclick="window.location='<%=request.getContextPath()%>/boardupdate';">
 				<input type="button" value="글삭제" onclick="window.location='<%=request.getContextPath()%>/WEB-INF/board/boarddelete.jsp';">
 			</td>
 			</tr>
@@ -52,7 +52,7 @@ height: 350px;
 		
 		<hr>
 		<table border="1">
-			<form action="<%=request.getContextPath()%>/commentwrite.do" method="post" >
+			<form action="<%=request.getContextPath()%>/commentwrite" method="post" >
 			<input type="text" name="bd_content_no" value="${boardread.bd_content_no }" id="bd_content_no">
 			
 			<h2>댓글 </h2>
@@ -66,7 +66,7 @@ height: 350px;
 		
 
 		
-	<form action="<%=request.getContextPath() %>/commentlist.do" method="get">
+	<form action="<%=request.getContextPath() %>/commentlist" method="get">
 	<!-- action="/commentlist.do" method="get" 쓰지 말고.. -->
 	<input type="search" name="search" value="${search}" id="search">
 	<button type="button" id="btnSearch">검색</button> 
@@ -97,16 +97,16 @@ height: 350px;
 	-->
 	<br>
 	<c:if test="${startPage != 1 }">
-		<a href="<%=request.getContextPath() %>/commentlist.do?pageNum=${startPage-1}&search=${search}">이전</a> 
+		<a href="<%=request.getContextPath() %>/commentlist?pageNum=${startPage-1}&search=${search}">이전</a> 
 	</c:if>
 	<c:forEach begin="${startPage}" end="${endPage}" var="s" step="1">
-		<a href="<%=request.getContextPath() %>/commentlist.do?pageNum=${s }&search=${search}">${s }</a> 
+		<a href="<%=request.getContextPath() %>/commentlist?pageNum=${s }&search=${search}">${s }</a> 
 	</c:forEach>
 	<c:if test="${endPage < pageCnt}">
-		<a href="<%=request.getContextPath() %>/commentlist.do?pageNum=${endPage+1}&search=${search}">다음</a>
+		<a href="<%=request.getContextPath() %>/commentlist?pageNum=${endPage+1}&search=${search}">다음</a>
 	</c:if>
 	<br>
-		<input type="button" value="메인화면" onclick="window.location='<%=request.getContextPath() %>/boardlist.do?search=${param.search}';"></td>
+		<input type="button" value="메인화면" onclick="window.location='<%=request.getContextPath() %>/boardlist?search=${param.search}';"></td>
 	
 
 <script>
@@ -119,7 +119,7 @@ height: 350px;
 	});// 찾기 눌러도 아래 comment 가지러 갔다오기
 	function getComments(){
 		$.ajax({
-			url: "<%=request.getContextPath()%>/commentlist.do",
+			url: "<%=request.getContextPath()%>/commentlist",
 			type : "GET" ,   // get방식을 쓰고..
 			data : {
 				bd_content_no : "${boardread.bd_content_no}",

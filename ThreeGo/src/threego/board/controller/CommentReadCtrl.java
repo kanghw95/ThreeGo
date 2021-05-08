@@ -14,7 +14,7 @@ import threego.model.vo.Comment_tb;
 /**
  * Servlet implementation class CommentReadCtrl
  */
-@WebServlet("/commentread.do")
+@WebServlet("/commentread")
 public class CommentReadCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

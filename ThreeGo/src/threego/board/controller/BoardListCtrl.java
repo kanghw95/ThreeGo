@@ -15,7 +15,7 @@ import threego.model.vo.Board;
 /**
  * Servlet implementation class BoardListCtrl
  */
-@WebServlet("/boardlist.do")
+@WebServlet("/boardlist")
 public class BoardListCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -104,7 +104,7 @@ System.out.println("이동완료");
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("boardList", list);
 		request.setAttribute("search", search);
-		request.getRequestDispatcher("WEB-INF/board/boardlist.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/board/boardlist.jsp").forward(request, response);
 	}
 	
 	
