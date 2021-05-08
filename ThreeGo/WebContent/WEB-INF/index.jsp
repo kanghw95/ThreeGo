@@ -10,7 +10,7 @@
 </head>
 <body>
 	<hr>
-	<input type="button" value="관리자페이지" onclick="location.href ='<%=request.getContextPath() %>/main/adminmain'">
+	<input type="button" value="관리자페이지" onclick="location.href ='<%=request.getContextPath() %>/admin/adminmain'">
 	<input type="button" id="btnlist" value="회원조회 " onclick="location.href='<%=request.getContextPath() %>/selectalluser'"> 
 	<hr>
 	<form action="<%=request.getContextPath() %>/p_searchuser.do" method="get">

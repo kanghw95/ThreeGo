@@ -34,27 +34,7 @@ public class AdminDAO {
 		}
 	}
 
-	//테스트용으로 만들어 봄 사용 x
-	public int insert(Connection conn, Admin vo) {
-		int result = 0;
-		String query = "insert into yhyh values(?,?,?,?)";
-		pstmt = null;
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, vo.getYh_no());
-			pstmt.setString(2, vo.getYh_name());
-			pstmt.setString(3, vo.getYh_id());
-			pstmt.setString(4, vo.getYh_passwd());
-			
-			result=pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		return result;
-	}
+
 	//전체 회원 리스트 보는 용도
 	public List<User> list(Connection conn) {
 		ArrayList<User> list = null;
@@ -231,8 +211,10 @@ public class AdminDAO {
 		}
 		return list;
 	}
-	public List<UserQNA> getQNAByPage(Connection conn, int start, int end, String search) {
-		List<UserQNA> list = null;
+	
+	//유저 qna 리스트 보이기
+	public List<QNA> getQNAByPage(Connection conn, int start, int end, String search) {
+		List<QNA> list = null;
 		String sql_1= "(select * from QNA ";
 		
 		if(search == null) {
@@ -253,9 +235,9 @@ public class AdminDAO {
 			pstmt.setInt(2, end);
 			rs = pstmt.executeQuery();			
 			if(rs.next()) {
-				list = new ArrayList<UserQNA>();
+				list = new ArrayList<QNA>();
 				do {
-					UserQNA vo = new UserQNA();
+					QNA vo = new QNA();
 					vo.setUser_no(Integer.parseInt(rs.getString("user_no")));
 					vo.setQna_no(rs.getInt("qna_no"));
 					vo.setUser_no(rs.getInt("user_no"));//여기서 의문 : FK일시 여기서 가지고 오는게 맞는건가?
@@ -263,6 +245,8 @@ public class AdminDAO {
 					vo.setQna_content(rs.getString("qna_content"));
 					vo.setQna_pwd(rs.getString("qna_pwd"));
 					vo.setQna_open(rs.getInt("qna_open"));
+					vo.setA_content(rs.getString("a_content"));
+					
 					list.add(vo);
 				}while(rs.next());
 			}
@@ -273,13 +257,228 @@ public class AdminDAO {
 		}
 		return list;
 	}
-	//화면에 보여지는 유저 카운트.
+	//화면에 보여지는 qna 카운트.
 	public int getQNACount(Connection conn, String search) {
 		int cnt = 0;
 		String sql = "select COUNT(*) from qna";
 		if (search != null) {
 			sql += " where qna_subject like '%" + search+ "%'";
 		}
+			
+		pstmt = null; rs = null;		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}		
+		return cnt;
+	}
+	//qna 답변하기
+	public int qnaAnswerUpdate(Connection conn, QNA vo) {
+		int result = 0;
+		String query = "update qna set a_content=? where qna_no=?";
+		pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, vo.getA_content());
+			pstmt.setInt(2, vo.getQna_no());
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return result;
+	}
+	//qna user 조인해서 닉네임 뽑아오기
+	public List<QNA_USER> getQnaInf(Connection conn) {
+		List<QNA_USER> list = null;
+		String sql= "select q.qna_no as a,q.user_no as b,u.nickname,q.a_content from qna q join user_tb u on q.user_no=u.user_no order by qna_no desc ";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<QNA_USER>();
+				do {
+					QNA_USER vo = new QNA_USER();
+					vo.setQna_no(rs.getInt(1));
+					vo.setUser_no(rs.getInt(2));
+					vo.setNickname(rs.getString(3));
+					vo.setA_content(rs.getString(4));
+					list.add(vo);
+				}while(rs.next());
+			};
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		
+		return list;
+		
+	}
+	//FAQ 리스트 뽑아오기
+	public List<FAQ> getFAQByPage(Connection conn) {
+		List<FAQ> list = null;
+		String sql= "select * from faq where faq_no<1000 order by faq_no desc";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<FAQ>();
+				do {
+					FAQ vo = new FAQ();
+					vo.setFaq_no(rs.getInt("faq_no"));
+					vo.setFaq_subject(rs.getString("faq_subject"));
+					vo.setFaq_content(rs.getString("faq_content"));
+					vo.setAdmin_number(rs.getInt("admin_number"));
+					list.add(vo);
+				}while(rs.next());
+			};
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		
+		return list;
+		
+	}
+	//FAQ,공지사항 답변 수정하기
+	public int FQAUpdate(Connection conn, FAQ vo) {
+		int result = 0;
+		String sql ="update faq set faq_subject=?, faq_content=? where faq_no=?";
+		pstmt = null;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getFaq_subject());
+			pstmt.setString(2, vo.getFaq_content());
+			pstmt.setInt(3, vo.getFaq_no());
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		return result;
+	}
+	//FAQ,공지사항 글쓰기
+	public int FQAInsert(Connection conn, FAQ vo) {
+		int result = 0;
+		int max = 0;
+		String sqlMaxno = "";
+		if(vo.getFaq_no()<100) {
+			sqlMaxno = "select nvl(max(faq_no), 0)+1 from faq where faq_no<1000";
+		}else {
+			sqlMaxno = "select nvl(max(faq_no), 0)+1 from faq where faq_no>1000";
+		}
+		String sql = "insert into faq values(?,?,?,5) ";
+		pstmt = null; rs=null;
+		try {
+			pstmt = conn.prepareStatement(sqlMaxno);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				max = rs.getInt(1);
+			}
+			close();
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, max );
+			pstmt.setString(2, vo.getFaq_subject());
+			pstmt.setString(3, vo.getFaq_content());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+			
+		return result;
+	}
+	//FAQ,공지사항 삭제
+	public int FQAdelete(Connection conn, int no) {
+		int result = 0;
+		String sql = "delete from faq where faq_no =? ";
+		pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		return result;
+	}
+	//FAQ 리스트 뽑아오기
+	public List<FAQ> getNotifyByPage(Connection conn,int start,int end, String search) {
+		List<FAQ> list = null;
+		String sql= "(select * from faq ";
+		if(search == null ) {
+			sql+=" where faq_no>1000 order by faq_no desc) d";
+		}else {
+			sql+=" where faq_no>1000 and faq_subject like '%"+search+"%' order by faq_no desc) d";
+		}
+		String sql1 = "select * from "
+				+ " (select rownum r, d.* from " + sql  + " ) "
+				+ " where r >= ? and r <= ?";
+		System.out.println(sql1);
+		System.out.println(start);
+		System.out.println(end);
+		try {
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<FAQ>();
+				do {
+					FAQ vo = new FAQ();
+					vo.setFaq_no(rs.getInt("faq_no"));
+					vo.setFaq_subject(rs.getString("faq_subject"));
+					vo.setFaq_content(rs.getString("faq_content"));
+					vo.setAdmin_number(rs.getInt("admin_number"));
+					list.add(vo);
+				}while(rs.next());
+			};
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		
+		return list;
+		
+	}
+	//화면에 보여지는 공지사항 카운트.
+	public int getNotifyCount(Connection conn, String search) {
+		int cnt = 0;
+		String sql = "select COUNT(*) from faq";
+		if (search != null) {
+			sql += " where faq_subject like '%" + search+ "%' and faq_no>1000";
+		}else {
+			sql += " where faq_no>1000";
+		}
+		
 			
 		pstmt = null; rs = null;		
 		try {

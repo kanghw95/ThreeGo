@@ -64,13 +64,14 @@
         close.onclick = function(){
         	stopmodal.style.display = "none";
         }
-
         $("#realstop").click(function(){
     		var frm = document.getElementById("frm");
+    		alert('정지가 되었습니다');
     		frm.action="<%=request.getContextPath()%>/adminstop?no1="+no+"&nickname="+nickname;
     		frm.method="post";
     		frm.submit();
         })
+
         
 	}
 		
@@ -86,20 +87,21 @@
 			<h3 id="who"></h3>
 			<h3>몇 개월 정지 시킬지 선택</h3>
 			<input type="hidden" name="list" value="${list }">
-			<form id="frm">
+			<form id="frm" action="<%=request.getContextPath()%>/adminstop" method="get">
 			<select id="select" name="select">
 				<option value="week">1주일</option>
 				<option value="weeks">2주일</option>
 				<option value="month">1달</option>
 				<option value="year">1년</option>
 			</select>
-			<input type="button" id="realstop" value="정지시키기">
+			<input type="submit" id="realstop" value="정지시키기">
 			</form>
 		</div>
 	</div>
 		
 	<h1>회원관리</h1>
-		<c:if test="${ empty list }">
+	<input type="button" id="btnlist" value="모든회원정보 " onclick="location.href='<%=request.getContextPath() %>/selectalluser'"> 
+	<c:if test="${ empty list }">
 		<p>조회된 회원이 없습니다.</p>
 	</c:if>
 	<c:if test="${not empty list }">
@@ -118,7 +120,11 @@
 			<tr>
 				<td>${i.user_no }</td>
 				<td><a href="#">${i.nickname }</a></td>
+				
 				<td><input type="button" name="${i.user_no }" value="일시정지" id="${i.user_no }" onclick="stopmodal('${i.nickname }',${i.user_no });"></td>
+			</tr>
+			<tr style="display:none">
+			
 			</tr>
 			</c:forEach>
 		</table>
@@ -136,7 +142,7 @@
 	
 	<br>
 	
-	<input type="button" value="메인화면" onclick="location.href='<%=request.getContextPath()%>/main/adminmain';">
+	<input type="button" value="메인화면" onclick="location.href='<%=request.getContextPath()%>/admin/adminmain';">
 	<c:if test="${not empty search}">
 		<input type="button" value="전체글목록" onclick="location.href='<%=request.getContextPath()%>/adminctrl';">
 	</c:if>

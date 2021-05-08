@@ -1,8 +1,6 @@
 package threego.admin.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import threego.admin.AdminService;
-import threego.model.vo.User;
 
 /**
- * Servlet implementation class Adminstop
+ * Servlet implementation class AdminFAQDelete
  */
-@WebServlet("/adminstop")
-public class AdminstopCtrl extends HttpServlet {
+@WebServlet("/adminfaqdelete")
+public class AdminFAQDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-      
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminstopCtrl() {
+    public AdminFAQDelete() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,27 +35,24 @@ public class AdminstopCtrl extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		execute(request, response);
 	}
 	protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//	String sel = request.getParameter("select"); // 몇 일 정지 멕일지.
-	int no = Integer.parseInt(request.getParameter("no1"));
-	String nickname = request.getParameter("nickname");
-
-	User vo = new User();
-	AdminService sv = new AdminService();
-	PrintWriter out = response.getWriter();
-	if(nickname != null) {
-		vo.setUser_no(no);
-		vo.setNickname(nickname);
-		sv.userStop(vo);
-		out.println("<scrpit>alert('정지가 되었습니다')</script>");
-//		out.println("<script>history.back();</script>");
-		request.getRequestDispatcher("WEB-INF/view/user/UserAllView.jsp").forward(request, response);
-	}
-	
-	
+		String faq_no = request.getParameter("no");
+		System.out.println(faq_no);
+		AdminService sv= new AdminService();
+		int result = 0;
+		result = sv.FQAdelete(Integer.parseInt(faq_no));
+		
+		if(result != 0) {
+			if(Integer.parseInt(faq_no)<1000) {
+				request.getRequestDispatcher("/userqna").forward(request, response);
+			}else {
+				request.getRequestDispatcher("/adminnotify").forward(request, response);
+			}
+		}
+		
+		
 	}
 
 }

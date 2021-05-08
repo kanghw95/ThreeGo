@@ -15,17 +15,18 @@ import threego.admin.QNA;
 import threego.admin.QNA_USER;
 
 /**
- * Servlet implementation class UserQNA_FAQ
+ * Servlet implementation class AdminNotifyCtrl
  */
-@WebServlet("/userqna")
-public class UserQNA_FAQ extends HttpServlet {
+@WebServlet("/adminnotify")
+public class AdminNotifyCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserQNA_FAQ() {
+    public AdminNotifyCtrl() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -39,6 +40,7 @@ public class UserQNA_FAQ extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		execute(request, response);
 	}
 	protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -59,7 +61,7 @@ public class UserQNA_FAQ extends HttpServlet {
 			search = null;
 		}
 //		//회원의수
-		cnt= sv.getQNACount(search);
+		cnt= sv.getNotifyCount(search);
 		//총 페이지 갯수
 		int pageCnt = (cnt / pageSize) + (cnt % pageSize == 0 ? 0 : 1);
 		
@@ -93,35 +95,36 @@ public class UserQNA_FAQ extends HttpServlet {
 		if(endRnum > cnt) 
 			endRnum = cnt;
 		
-		List<QNA> list = null;
+		/**여기부터**/
+		/**여기부터**/
+		/**여기부터**/
+		/**여기부터**/
+		/**여기부터**/
+		/**여기부터**/
+		List<FAQ> list = null;
 		/********** 검색 *************/
 		if(search != null && !search.equals("")) {
 		} else {
 			search = null;
 		}
-		
-		/***qna 목록***/
-		list = new AdminService().getQNAByPage(startRnum,endRnum ,search);
+//		if(search ==null) {
+//			list = new AdminService().list();
+//		}else {
+		list = new AdminService().getNotifyByPage(startRnum,endRnum ,search);
+//		}
 		request.setAttribute("pageCnt", pageCnt);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("search", search);
-		List<QNA_USER> list2 = null;
-		/***닉네임 뽑아옴***/
-		list2 = sv.getQnaInf();
-		request.setAttribute("list2", list2);
-		/***faq 목록***/
-		List<FAQ> list3 = null;
-		list3 = sv.getFAQByPage();
-		request.setAttribute("list3", list3);
 //		List<User> list = new AdminService().list();
 		if (list != null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("/WEB-INF/view/admin/admin_qna.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/view/admin/admin_notify.jsp").forward(request, response);
 		} else {
-			request.getRequestDispatcher("/WEB-INF/view/admin/admin_qna.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/view/admin/admin_notify.jsp").forward(request, response);
 		}
 	}
+
 
 }

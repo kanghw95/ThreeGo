@@ -1,28 +1,23 @@
 package threego.admin.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import threego.admin.AdminService;
-import threego.model.vo.User;
-
 /**
- * Servlet implementation class Adminstop
+ * Servlet implementation class AdminNotifyAnswer
  */
-@WebServlet("/adminstop")
-public class AdminstopCtrl extends HttpServlet {
+@WebServlet("/adminnotifyanswer")
+public class AdminNotifyAnswer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-      
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminstopCtrl() {
+    public AdminNotifyAnswer() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,23 +37,14 @@ public class AdminstopCtrl extends HttpServlet {
 		execute(request, response);
 	}
 	protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//	String sel = request.getParameter("select"); // 몇 일 정지 멕일지.
-	int no = Integer.parseInt(request.getParameter("no1"));
-	String nickname = request.getParameter("nickname");
-
-	User vo = new User();
-	AdminService sv = new AdminService();
-	PrintWriter out = response.getWriter();
-	if(nickname != null) {
-		vo.setUser_no(no);
-		vo.setNickname(nickname);
-		sv.userStop(vo);
-		out.println("<scrpit>alert('정지가 되었습니다')</script>");
-//		out.println("<script>history.back();</script>");
-		request.getRequestDispatcher("WEB-INF/view/user/UserAllView.jsp").forward(request, response);
-	}
-	
-	
+		String no = request.getParameter("no");
+		String sub = request.getParameter("sub");
+		String con = request.getParameter("con");
+		
+		request.setAttribute("no", Integer.parseInt(no));
+		request.setAttribute("sub", sub);
+		request.setAttribute("con", con);
+		request.getRequestDispatcher("/WEB-INF/view/admin/admin_notify_con.jsp").forward(request, response);
 	}
 
 }
