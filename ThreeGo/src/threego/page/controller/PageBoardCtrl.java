@@ -54,16 +54,16 @@ public class PageBoardCtrl extends HttpServlet {
 		System.out.println("conPath : " + conPath);
 		System.out.println("com : " + com);
 		
-		if(com.equals("/board/a1")) {
-			// 어떤 행동도 하지 않고 jsp 보여주기
-			viewPage = "/WEB-INF/f1/a1.jsp";
-		} else if(com.equals("/board/a2")) {
-			viewPage = "/WEB-INF/f1/a2.jsp";
-		} else if(com.equals("/board/a3")) {
-			viewPage = "/WEB-INF/f1/a3.jsp";
-		} else if(com.equals("/board/a4")){
-			viewPage = "/WEB-INF/f1/a4.jsp";
-		} else {
+		if(com.equals("/board/boardwrite")) {
+			viewPage = "/WEB-INF/board/boardwrite.jsp";
+		}
+		
+		else if(com.equals("/board/boardlist")) {
+			viewPage = "/WEB-INF/board/boardlist.jsp";
+		
+		}
+		
+		else{
 			viewPage = "/WEB-INF/index.jsp";
 		}
 		

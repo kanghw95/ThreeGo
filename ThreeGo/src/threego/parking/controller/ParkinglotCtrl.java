@@ -1,4 +1,4 @@
-package threego.controller;
+package threego.parking.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ParkingReadCtrl
+ * Servlet implementation class ParkinglotCtrl
  */
-@WebServlet("/parkingread.do")
-public class ParkingReadCtrl extends HttpServlet {
+@WebServlet("/ParkinglotCtrl")
+public class ParkinglotCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ParkingReadCtrl() {
+    public ParkinglotCtrl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,15 +26,14 @@ public class ParkingReadCtrl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("WEB-INF/view/map/parking.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

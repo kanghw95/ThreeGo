@@ -1,4 +1,4 @@
-package threego.controller;
+package threego.user.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import threego.model.service.ParkingService;
+import threego.model.service.UserService;
 import threego.model.vo.User;
 
 /**
@@ -61,7 +61,7 @@ public class UserInsertCtrl extends HttpServlet {
 		vo.setGender(request.getParameter("gender").charAt(0));
 		vo.setBirth(birth);
 		
-		int insertResult = new ParkingService().userinsert(vo);
+		int insertResult = new UserService().userinsert(vo);
 		
 		if(insertResult>0) {  // 정상적으로 insert 성공
 			request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);

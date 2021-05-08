@@ -9,7 +9,7 @@
 <body>
 	<h1>글수정</h1>
 	<form action="<%=request.getContextPath() %>/boardupdate.do" method="post" enctype="multipart/form-data">
-put type="text" name="bre_level" value="${vo.bre_level}"  />
+ 	<input type="text" name="bre_level" value="${vo.bre_level}">
 	
 		<table border="1">
 			

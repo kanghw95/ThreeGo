@@ -5,7 +5,7 @@ public class Board_Attach {
 	private int file_no ;
 	private int bd_content_no;
 	private String fullname;
-	private int file_size;
+	private long file_size;
 	private String contents_type;
 	private String filepath;
 	@Override
@@ -31,10 +31,10 @@ public class Board_Attach {
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
 	}
-	public int getFile_size() {
+	public long getFile_size() {
 		return file_size;
 	}
-	public void setFile_size(int file_size) {
+	public void setFile_size(long file_size) {
 		this.file_size = file_size;
 	}
 	public String getContents_type() {

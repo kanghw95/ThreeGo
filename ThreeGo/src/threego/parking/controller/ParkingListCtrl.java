@@ -1,6 +1,6 @@
-package threego.controller;
+package threego.parking.controller;
 
-import java.io.IOException; 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import threego.model.service.BoardService;
-import threego.model.vo.Board;
+import threego.model.service.ParkingService;
+import threego.model.vo.Parking;
+
 
 /**
- * Servlet implementation class BoardListCtrl
+ * Servlet implementation class ParkingListCtrl
  */
-@WebServlet("/boardlist.do")
-public class BoardListCtrl extends HttpServlet {
+@WebServlet("/parkinglist.do")
+public class ParkingListCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListCtrl() {
+    public ParkingListCtrl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,25 +41,22 @@ public class BoardListCtrl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		execute(request, response);
 	}
-
+	
 	private void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		final int pageSize = 10;  // 
 		final int pageBlock = 5;  // 
 System.out.println("이동완료");
-		BoardService sv = new BoardService();
+		ParkingService sv = new ParkingService();
 		
 		int cnt = 0;   // 
 		/********** �˻� *************/
-		String search = request.getParameter("search");
+		String search = request.getParameter("searchpklot");
 		if(search != null && !search.equals("")) {
 		} else {
 			search = null;
 		}
-		Board vo = new Board();
+		cnt= sv.getParkingCount(search);
 		
-
-		
-		cnt= sv.getBoardCount(search);
 		System.out.println(cnt);
 		int pageCnt = (cnt / pageSize) + (cnt % pageSize == 0 ? 0 : 1); 
 		
@@ -90,22 +88,23 @@ System.out.println("이동완료");
 		if(endRnum > cnt) 
 			endRnum = cnt;
 		
-		List<Board> list = null;
+		List<Parking> list = null;
 		/********** 서치 *************/
 		if(search != null && !search.equals("")) {
 		} else {
 			search = null;
 		}
-		list = sv.getBoardByPage(startRnum,endRnum, search);
+		list = sv.getParkingByPage(startRnum,endRnum, search);
 		System.out.println(list);
 		request.setAttribute("pageCnt", pageCnt);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("currentPage", currentPage);
-		request.setAttribute("boardList", list);
-		request.setAttribute("search", search);
-		request.getRequestDispatcher("/board/boardlist.jsp").forward(request, response);
+		request.setAttribute("ParkingList", list);
+		request.setAttribute("searchpklot", search);
+		request.getRequestDispatcher("WEB-INF/view/map/parking.jsp").forward(request, response);
 	}
 	
 	
 }
+

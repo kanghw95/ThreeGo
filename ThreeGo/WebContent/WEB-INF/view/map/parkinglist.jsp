@@ -26,7 +26,7 @@
 				<th>작성일</th>
 				<th>조회수</th>
 			</tr>
-		<c:forEach items="${boardList }" var="v">
+		<c:forEach items="${parkingList }" var="v">
 			<tr>
 				<td><a href="<%=request.getContextPath() %>/parkingRead.do?bno=${v.bno }">${v.bno }</a></td>
 				<td>${v.bsubject }</td>

@@ -1,4 +1,4 @@
-package threego.controller;
+package threego.user.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import threego.model.service.ParkingService;
+import threego.model.service.UserService;
 import threego.model.vo.User;
 
 /**
@@ -52,7 +52,7 @@ public class UserModifyCtrl extends HttpServlet {
 		vo.setPhone(phone);
 		vo.setEmail(email);
 		
-		int insertResult = new ParkingService().userModify(vo);
+		int insertResult = new UserService().userModify(vo);
 		
 		if(insertResult>0) {  
 			out.println("<script>alert('회원정보 수정 완료!');</script>");

@@ -6,14 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import common.JDBCTemplate;
-import threego.model.vo.Parking;
 import threego.model.vo.User;
-
-public class ParkingDao {
-
+public class UserDAO {
 	private void close() {
 		try {
 			if (rs != null) {
@@ -21,6 +17,7 @@ public class ParkingDao {
 			}
 			if (pstmt != null) {
 				pstmt.close();
+				
 			}
 
 		} catch (SQLException e) {
@@ -30,7 +27,8 @@ public class ParkingDao {
 	private PreparedStatement pstmt = null;
 	private Statement stmt = null;
 	private ResultSet rs = null;
-
+	
+	
 	// SelectAll 회원 전부 조회
 	public ArrayList<User> selectAll(Connection conn) {
 		ArrayList<User> list = null;
@@ -249,111 +247,7 @@ public class ParkingDao {
 		return resultVo;
 	}
 	
-	public List<Parking> getParkingAll(Connection conn) {
-		List<Parking> list = null;
-		String sql = "select * from board order by bref desc, bre_step asc";
-		pstmt = null;
-		rs = null;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				list = new ArrayList<Parking>();
-				do {
-					Parking vo = new Parking();
-
-					vo.setAddr(rs.getString("addr"));
-					vo.setAddrates(rs.getInt("addrates"));
-					vo.setAddtimerate(rs.getInt("addtimerate"));
-					vo.setCapacity(rs.getInt("capacity"));
-					vo.setCode(rs.getInt("code"));
-					vo.setDaymaximum(rs.getInt("daymaximum"));
-					vo.setFulltimemonthly(rs.getString("fulltimemonthly"));
-					vo.setHolidaybegintime(rs.getString("columnIndex"));
-					vo.setHolidayendtime(rs.getString("holidayendtime"));
-					vo.setHolidaypaynm(rs.getString("holidaypaynm"));
-					vo.setLat(rs.getFloat("lat"));
-					vo.setLng(rs.getFloat("lng"));
-					vo.setName(rs.getString("name"));
-					vo.setNightfreeopen(rs.getString("nightfreeopen").charAt(0));
-					vo.setNightfreeopennm(rs.getString("nightfreeopennm"));
-					vo.setOperrule(rs.getString("operrule").charAt(0));
-					vo.setOperrulenm(rs.getString("operrulenm"));
-					vo.setPaynm(rs.getString("paynm"));
-					vo.setPayyn(rs.getString("payyn").charAt(0));
-					vo.setRates(rs.getInt("rates"));
-					vo.setSaturdaypaynm(rs.getString("saturdaypaynm"));
-					vo.setSaturdaypayyn(rs.getString("saturdaypayyn").charAt(0));
-					vo.setSynctime(rs.getString("synctime"));
-					vo.setTel(rs.getString("tel"));
-					vo.setTimerate(rs.getInt("timerate"));
-					vo.setType(rs.getString("type"));
-					vo.setTypenm(rs.getString("typenm"));
-					vo.setWeekdaybegintime(rs.getString("weekdaybegintime"));
-					vo.setWeekdayendtime(rs.getString("weekdayendtime"));
-					vo.setWeekendbegintime(rs.getString("weekendbegintime"));
-					list.add(vo);
-				} while (rs.next());
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		return list;
-	}
-
-	public Parking getParkingRead(Connection conn, Parking inputVo) {
-		Parking vo = null;
-		String sql = "select * from parking where name = ?";
-		pstmt = null;
-		rs = null;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, inputVo.getName());
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				vo = new Parking();
-				vo.setAddr(rs.getString("addr"));
-				vo.setAddrates(rs.getInt("addrates"));
-				vo.setAddtimerate(rs.getInt("addtimerate"));
-				vo.setCapacity(rs.getInt("capacity"));
-				vo.setCode(rs.getInt("code"));
-				vo.setDaymaximum(rs.getInt("daymaximum"));
-				vo.setFulltimemonthly(rs.getString("fulltimemonthly"));
-				vo.setHolidaybegintime(rs.getString("columnIndex"));
-				vo.setHolidayendtime(rs.getString("holidayendtime"));
-				vo.setHolidaypaynm(rs.getString("holidaypaynm"));
-				vo.setLat(rs.getFloat("lat"));
-				vo.setLng(rs.getFloat("lng"));
-				vo.setName(rs.getString("name"));
-				vo.setNightfreeopen(rs.getString("nightfreeopen").charAt(0));
-				vo.setNightfreeopennm(rs.getString("nightfreeopennm"));
-				vo.setOperrule(rs.getString("operrule").charAt(0));
-				vo.setOperrulenm(rs.getString("operrulenm"));
-				vo.setPaynm(rs.getString("paynm"));
-				vo.setPayyn(rs.getString("payyn").charAt(0));
-				vo.setRates(rs.getInt("rates"));
-				vo.setSaturdaypaynm(rs.getString("saturdaypaynm"));
-				vo.setSaturdaypayyn(rs.getString("saturdaypayyn").charAt(0));
-				vo.setSynctime(rs.getString("synctime"));
-				vo.setTel(rs.getString("tel"));
-				vo.setTimerate(rs.getInt("timerate"));
-				vo.setType(rs.getString("type"));
-				vo.setTypenm(rs.getString("typenm"));
-				vo.setWeekdaybegintime(rs.getString("weekdaybegintime"));
-				vo.setWeekdayendtime(rs.getString("weekdayendtime"));
-				vo.setWeekendbegintime(rs.getString("weekendbegintime"));
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		return vo;
-	}
-
+	//마이페이지 수정
 	public int userModify(Connection conn, User vo) {
 		int result = 0;
 		int max = 1;
@@ -384,5 +278,4 @@ public class ParkingDao {
 
 		return result;
 	}
-
 }

@@ -49,7 +49,7 @@
 	
 	
 	<br>
-	<a href="${pageContext.request.contextPath }/board/boardwrite.jsp">글쓰기</a>
+	<a href="${pageContext.request.contextPath }/board/boardwrite">글쓰기</a>
 	<br>
 	<c:if test="${not empty search}">
 		<input type="button" value="전체글목록" onclick="window.location='<%=request.getContextPath()%>/boardlist.do';">

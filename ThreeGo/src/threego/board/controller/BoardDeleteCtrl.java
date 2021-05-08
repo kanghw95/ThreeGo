@@ -1,4 +1,4 @@
-package threego.controller;
+package threego.board.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;

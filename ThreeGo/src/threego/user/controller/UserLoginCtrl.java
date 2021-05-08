@@ -1,4 +1,4 @@
-package threego.controller;
+package threego.user.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import threego.model.service.ParkingService;
+import threego.model.service.UserService;
 import threego.model.vo.User;
 
 /**
@@ -44,7 +44,7 @@ public class UserLoginCtrl extends HttpServlet {
 		vo.setUser_pwd(passwd);
 		
 		User resultVo = new User();
-		resultVo = new ParkingService().login(vo);
+		resultVo = new UserService().login(vo);
 		System.out.println(resultVo);
 		if (resultVo == null) {
 			System.out.println("아이디 없음");

@@ -1,45 +1,49 @@
 package threego.model.vo;
 
 public class Parking {
-	private int code;
-	private String name;
+	private int parking_code;
+	private String parking_name;
 	private String addr;
-	private String type;
-	private String typenm;
-	private char operrule;
-	private String operrulenm;
+	private String parking_type;
+	private String parking_type_nm;
+	private char operation_rule;
+	private String operation_rule_nm;
 	private String tel;
 	private int capacity;
-	private char payyn;
-	private String paynm;
-	private char nightfreeopen;
-	private String nightfreeopennm;
-	private String weekdaybegintime;
-	private String weekdayendtime;
-	private String weekendbegintime;
-	private String holidaybegintime;
-	private String holidayendtime;
-	private String synctime;
-	private char saturdaypayyn;
-	private String saturdaypaynm;
-	private char holidaypayyn;
-	private String holidaypaynm;
-	private String fulltimemonthly;
+	private char pay_yn;
+	private String pay_nm;
+	private char night_free_open;
+	private String night_free_open_nm;
+	private String weekday_begin_time;
+	private String weekday_end_time;
+	private String weekend_begin_time;
+	private String holiday_begin_time;
+	private String holiday_end_time;
+	private String sync_time;
+	private char saturday_pay_yn;
+	private String saturday_pay_nm;
+	private char holiday_pay_yn;
+	private String holiday_pay_nm;
+	private String fulltime_monthly;
 	private int rates;
-	private int timerate;
-	private int addrates;
-	private int addtimerate;
-	private int daymaximum;
+	private int time_rate;
+	private int add_rates;
+	private int add_time_rate;
+	private int day_maximum;
 	private float lat;
 	private float lng;
-	public Number getCode() {
-		return code;
+	public Parking() {}
+	public int getParking_code() {
+		return parking_code;
 	}
-	public String getName() {
-		return name;
+	public void setParking_code(int parking_code) {
+		this.parking_code = parking_code;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public String getParking_name() {
+		return parking_name;
+	}
+	public void setParking_name(String parking_name) {
+		this.parking_name = parking_name;
 	}
 	public String getAddr() {
 		return addr;
@@ -47,29 +51,29 @@ public class Parking {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	public String getType() {
-		return type;
+	public String getParking_type() {
+		return parking_type;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setParking_type(String parking_type) {
+		this.parking_type = parking_type;
 	}
-	public String getTypenm() {
-		return typenm;
+	public String getParking_type_nm() {
+		return parking_type_nm;
 	}
-	public void setTypenm(String typenm) {
-		this.typenm = typenm;
+	public void setParking_type_nm(String parking_type_nm) {
+		this.parking_type_nm = parking_type_nm;
 	}
-	public char getOperrule() {
-		return operrule;
+	public char getOperation_rule() {
+		return operation_rule;
 	}
-	public void setOperrule(char operrule) {
-		this.operrule = operrule;
+	public void setOperation_rule(char operation_rule) {
+		this.operation_rule = operation_rule;
 	}
-	public String getOperrulenm() {
-		return operrulenm;
+	public String getOperation_rule_nm() {
+		return operation_rule_nm;
 	}
-	public void setOperrulenm(String operrulenm) {
-		this.operrulenm = operrulenm;
+	public void setOperation_rule_nm(String operation_rule_nm) {
+		this.operation_rule_nm = operation_rule_nm;
 	}
 	public String getTel() {
 		return tel;
@@ -83,95 +87,95 @@ public class Parking {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-	public char getPayyn() {
-		return payyn;
+	public char getPay_yn() {
+		return pay_yn;
 	}
-	public void setPayyn(char payyn) {
-		this.payyn = payyn;
+	public void setPay_yn(char pay_yn) {
+		this.pay_yn = pay_yn;
 	}
-	public String getPaynm() {
-		return paynm;
+	public String getPay_nm() {
+		return pay_nm;
 	}
-	public void setPaynm(String paynm) {
-		this.paynm = paynm;
+	public void setPay_nm(String pay_nm) {
+		this.pay_nm = pay_nm;
 	}
-	public char getNightfreeopen() {
-		return nightfreeopen;
+	public char getNight_free_open() {
+		return night_free_open;
 	}
-	public void setNightfreeopen(char nightfreeopen) {
-		this.nightfreeopen = nightfreeopen;
+	public void setNight_free_open(char night_free_open) {
+		this.night_free_open = night_free_open;
 	}
-	public String getNightfreeopennm() {
-		return nightfreeopennm;
+	public String getNight_free_open_nm() {
+		return night_free_open_nm;
 	}
-	public void setNightfreeopennm(String nightfreeopennm) {
-		this.nightfreeopennm = nightfreeopennm;
+	public void setNight_free_open_nm(String night_free_open_nm) {
+		this.night_free_open_nm = night_free_open_nm;
 	}
-	public String getWeekdaybegintime() {
-		return weekdaybegintime;
+	public String getWeekday_begin_time() {
+		return weekday_begin_time;
 	}
-	public void setWeekdaybegintime(String weekdaybegintime) {
-		this.weekdaybegintime = weekdaybegintime;
+	public void setWeekday_begin_time(String weekday_begin_time) {
+		this.weekday_begin_time = weekday_begin_time;
 	}
-	public String getWeekdayendtime() {
-		return weekdayendtime;
+	public String getWeekday_end_time() {
+		return weekday_end_time;
 	}
-	public void setWeekdayendtime(String weekdayendtime) {
-		this.weekdayendtime = weekdayendtime;
+	public void setWeekday_end_time(String weekday_end_time) {
+		this.weekday_end_time = weekday_end_time;
 	}
-	public String getWeekendbegintime() {
-		return weekendbegintime;
+	public String getWeekend_begin_time() {
+		return weekend_begin_time;
 	}
-	public void setWeekendbegintime(String weekendbegintime) {
-		this.weekendbegintime = weekendbegintime;
+	public void setWeekend_begin_time(String weekend_begin_time) {
+		this.weekend_begin_time = weekend_begin_time;
 	}
-	public String getHolidaybegintime() {
-		return holidaybegintime;
+	public String getHoliday_begin_time() {
+		return holiday_begin_time;
 	}
-	public void setHolidaybegintime(String holidaybegintime) {
-		this.holidaybegintime = holidaybegintime;
+	public void setHoliday_begin_time(String holiday_begin_time) {
+		this.holiday_begin_time = holiday_begin_time;
 	}
-	public String getHolidayendtime() {
-		return holidayendtime;
+	public String getHoliday_end_time() {
+		return holiday_end_time;
 	}
-	public void setHolidayendtime(String holidayendtime) {
-		this.holidayendtime = holidayendtime;
+	public void setHoliday_end_time(String holiday_end_time) {
+		this.holiday_end_time = holiday_end_time;
 	}
-	public String getSynctime() {
-		return synctime;
+	public String getSync_time() {
+		return sync_time;
 	}
-	public void setSynctime(String synctime) {
-		this.synctime = synctime;
+	public void setSync_time(String sync_time) {
+		this.sync_time = sync_time;
 	}
-	public char getSaturdaypayyn() {
-		return saturdaypayyn;
+	public char getSaturday_pay_yn() {
+		return saturday_pay_yn;
 	}
-	public void setSaturdaypayyn(char saturdaypayyn) {
-		this.saturdaypayyn = saturdaypayyn;
+	public void setSaturday_pay_yn(char saturday_pay_yn) {
+		this.saturday_pay_yn = saturday_pay_yn;
 	}
-	public String getSaturdaypaynm() {
-		return saturdaypaynm;
+	public String getSaturday_pay_nm() {
+		return saturday_pay_nm;
 	}
-	public void setSaturdaypaynm(String saturdaypaynm) {
-		this.saturdaypaynm = saturdaypaynm;
+	public void setSaturday_pay_nm(String saturday_pay_nm) {
+		this.saturday_pay_nm = saturday_pay_nm;
 	}
-	public char getHolidaypayyn() {
-		return holidaypayyn;
+	public char getHoliday_pay_yn() {
+		return holiday_pay_yn;
 	}
-	public void setHolidaypayyn(char holidaypayyn) {
-		this.holidaypayyn = holidaypayyn;
+	public void setHoliday_pay_yn(char holiday_pay_yn) {
+		this.holiday_pay_yn = holiday_pay_yn;
 	}
-	public String getHolidaypaynm() {
-		return holidaypaynm;
+	public String getHoliday_pay_nm() {
+		return holiday_pay_nm;
 	}
-	public void setHolidaypaynm(String holidaypaynm) {
-		this.holidaypaynm = holidaypaynm;
+	public void setHoliday_pay_nm(String holiday_pay_nm) {
+		this.holiday_pay_nm = holiday_pay_nm;
 	}
-	public String getFulltimemonthly() {
-		return fulltimemonthly;
+	public String getFulltime_monthly() {
+		return fulltime_monthly;
 	}
-	public void setFulltimemonthly(String fulltimemonthly) {
-		this.fulltimemonthly = fulltimemonthly;
+	public void setFulltime_monthly(String fulltime_monthly) {
+		this.fulltime_monthly = fulltime_monthly;
 	}
 	public int getRates() {
 		return rates;
@@ -179,29 +183,29 @@ public class Parking {
 	public void setRates(int rates) {
 		this.rates = rates;
 	}
-	public int getTimerate() {
-		return timerate;
+	public int getTime_rate() {
+		return time_rate;
 	}
-	public void setTimerate(int timerate) {
-		this.timerate = timerate;
+	public void setTime_rate(int time_rate) {
+		this.time_rate = time_rate;
 	}
-	public int getAddrates() {
-		return addrates;
+	public int getAdd_rates() {
+		return add_rates;
 	}
-	public void setAddrates(int addrates) {
-		this.addrates = addrates;
+	public void setAdd_rates(int add_rates) {
+		this.add_rates = add_rates;
 	}
-	public int getAddtimerate() {
-		return addtimerate;
+	public int getAdd_time_rate() {
+		return add_time_rate;
 	}
-	public void setAddtimerate(int addtimerate) {
-		this.addtimerate = addtimerate;
+	public void setAdd_time_rate(int add_time_rate) {
+		this.add_time_rate = add_time_rate;
 	}
-	public int getDaymaximum() {
-		return daymaximum;
+	public int getDay_maximum() {
+		return day_maximum;
 	}
-	public void setDaymaximum(int daymaximum) {
-		this.daymaximum = daymaximum;
+	public void setDay_maximum(int day_maximum) {
+		this.day_maximum = day_maximum;
 	}
 	public float getLat() {
 		return lat;
@@ -215,9 +219,7 @@ public class Parking {
 	public void setLng(float lng) {
 		this.lng = lng;
 	}
-	public void setCode(int code) {
-		this.code = code;
-	}
+	
 	
 	
 }

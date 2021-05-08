@@ -7,8 +7,8 @@ import java.util.List;
 
 import common.JDBCTemplate;
 import threego.model.dao.BoardDAO;
-import threego.model.vo.Board;
 import threego.model.vo.Board_Attach;
+import threego.model.vo.Board;
 
 public class BoardService {
 
@@ -66,9 +66,9 @@ public class BoardService {
 	}
 	
 	
-	public int boardWriteF(  Board_Attach inputF) {
+	public int boardWriteF(  Board_Attach ao) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = new BoardDAO().boardWriteF(conn, inputF);	
+		int result = new BoardDAO().boardWriteF(conn, ao );	
 		JDBCTemplate.close(conn);
 		return result;
 		

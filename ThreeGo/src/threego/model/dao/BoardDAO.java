@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import threego.model.vo.Board;
 import threego.model.vo.Board_Attach;
+import threego.model.vo.Board;
 
 public class BoardDAO {
 	private Statement stmt = null;
@@ -50,6 +50,8 @@ public class BoardDAO {
 		return -1; // 데이터베이스 오류
 	}
 
+	
+	
 	public int getNextF(Connection conn) {
 		// 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
 		String sql = "select file_no from board_attach order by file_no desc";
@@ -68,6 +70,7 @@ public class BoardDAO {
 		return -1; // 데이터베이스 오류
 	}
 
+	
 	public int boardWrite(Connection conn, Board vo) {
 		pstmt = null;
 		int result = 0;
@@ -77,13 +80,13 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, vo.getBd_content_no());
-			System.out.println(vo.getBd_content_no());// 0
+			System.out.println("게시글 번호"+vo.getBd_content_no());
 
 //			pstmt.setInt(2, vo.getUser_no());
-			pstmt.setInt(2, vo.getUser_no());
+			pstmt.setInt(2, 2);
 
 			pstmt.setString(3, vo.getBd_writer());
-			System.out.println(vo.getBd_writer());// null
+			System.out.println(vo.getBd_writer());// 
 
 			pstmt.setString(4, vo.getBd_subject());
 			pstmt.setString(5, vo.getBd_content());
@@ -321,39 +324,58 @@ public class BoardDAO {
 	}
 
 	// writefile
-	public int boardWriteF( Connection conn,Board_Attach inputF) {
+	public int boardWriteF( Connection conn,Board_Attach ao) {  
 		int result = 0;
-		String sql = "insert  into board_attach values(? , ? , ? , ? , ? , ?)";
 		pstmt = null; rs = null;
+		String sql = "insert  into board_attach values(? , ? , ? , ? , ? , ?)";
+		String sqlB = "select bd_content_no from board order by bd_content_no  desc";   //bd_content_no 부모키 값 가져오기
 		try {
-			pstmt = conn.prepareStatement(sql);
-//				pstmt.setInt(1, getNextF(conn) );  
-//				pstmt.setInt(2, inputF.getBd_content_no());  
-//				pstmt.setInt(3, );  //fullname
-//				pstmt.setInt(4, );  //fullsize
-//				pstmt.setInt(5, );  //확장자
-//				pstmt.setInt(6, );  //path
-		result = pstmt.executeUpdate();
-		if(rs.next()) {
-//			ao = new Board_Attach();
-//			ao.setBd_content_no(rs.getInt("bd_content_no"));
-//			System.out.println("여기까지는 정상?");
-//			ao.setContents_type(rs.getString("contents_type"));
-//			System.out.println(rs.getString("contents_type"));
-//			
-//			ao.setFile_no(rs.getInt("file_no"));
-//			ao.setFile_size(rs.getInt("file_size"));
-//			ao.setFullname(rs.getString("fullname"));
+			System.out.println("첨부 dao 진입성공");
 			
-		}
-	}catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close();
-		}		
-		return result;
+				pstmt= conn.prepareStatement(sqlB);
+				System.out.println("rs오류 찾기");
+				rs= pstmt.executeQuery();
+				System.out.println(rs);
+				if (rs.next()) 
+				{
+					ao.setBd_content_no(rs.getInt("bd_content_no"));
+					close();
+				}
+					
+			
+			pstmt = conn.prepareStatement(sql);
+			System.out.println(getNextF(conn));
+				pstmt.setInt(1, getNextF(conn) );  
+				System.out.println(ao.getBd_content_no());
+				
+				pstmt.setInt(2, ao.getBd_content_no());  
+				System.out.println(ao.getFullname());
+				
+				pstmt.setString(3, ao.getFullname());  
+				System.out.println(ao.getFile_size());
+				
+				pstmt.setLong(4,ao.getFile_size() );  
+				System.out.println(ao.getContents_type());
+				
+				pstmt.setString(5, ao.getContents_type());  //확장자
+				System.out.println(ao.getFilepath());
+				
+				pstmt.setString(6, ao.getFilepath());  //path
+		result = pstmt.executeUpdate();
+		System.out.println("첨부파일 업로드 성공");
+		if (result < 0) {
+			System.out.println("업로드 실패");
 
+		} else {
+
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close();
 	}
+	return result;
+}
 
 	// readfile
 	public Board_Attach boardReadF(Connection conn, Board_Attach inputF) {
@@ -368,7 +390,6 @@ public class BoardDAO {
 			if (rs.next()) {
 				ao = new Board_Attach();
 				ao.setBd_content_no(rs.getInt("bd_content_no"));
-				System.out.println("여기까지는 정상?");
 				ao.setContents_type(rs.getString("contents_type"));
 				ao.setFile_no(rs.getInt("file_no"));
 				ao.setFile_size(rs.getInt("file_size"));

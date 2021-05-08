@@ -1,6 +1,9 @@
-package threego.controller;
+package threego.user.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,19 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import threego.model.service.ParkingService;
-
+import threego.model.service.UserService;
+import threego.model.vo.User;
 
 /**
- * Servlet implementation class ParkingListCtrl
+ * Servlet implementation class UserNickCheckCtrl
  */
-@WebServlet("/parkinglist.do")
-public class ParkingListCtrl extends HttpServlet {
+@WebServlet("/nickcheck")
+public class UserNickCheckCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ParkingListCtrl() {
+    public UserNickCheckCtrl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,26 +33,29 @@ public class ParkingListCtrl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		execute(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		execute(request, response);
-	}
-	private void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		final int pageSize = 5;
+		String nickname  = request.getParameter("nickname");
+		String id  = request.getParameter("id");
+		ArrayList<User> searchnickname = new UserService().id_nickCheck("nickname", nickname);
+		System.out.println(nickname);
+		System.out.println(id);
+		System.out.println(searchnickname);
 		
-		ParkingService sv = new ParkingService();
-		
-		int cnt = 0;
-		
-		String search= request.getParameter("search");
-		if(search != null && !search.equals("")) {
+		PrintWriter out = response.getWriter();
+
+		if(searchnickname.isEmpty() != true) {
+			out.println("중복입니다. 다른닉네임를 입력해주세요!");
 		}else {
-			search = null;
+			out.print("사용가능한 닉네임입니다.");
 		}
-		}
+	
+		out.flush();
+		out.close();
+	}
+
 }

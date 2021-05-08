@@ -1,4 +1,4 @@
-package threego.controller;
+package threego.user.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import threego.model.service.ParkingService;
+import threego.model.service.UserService;
 import threego.model.vo.User;
 
 /**
@@ -61,7 +61,7 @@ public class UserEmailCtrl extends HttpServlet {
 		}
 		
 		
-		ArrayList<User> searchemail = new ParkingService().selectSearch("email", email);
+		ArrayList<User> searchemail = new UserService().selectSearch("email", email);
 		if(Integer.parseInt(idfind) == 0 || Integer.parseInt(pwfind) == 0) {
 			
 		}
