@@ -14,7 +14,7 @@
 		<form action="<%=request.getContextPath()%>/userinsert" method="post" name="loginform">
 			<label>아이디 : <input type="text" id="id" name="id" ></label>
 			<input type="button" id="btnid" name="btnid" value="아이디 중복확인"><br><br>
-			<label>비밀번호 : <input type="password" id="paswwd" name="paswwd"></label><br><br>
+			<label>비밀번호 : <input type="password" id="paswwd" name="paswwd" onblur="passcheck();"></label><br><br>
 			<label>비밀번호 확인 : <input type="password" id="paswwdcheck" name="paswwdcheck" onblur="passcheck();"></label>
 			&nbsp;<input type="text" style="border-width: 0px; font-weight: bold" id="chk" name="chk" value="비밀번호를 입력하세요" readonly="readonly"><br><br>
 			<label>이름 : <input type="text" id="name" name="name"></label><br><br>
@@ -30,7 +30,7 @@
 	    		 </select>
      	- <input type="text" id="ph2" name="ph2" size="5" maxlength="4"> - <input type="text"  id="ph3" name="ph3" size="5" maxlength="4"><br><br>
 			이메일 : <input type="text" size="15" id="email1" name="email1">&nbsp;@&nbsp;<input type="text" size="15" id="email2" name="email2">
-			<input type="button" id="btnemail" name="btnemail" value="이메일 인증하기" onclick="emailCheck();"><br><br>
+			<input type="button" id="btnemail" name="btnemail" value="이메일 인증하기"><br><br>
 			<label>인증번호 : <input type="text" id="emailnum" name="emailnum"></label>
 			<input type="button" id="btnemailcheck" name="btnemailcheck" value="인증번호 확인"><br><br>
 			<label>남 : <input type="radio" name="gender" value='M' checked="checked"></label>
@@ -113,12 +113,37 @@ $(function() {
 $(function() {
 	$("#btnemail").click(function() {
 		var email1 = $("#email1").val();
-		var email2 = $("#email2").val();		
+		var email2 = $("#email2").val();
+		var idfind = 0;
+		var pwfind = 0;
+		
 		var url = "<%=request.getContextPath()%>/emailctrl";
+		//이메일 정규표현식 검사
+		var regx = /^[a-zA-Z0-9]*$/;
+		var regx2 = /^[a-zA-Z0-9.]*$/;
+		if (email1.length == 0 || email1 == null) {
+			alert("이메일을 입력해주세요");
+			return;
+		}
+		if (!regx.test(email1)) {
+			alert("이메일앞자리는 영어, 숫자만 입력가능합니다.");
+			document.getElementById("email1").focus();
+			return;
+		}
+		if (email2.length == 0 || email2 == null) {
+			alert("이메일 뒷자리를 입력해주세요");
+			return;
+		}
+		if (!regx2.test(email2)) {
+			alert("이메일 뒷자리는 영어, 숫자만 입력가능합니다.");
+			document.getElementById("email2").focus();
+			return;
+		}
+		
 		$.ajax({
 			type : "post",
 			url : url,
-			data :  { email1 : email1, email2 : email2},
+			data :  { email1 : email1, email2 : email2, idfind : idfind, pwfind : pwfind},
 			success : function(check) {
 					alert(check);
 					
@@ -234,28 +259,6 @@ $(function() {
 			}
 			if (!num_regx.test(ph2) || !num_regx.test(ph3)) {
 				alert("휴대폰번호는 숫자만 입력가능합니다");
-				return false;
-			}
-			//이메일
-			var email1 = document.getElementById("email1").value;
-			var email2 = document.getElementById("email2").value;
-			var regx2 = /^[a-zA-Z0-9.]*$/;
-			if (email1.length == 0 || email1 == null) {
-				alert("이메일을 입력해주세요");
-				return false;
-			}
-			if (!regx.test(email1)) {
-				alert("이메일앞자리는 영어, 숫자만 입력가능합니다.");
-				document.getElementById("email1").focus();
-				return false;
-			}
-			if (email2.length == 0 || email2 == null) {
-				alert("이메일 뒷자리를 입력해주세요");
-				return false;
-			}
-			if (!regx2.test(email2)) {
-				alert("이메일 뒷자리는 영어, 숫자만 입력가능합니다.");
-				document.getElementById("email2").focus();
 				return false;
 			}
 			

@@ -15,7 +15,7 @@
 		<form action="<%=request.getContextPath()%>/usermodify" method="post" name="modform">
 			<input type="hidden" id=id name="id" value="<%=user.getUser_id()%>">
 			<input type="hidden" id="pw" name="pw" value="<%=user.getUser_pwd()%>">
-			<label>비밀번호 : <input type="password" id="paswwd" name="paswwd"></label><br><br>
+			<label>비밀번호 : <input type="password" id="paswwd" name="paswwd" onblur="passcheck();"></label><br><br>
 			<label>비밀번호 확인 : <input type="password" id="paswwdcheck" name="paswwdcheck" onblur="passcheck();"></label>
 			&nbsp;<input type="text" style="border-width: 0px; font-weight: bold" id="chk" name="chk" value="비밀번호를 입력하세요" readonly="readonly"><br><br>
 			<label>이름 : <input type="text" id="name" name="name" value="<%=user.getUser_name()%>" readonly="readonly"></label><br><br>
@@ -74,11 +74,14 @@ $(function() {
 	$("#btnemail").click(function() {
 		var email1 = $("#email1").val();
 		var email2 = $("#email2").val();
+		var idfind = 0;
+		var pwfind = 0;
+		var modcheck = "1";
 		var url = "<%=request.getContextPath()%>/emailctrl";
 		$.ajax({
 			type : "post",
 			url : url,
-			data :  { email1 : email1, email2 : email2},
+			data :  { email1 : email1, email2 : email2, idfind : idfind, pwfind : pwfind, modcheck : modcheck },
 			success : function(check) {
 					alert(check);
 					

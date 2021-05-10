@@ -45,6 +45,7 @@
 		</table>
 		<hr>
 		<input type="button" value="수정" onclick="location.href ='<%=request.getContextPath() %>/main/modify'">
+		<input type="button" value="회원탈퇴" onclick="location.href ='<%=request.getContextPath() %>/main/drawal'">
 		<input type="button" value="메인페이지"  onclick="location.href ='<%=request.getContextPath() %>/main'">
 		</div>
 <%

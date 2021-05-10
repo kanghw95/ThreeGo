@@ -37,6 +37,7 @@
 			alert("입력된 아이디가 없습니다.")
 			return;
 		}
+
 		frm.action = "<%=request.getContextPath() %>/userlogin";
 		frm.method = "post";
 		frm.submit();

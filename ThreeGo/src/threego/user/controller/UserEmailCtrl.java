@@ -42,28 +42,104 @@ public class UserEmailCtrl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String email1 = request.getParameter("email1");
-		String email2 = request.getParameter("email2");
+		
+		int idcheck = 0;
+		int pwcheck = 0;
+		
+		String email = null;
+		String id = null;
+		String pw = null;
+		String name = request.getParameter("name");
 		String idfind = request.getParameter("idfind");
 		String pwfind = request.getParameter("pwfind");
+		String drawemail = request.getParameter("email"); 
+		String modemil = request.getParameter("modcheck"); 
 		
-		int idcheck = Integer.parseInt(idfind);
-		
-		String email = email1 + "@" + email2;
-
 		PrintWriter out = response.getWriter();
-		
-		if (email1.equals("") || email2.equals("")) {
-			out.println("이메일을 입력해주세요!");
-			out.flush();
-			out.close();
+		if (drawemail == null) {
+			String email1 = request.getParameter("email1");
+			String email2 = request.getParameter("email2");
+			email = email1 + "@" + email2;
+		} else {
+			email = drawemail;
+			id = request.getParameter("id");
+			pw = request.getParameter("pass");
 		}
 		
-		
 		ArrayList<User> searchemail = new UserService().selectSearch("email", email);
-		if(Integer.parseInt(idfind) == 0 || Integer.parseInt(pwfind) == 0) {
+		System.out.println(searchemail);
+		System.out.println(email);
+
+		if (!idfind.equals("0") || !pwfind.equals("0")) {
+			idcheck = Integer.parseInt(idfind);
+			pwcheck = Integer.parseInt(pwfind);
 			
+			id = request.getParameter("id");
+
+			ArrayList<User> searchname = new UserService().selectSearch("user_name", name);
+			ArrayList<User> searchid = new UserService().selectSearch("user_id", id);
+
+			if (searchemail.isEmpty() == true) {
+				out.println("이메일이 정확하지 않습니다.");
+				out.flush();
+				out.close();
+				return;
+			} else if (searchname.isEmpty() == true) {
+				out.println("이름이 정확하지 않습니다.");
+				out.flush();
+				out.close();
+				return;
+			}
+			if (idcheck == 1) {
+				ArrayList<User> searchid_check = new UserService().selectUser("user_name", "email", name, email);
+
+				if (searchid_check.isEmpty() == true) {
+					out.println("이름,이메일이 맞는지 확인해주세요");
+					out.flush();
+					out.close();
+					return;
+				}
+			}
+
+			if (pwcheck == 1) {
+				if (searchid.isEmpty() == true) {
+					out.println("아이디가 정확하지 않습니다.");
+					out.flush();
+					out.close();
+					return;
+				}
+				ArrayList<User> searchpw_check = new UserService().selectUser("user_id", "email","name", id, email, name);
+
+				if (searchpw_check.isEmpty() == true) {
+					out.println("아이디,이메일,이름이 맞는지 확인해주세요");
+					out.flush();
+					out.close();
+					return;
+				}
+			}
+
+			if (idcheck == 1 || pwcheck == 1) {
+				searchemail.clear();
+			}
+
+		}
+		
+		if(drawemail != null) {
+
+			
+			ArrayList<User> userdrawl = new UserService().selectUser("user_id", "user_pwd","email", id, pw, email);
+			
+			if (userdrawl.isEmpty() == true) {
+				out.println("비밀번호가 맞지 않습니다.");
+				out.flush();
+				out.close();
+				return;
+			}
+			searchemail.clear();
+		}
+		
+		if(modemil != null) {
+			searchemail.clear();
 		}
 
 		if (searchemail.isEmpty() == true) {
