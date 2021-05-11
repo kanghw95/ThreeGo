@@ -85,10 +85,10 @@ public class ParkingDAO {
 		
 	}
 	
-	public List<Parking> getParkingAll(Connection conn) {
-		List<Parking> list = null;
-		String sql = "select * from PK_LOT order by pay_yn desc, parking_code asc";
+	public ArrayList<Parking> getParkingAll(Connection conn) {
+		ArrayList<Parking> list = null;
 		pstmt = null; rs = null;
+		String sql = "select * from PK_LOT";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -126,12 +126,14 @@ public class ParkingDAO {
 					vo.setWeekday_begin_time(rs.getString("weekday_begin_time"));
 					vo.setWeekday_end_time(rs.getString("weekday_end_time"));
 					vo.setWeekend_begin_time(rs.getString("weekend_begin_time"));
+					list.add(vo);
 				}while(rs.next());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close();
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
 		}
 		return list;
 	}

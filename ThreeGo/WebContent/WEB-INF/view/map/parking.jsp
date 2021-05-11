@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -169,9 +169,9 @@
 <body>
 
 	<div id="search">
-		<form action="<%=request.getContextPath()%>/ParkingSelectedRead.do"
+		<form action="<%=request.getContextPath()%>/ParkingSelectedRead"
 			method="get">
-			<input type="search" name="search" value="${searchpklot}">
+			<input type="search" name="search" value="${search}">
 			<button type="submit">검색</button>
 		</form>
 		<c:if test="${empty list}">
@@ -182,7 +182,7 @@
 				<div>
 					<h3>
 						<a
-							href="<%=request.getContextPath() %>/parkingRead.do?parking_name=${v.parking_name }">${v.parking_name }</a>
+							href="<%=request.getContextPath() %>/parkingRead?parking_name=${v.parking_name }">${v.parking_name }</a>
 					</h3>
 					<h5>${v.addr }</h5>
 					<h3>평점란</h3>
@@ -192,6 +192,7 @@
 		</c:if>
 
 	</div>
+	
 
 	<div id="container">
 		<div id="rvWrapper">
@@ -290,6 +291,8 @@
 					toggleRoadview(position);
 				});
 
+		
+		// 주차장 제목 클릭 시 지도 이동 이벤트
 		//지도에 클릭 이벤트를 등록합니다
 		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 			
@@ -406,9 +409,14 @@
 
 		// 커피숍 마커가 표시될 좌표 배열입니다
 		var coffeePositions = [
-				new kakao.maps.LatLng(37.58024201, 127.0100353),
-				new kakao.maps.LatLng(37.57464656, 126.9677885)
-
+			<c:forEach items="${list }" var="v" varStatus="s">
+			new kakao.maps.LatLng(${v.lat}, ${v.lng})
+			<c:if test="${fn:length(list) > 1 && fn:length(list) > (s.count)}">
+			,
+			</c:if>
+			</c:forEach>
+			/* new kakao.maps.LatLng(37.58024201,127.0100353),
+			new kakao.maps.LatLng(37.57464656,126.9677885) */
 		];
 
 		// 주차장 마커가 표시될 좌표 배열입니다
@@ -433,28 +441,13 @@
 
 		// 편의점 마커가 표시될 좌표 배열입니다
 		var storePositions = [
-
-		//무료
-		new kakao.maps.LatLng(37.58024201, 127.0100353),
-				new kakao.maps.LatLng(37.57464656, 126.9677885),
-
-				//유료
-				new kakao.maps.LatLng(37.57449014, 126.9741859),
-				new kakao.maps.LatLng(37.57107424, 126.9731594),
-				new kakao.maps.LatLng(37.57449014, 126.9741859),
-				new kakao.maps.LatLng(37.57107424, 126.9950416),
-				new kakao.maps.LatLng(37.56983402, 126.9815059),
-				new kakao.maps.LatLng(37.56914518, 126.9950416),
-				new kakao.maps.LatLng(37.56955668, 126.9833738),
-				new kakao.maps.LatLng(37.57231272, 126.9846183),
-				new kakao.maps.LatLng(37.57158787, 126.9729356),
-				new kakao.maps.LatLng(37.57806188, 126.9893414),
-				new kakao.maps.LatLng(37.57067078, 127.0177646),
-				new kakao.maps.LatLng(37.57540383, 126.9786815),
-				new kakao.maps.LatLng(37.57185042, 126.9844954),
-				new kakao.maps.LatLng(37.56829903, 126.9880723),
-				new kakao.maps.LatLng(37.56947712, 126.9923344),
-				new kakao.maps.LatLng(37.58411794, 126.9698478) ];
+			<c:forEach items="${list }" var="v" varStatus="s">
+				new kakao.maps.LatLng(${v.lat}, ${v.lng})
+				<c:if test="${fn:length(list) > 1 && fn:length(list) > (s.count) }">
+				,
+				</c:if>
+			</c:forEach>
+			 ];
 		var markerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png'; // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
 		coffeeMarkers = [], // 커피숍 마커 객체를 가지고 있을 배열입니다
 		storeMarkers = [], // 편의점 마커 객체를 가지고 있을 배열입니다
@@ -464,7 +457,7 @@
 		createStoreMarkers(); // 편의점 마커를 생성하고 편의점 마커 배열에 추가합니다
 		createCarparkMarkers(); // 주차장 마커를 생성하고 주차장 마커 배열에 추가합니다
 
-		changeMarker('carpark'); // 지도에 커피숍 마커가 보이도록 설정합니다    
+		changeMarker('store'); // 지도에 커피숍 마커가 보이도록 설정합니다    
 
 		// 마커이미지의 주소와, 크기, 옵션으로 마커 이미지를 생성하여 리턴하는 함수입니다
 		function createMarkerImage(src, size, options) {
@@ -478,17 +471,11 @@
 				position : position,
 				image : image
 			});
-			var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-		    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
-		    var infowindow = new kakao.maps.InfoWindow({
-		        content : iwContent,
-		        removable : iwRemoveable
-		    });
+		    
 		    kakao.maps.event.addListener(marker, 'click', function() {
-		        // 마커 위에 인포윈도우를 표시합니다
-		        infowindow.open(map, marker);  
-		 	 });
+						
+		    });
 			return marker;
 			
 		}
@@ -620,6 +607,9 @@
 			}
 			
 		}
+		
 	</script>
+	<hr>
+	${fn:length(list) }
 </body>
 </html>

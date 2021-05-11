@@ -14,9 +14,10 @@ import threego.model.vo.User;
 
 public class ParkingService {
 	//전체 주차장 조회
-		public List<Parking> getParkingAll(){
-			Connection conn = JDBCTemplate.getConnection();
-			List<Parking> list = null;///new ParkingDao().getParkingAll(conn);
+		public ArrayList<Parking> getParkingAll(){
+			Connection conn = null;
+			conn = getConnection();
+			ArrayList<Parking> list = new ParkingDAO().getParkingAll(conn);///new ParkingDao().getParkingAll(conn);
 			JDBCTemplate.close(conn);
 			return list;
 		}

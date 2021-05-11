@@ -16,7 +16,7 @@ import threego.model.vo.User;
 /**
  * Servlet implementation class ParkingSelectedReadCtrl
  */
-@WebServlet("/ParkingSelectedRead.do")
+@WebServlet("/ParkingSelectedRead")
 public class ParkingSelectedReadCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
