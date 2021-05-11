@@ -50,7 +50,7 @@ System.out.println("이동완료");
 		
 		int cnt = 0;   // 
 		/********** �˻� *************/
-		String search = request.getParameter("searchpklot");
+		String search = request.getParameter("search");
 		if(search != null && !search.equals("")) {
 		} else {
 			search = null;
