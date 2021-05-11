@@ -1,62 +1,65 @@
 package threego.admin;
 
 public class Admin {
-	private int yh_no;
-	private String yh_name;
-	private String yh_id;
-	private String yh_passwd;
-	
+	private int admin_number;
+	private String admin_name;
+	private String admin_id;
+	private String admin_pwd;
 	
 	public Admin() {}
 
+	
 
-	public Admin(int yh_no, String yh_name, String yh_id, String yh_passwd) {
+	public Admin(int admin_number, String admin_name, String admin_id, String admin_pwd) {
 		super();
-		this.yh_no = yh_no;
-		this.yh_name = yh_name;
-		this.yh_id = yh_id;
-		this.yh_passwd = yh_passwd;
+		this.admin_number = admin_number;
+		this.admin_name = admin_name;
+		this.admin_id = admin_id;
+		this.admin_pwd = admin_pwd;
 	}
 
 
-	public int getYh_no() {
-		return yh_no;
+
+	public int getAdmin_number() {
+		return admin_number;
 	}
 
 
-	public void setYh_no(int yh_no) {
-		this.yh_no = yh_no;
+	public void setAdmin_number(int admin_number) {
+		this.admin_number = admin_number;
 	}
 
 
-	public String getYh_name() {
-		return yh_name;
+	public String getAdmin_name() {
+		return admin_name;
 	}
 
 
-	public void setYh_name(String yh_name) {
-		this.yh_name = yh_name;
+	public void setAdmin_name(String admin_name) {
+		this.admin_name = admin_name;
 	}
 
 
-	public String getYh_id() {
-		return yh_id;
+	public String getAdmin_id() {
+		return admin_id;
 	}
 
 
-	public void setYh_id(String yh_id) {
-		this.yh_id = yh_id;
+	public void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
 	}
 
 
-	public String getYh_passwd() {
-		return yh_passwd;
+	public String getAdmin_pwd() {
+		return admin_pwd;
 	}
 
 
-	public void setYh_passwd(String yh_passwd) {
-		this.yh_passwd = yh_passwd;
-	};
+	public void setAdmin_pwd(String admin_pwd) {
+		this.admin_pwd = admin_pwd;
+	}
+
+
 	
 	
 	

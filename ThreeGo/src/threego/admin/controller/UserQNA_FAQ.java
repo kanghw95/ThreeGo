@@ -110,17 +110,25 @@ public class UserQNA_FAQ extends HttpServlet {
 		List<QNA_USER> list2 = null;
 		/***닉네임 뽑아옴***/
 		list2 = sv.getQnaInf();
-		request.setAttribute("list2", list2);
+//		request.setAttribute("list2", list2);
+		request.getSession().setAttribute("list2", list2);
 		/***faq 목록***/
 		List<FAQ> list3 = null;
 		list3 = sv.getFAQByPage();
 		request.setAttribute("list3", list3);
+		
 //		List<User> list = new AdminService().list();
-		if (list != null) {
+		String user = request.getParameter("user");
+		if(user !=null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("/WEB-INF/view/admin/admin_qna.jsp").forward(request, response);
-		} else {
-			request.getRequestDispatcher("/WEB-INF/view/admin/admin_qna.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/view/user/user_qna.jsp").forward(request, response);
+		}else {
+			if (list != null) {
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("/WEB-INF/view/admin/admin_qna.jsp").forward(request, response);
+			} else {
+				request.getRequestDispatcher("/WEB-INF/view/admin/admin_qna.jsp").forward(request, response);
+			}
 		}
 	}
 

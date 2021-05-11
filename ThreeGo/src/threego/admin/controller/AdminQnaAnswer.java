@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import threego.admin.AdminService;
 import threego.admin.QNA;
 import threego.admin.QNA_USER;
+import threego.model.vo.User;
 
 /**
  * Servlet implementation class AdminQnaRead
@@ -43,14 +44,16 @@ public class AdminQnaAnswer extends HttpServlet {
 	}
 	protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String qna_no = request.getParameter("no");
-		System.out.println(qna_no);
+
 		String qna_subject = request.getParameter("sub");
 		String qna_content = request.getParameter("con");
 		String a_content = request.getParameter("a_con");
 		String nickname = request.getParameter("nickname");
 		String admin_number = request.getParameter("a_num");
+		String qna_kind = request.getParameter("kind");
 		String notify = request.getParameter("notify");
-		
+		String user = request.getParameter("user");
+		System.out.println(a_content);
 		if(qna_no !=null) {
 			request.setAttribute("qna_no", Integer.parseInt(qna_no));
 		}
@@ -59,6 +62,7 @@ public class AdminQnaAnswer extends HttpServlet {
 		request.setAttribute("qna_content", qna_content);
 		request.setAttribute("a_content", a_content);
 		request.setAttribute("nickname", nickname);
+		request.setAttribute("qna_kind", qna_kind);
 		if(admin_number != null) {
 		request.setAttribute("admin_number", Integer.parseInt(admin_number));
 		}
@@ -66,12 +70,12 @@ public class AdminQnaAnswer extends HttpServlet {
 		List<QNA_USER> list2 = null;
 		list2 = sv.getQnaInf();
 		request.setAttribute("list2", list2);		
-
 		
-//		response.sendRedirect("admin/adminqnaanswer");
-//		request.getRequestDispatcher("/admin/adminqnaanswer").forward(request, response);
-		request.getRequestDispatcher("WEB-INF/view/admin/admin_qna_answer.jsp").forward(request, response);
-		
+		if(user!=null) {
+			request.getRequestDispatcher("WEB-INF/view/user/user_qna_answer.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("WEB-INF/view/admin/admin_qna_answer.jsp").forward(request, response);
+		}
 		
 	
 	}

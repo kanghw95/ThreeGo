@@ -8,10 +8,11 @@ public class QNA {
 	private String qna_pwd;
 	private int qna_open;
 	private String a_content;
+	private String qna_kind;
 
 	public QNA() {}
 	
-	public QNA(int qna_no, int user_no, String qna_subject, String qna_content, String qna_pwd, int qna_open, String a_content) {
+	public QNA(int qna_no, int user_no, String qna_subject, String qna_content, String qna_pwd, int qna_open, String a_content, String qna_kind) {
 		super();
 		this.qna_no = qna_no;
 		this.user_no = user_no;
@@ -20,10 +21,19 @@ public class QNA {
 		this.qna_pwd = qna_pwd;
 		this.qna_open = qna_open;
 		this.a_content = a_content;
+		this.qna_kind = qna_kind;
 	}
 	
 	
 
+
+	public String getQna_kind() {
+		return qna_kind;
+	}
+
+	public void setQna_kind(String qna_kind) {
+		this.qna_kind = qna_kind;
+	}
 
 	public String getA_content() {
 		return a_content;

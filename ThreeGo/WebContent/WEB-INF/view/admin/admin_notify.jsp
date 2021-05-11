@@ -16,7 +16,10 @@
 		<p>게시글이 없습니다.</p>
 	</c:if>
 	<c:if test="${not empty list }">
-	
+		<form action="<%=request.getContextPath() %>/adminnotify" method="get">
+			<input type="search" name="search" value="${search}">
+			<button type="submit">검색</button>
+		</form>
 		<table border ="1">
 			<tr>
 				<th>No</th>
@@ -33,7 +36,7 @@
 						<input type="hidden" value="${i.faq_subject }" name="sub">
 						<input type="hidden" value="${i.faq_content }" name="con">
 						<input type="hidden" value="${i.admin_number }" name="a_num">
-					</td>i
+					</td>
 				</form>
 								
 			</tr>
@@ -60,7 +63,7 @@
 	<input type="button" value="메인화면" onclick="location.href='<%=request.getContextPath()%>/admin/adminmain';">
 	
 	<c:if test="${not empty search}">
-		<input type="button" value="전체글목록" onclick="window.location='<%=request.getContextPath()%>/userqna';">
+		<input type="button" value="전체글목록" onclick="window.location='<%=request.getContextPath()%>/adminnotify';">
 	</c:if>
 </body>
 </html>

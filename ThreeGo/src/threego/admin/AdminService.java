@@ -32,6 +32,12 @@ public class AdminService {
 		JDBCTemplate.close(conn);
 		return result;		
 	}
+	public List<User> selectUser( int no) {
+		Connection conn = JDBCTemplate.getConnection();
+		List<User> list = new AdminDAO().selectUser(conn,no);
+		JDBCTemplate.close(conn);
+		return list;
+	}
 	public List<QNA> getQNAByPage(int start, int end, String search) {
 		Connection conn = JDBCTemplate.getConnection();
 		List<QNA> list = new AdminDAO().getQNAByPage(conn,start,end,search);
@@ -91,6 +97,24 @@ public class AdminService {
 		int result = new AdminDAO().getNotifyCount(conn, search);
 		JDBCTemplate.close(conn);
 		return result;		
+	}
+	public int QNAInsert( QNA vo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new AdminDAO().QNAInsert(conn, vo);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public int QNAUpdate( QNA vo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new AdminDAO().QNAUpdate(conn, vo);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public Admin adminlogin( Admin vo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Admin result = new AdminDAO().adminlogin(conn, vo);
+		JDBCTemplate.close(conn);
+		return result;
 	}
 	
 }

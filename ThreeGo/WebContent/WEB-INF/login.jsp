@@ -25,6 +25,8 @@
 		<p>마지막 접속 시간 : <span><%=user.getLast_login()%></span></p><br>
 		<input type="button" id="btnmypage" value="마이페이지" onclick="location.href='<%=request.getContextPath()%>/main/user/usermypage'">
 		<input type="button" id="btnLogout" value="로그아웃" onclick="location.href='<%=request.getContextPath()%>/userlogout'">
+		<input type="button" id="btnNotify" value="공지사항" onclick="location.href='<%=request.getContextPath()%>/adminnotify'">
+		<input type="button" id="btnQna" value="문의사항" onclick="location.href='<%=request.getContextPath()%>/userqna?user=user'">
 	</div>
 <%
 		}

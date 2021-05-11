@@ -163,6 +163,54 @@ public class AdminDAO {
 		}	
 		return result;
 	}
+	
+	//회원 정보 보기
+	public List<User> selectUser(Connection conn, int no) {
+		List<User> list = new ArrayList<User>();
+
+		String sql = "select * from USER_TB where user_no="+no;
+
+		pstmt = null;
+		rs = null;
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs != null) { // 결과가 1개이상 있다면
+				if (rs.next()) {
+					list = new ArrayList<User>();
+					do {
+						User vo = new User();
+						vo.setUser_no(Integer.parseInt(rs.getString("user_no")));
+						vo.setUser_id(rs.getString("user_id"));
+						vo.setUser_pwd(rs.getString("user_pwd"));
+						vo.setUser_name(rs.getString("user_name"));
+						vo.setNickname(rs.getString("nickname"));
+						vo.setAddress(rs.getString("address"));
+						vo.setLast_login(rs.getString("last_login"));
+						vo.setPhone(rs.getString("phone"));
+						vo.setEmail(rs.getString("email"));
+						vo.setGender(rs.getString("gender").charAt(0));
+						vo.setBirth(rs.getString("birth"));
+						vo.setUser_authority(Integer.parseInt(rs.getString("user_authority")));
+						list.add(vo);
+					} while (rs.next());
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+	
+	
+	
+	
+	
 	//게시판 보여주기.**게시판 목록 왼성되면 그거 사용**
 	public List<User> getBoardByPage(Connection conn, int start, int end, String search) {
 		List<User> list = null;
@@ -246,7 +294,7 @@ public class AdminDAO {
 					vo.setQna_pwd(rs.getString("qna_pwd"));
 					vo.setQna_open(rs.getInt("qna_open"));
 					vo.setA_content(rs.getString("a_content"));
-					
+					vo.setQna_kind(rs.getString("qna_kind"));
 					list.add(vo);
 				}while(rs.next());
 			}
@@ -494,4 +542,100 @@ public class AdminDAO {
 		}		
 		return cnt;
 	}
+	//FAQ,공지사항 글쓰기
+	public int QNAInsert(Connection conn, QNA vo) {
+		int result = 0;
+		int max = 0;
+		String sqlMaxno = "";
+			sqlMaxno = "select nvl(max(qna_no), 0)+1 from qna ";
+	
+		String sql = "insert into qna values(?,?,?,?,?,?,?,?) ";
+		pstmt = null; rs=null;
+		try {
+			pstmt = conn.prepareStatement(sqlMaxno);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				max = rs.getInt(1);
+			}
+			close();
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, max );
+			pstmt.setInt(2, vo.getUser_no());
+			pstmt.setString(3, vo.getQna_subject());
+			pstmt.setString(4, vo.getQna_content());
+			pstmt.setString(5, vo.getQna_pwd());
+			System.out.println("pwd:"+vo.getQna_pwd());
+			int open=0;
+			if(!vo.getQna_pwd().equals("")) {
+				open=1;
+			}
+			pstmt.setInt(6, open);
+			pstmt.setString(7, null);
+			pstmt.setString(8, vo.getQna_kind());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+			
+		return result;
+	}
+	//FAQ,공지사항 답변 수정하기
+		public int QNAUpdate(Connection conn, QNA vo) {
+			int result = 0;
+			String sql ="update qna set qna_subject=?, qna_content=?, qna_kind=? where qna_no=?";
+			pstmt = null;
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, vo.getQna_subject());
+				pstmt.setString(2, vo.getQna_subject());
+				pstmt.setString(3, vo.getQna_kind());
+				pstmt.setInt(4, vo.getQna_no());
+				
+				result=pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return result;
+		}
+		//관리자 정보
+		public Admin adminlogin(Connection conn, Admin vo) {
+
+			pstmt = null;
+			rs = null;
+			Admin resultVo = null;
+
+			String sql = "select * from admin_tb where admin_id = ?";
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, vo.getAdmin_id());
+			
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					resultVo = new Admin();
+					resultVo.setAdmin_id(rs.getString("admin_id"));
+					resultVo.setAdmin_name(rs.getString("admin_name"));
+					resultVo.setAdmin_number(rs.getInt("admin_number"));
+					resultVo.setAdmin_pwd(rs.getString("admin_pwd"));
+					
+					
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close();
+			}
+			
+
+			return resultVo;
+		}
 }

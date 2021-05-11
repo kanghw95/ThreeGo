@@ -13,6 +13,7 @@ import threego.admin.AdminService;
 import threego.admin.FAQ;
 import threego.admin.QNA;
 import threego.admin.QNA_USER;
+import threego.model.vo.User;
 
 /**
  * Servlet implementation class AdminNotifyCtrl
@@ -117,11 +118,13 @@ public class AdminNotifyCtrl extends HttpServlet {
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("search", search);
+		User user = (User) request.getSession().getAttribute("user");
+		System.out.println("user:"+user);
 //		List<User> list = new AdminService().list();
-		if (list != null) {
-			request.setAttribute("list", list);
-			request.getRequestDispatcher("/WEB-INF/view/admin/admin_notify.jsp").forward(request, response);
-		} else {
+		request.setAttribute("list", list);
+		if(user!=null) {
+			request.getRequestDispatcher("/WEB-INF/view/user/user_notify.jsp").forward(request, response);
+		}else{
 			request.getRequestDispatcher("/WEB-INF/view/admin/admin_notify.jsp").forward(request, response);
 		}
 	}

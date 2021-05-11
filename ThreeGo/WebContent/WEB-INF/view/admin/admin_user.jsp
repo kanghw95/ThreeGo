@@ -44,6 +44,11 @@
  #close{
      cursor: pointer;
  }
+.inf{
+display : none;
+border-color : red;
+border-collapse : collapse;
+}
 
 </style>
 <script > 
@@ -73,6 +78,21 @@
         })
 
         
+	}
+	function inf(no){
+		var close = document.getElementById("infclose"+no);
+		close.style.cursor="pointer";
+		var infclass = document.getElementsByClassName("a"+no);
+		close.onclick = function(){
+			for(var i=0; i<infclass.length; i++){
+				infclass[i].style.display = "none";
+			}
+        }
+		for(var i=0; i<infclass.length; i++){
+			if(infclass[i].style.display ="none"){
+				infclass[i].style.display ="table-row"
+			}
+		}
 	}
 		
 	
@@ -112,20 +132,64 @@
 	</form>
 		<table border ="1">
 			<tr>
-			<td>no</td>
-			<td>닉네임</td>
-			<td>일시정지</td>
+				<th>&nbsp;회원  번호&nbsp;</th>
+				<th>닉네임</th>
+				<th>일시정지</th>
 			</tr>
 		 	<c:forEach items="${list }" var="i">
 			<tr>
 				<td>${i.user_no }</td>
-				<td><a href="#">${i.nickname }</a></td>
-				
-				<td><input type="button" name="${i.user_no }" value="일시정지" id="${i.user_no }" onclick="stopmodal('${i.nickname }',${i.user_no });"></td>
+				<td><a href="#" onclick="inf('${i.user_no }');">${i.nickname }</a></td>
+				<td><input type="button" name="${i.user_no }" value="일시정지" onclick="stopmodal('${i.nickname }',${i.user_no });"></td>
 			</tr>
-			<tr style="display:none">
 			
+			<tr class="inf a${i.user_no }" id="infclose${i.user_no }" >
+				<td colspan="3" style="text-align: center;">닫기</td>
 			</tr>
+			<tr class="inf a${i.user_no }"  >
+				<th>id</th>
+				<td colspan="2">${i.user_id }</td>
+			</tr>
+			<tr class="inf a${i.user_no }" >
+				<th>pwd</th>
+				<td colspan="2">${i.user_pwd }</td>
+			</tr>
+			<tr  class="inf a${i.user_no }">
+				<th>이름</th>
+				<td colspan="2">${i.user_name }</td>
+			</tr>
+			<tr  class="inf a${i.user_no }">
+				<th>주소</th>
+				<td colspan="2">${i.address }</td>
+			</tr>
+			<tr  class="inf a${i.user_no }">
+				<th>로그인시간</th>
+				<td colspan="2">${i.last_login }</td>
+			</tr>
+			<tr  class="inf a${i.user_no }">
+				<th>전화번호</th>
+				<td colspan="2">${i.phone }</td>
+			</tr>
+			<tr  class="inf a${i.user_no }">
+				<th>이메일</th>
+				<td colspan="2">${i.email }</td>
+			</tr>
+			<tr  class="inf a${i.user_no }">
+				<th>성별</th>
+				<td colspan="2">${i.gender }</td>
+			</tr>
+			<tr  class="inf a${i.user_no }">
+				<th>생년월일</th>
+				<td colspan="2">${i.birth }</td>
+			</tr>
+			<tr  class="inf a${i.user_no }">
+				<th>회원자격</th>
+				<td colspan="2">${i.user_authority }</td>
+			</tr>
+			<tr class="inf a${i.user_no }" id="infchat${i.user_no }" >
+				<td colspan="3" style="text-align: center;">${i.nickname }님이랑 채팅하러가기</td>
+			</tr>
+			
 			</c:forEach>
 		</table>
 	</c:if>

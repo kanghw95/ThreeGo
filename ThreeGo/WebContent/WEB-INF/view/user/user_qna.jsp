@@ -1,40 +1,38 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="threego.model.vo.User"%>
+<%
+	User user = (User) session.getAttribute("user");
+	%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-</head>
 <script>
-	function qnacheck(no,sub,con,answer){
-		console.log(no,sub,con,answer);
-		var sql = "no="+no+"&sub="+sub+"&con="+con+"&answer="+answer;
-		$.ajax({
-			type : "post"
-			,url : "<%=request.getContextPath() %>"
-			,data : sql
-			
-		});
-	};
-
+	function passch(pwd,open){
+		if(open==0){
+			return true;
+		}else{	
+			var a =prompt("qna를 등록 했을시 설정한 비밀번호를 입력하세요")
+			if(pwd==a){
+				return true;
+				
+			}else{
+				alert('비밀번호가 일치하지 않습니다.');
+				return false;
+			}
+		}
+	}
+	function bback(){
+		history.back();
+	}
 </script>
-    <style>
-        .btnc{
-            background-color: white;
-            border : 0;
-            outline: 0;
-            cursor: pointer;
-        }
-            .btnc:hover{
-            color: purple;
-        }
-    </style>
+</head>
 <body>
-
-
 <input type="hidden" name ="list" value="${list }">
 <h1>문의사항</h1>
 <hr>
@@ -43,10 +41,6 @@
 		<button type="submit">검색</button>
 	</form>
 <h2>자주묻는질문</h2>
-	<c:if test="${ empty list }">
-		<p>게시글이 없습니다.</p>
-	</c:if>
-	<c:if test="${not empty list }">
 	
 		<table border ="1">
 			<tr>
@@ -63,31 +57,24 @@
 						<input type="hidden" value="${i.faq_no }" name="no">
 						<input type="hidden" value="${i.faq_subject }" name="sub">
 						<input type="hidden" value="${i.faq_content }" name="con">
-						<input type="hidden" value="${i.admin_number }" name="a_num">
+						<input type="hidden" value="user" name="user">
 					</td>
 					</form>
 				</tr>
 			</c:forEach>
 		</table>
-		<form method="post" action="<%=request.getContextPath()%>/adminqnaanswer">
-			<input type="submit" value="글쓰기">
-			<input type="hidden" value="5" name="a_num">			
-		</form>
-</c:if>
 
 <h2>QNA</h2>
 	<c:if test="${ empty list }">
 		<p>게시글이 없습니다.</p>
 	</c:if>
 	<c:if test="${not empty list }">
-	
 		<table border ="1">
 			<tr>
 				<th>No</th>
 				<th>닉네임</th>
 				<th>제목</th>
-				<th>답변하기</th>
-
+				
 			</tr>
 		 	<c:forEach items="${list }" var="i" >
 			<tr>
@@ -97,14 +84,15 @@
 					<td>${j.nickname }</td>
 				</c:if>
 				</c:forEach>
-				<form method="post" action="<%=request.getContextPath()%>/adminqnaanswer">
+				<form id="frm"  method="post" action="<%=request.getContextPath()%>/adminqnaanswer">
 					<td>
-						<input type="submit" class="btnc" value="${i.qna_subject }">
+						<input type="submit" class="btnc" value="${i.qna_subject }" name="test" onclick="return passch('${i.qna_pwd}','${i.qna_open }')">
 						<input type="hidden" value="${i.qna_no }" name="no">
 						<input type="hidden" value="${i.qna_subject }" name="sub">
 						<input type="hidden" value="${i.qna_content }" name="con">
 						<input type="hidden" value="${i.a_content }" name="a_con">
 						<input type="hidden" value="${i.qna_kind }" name="kind">
+						<input type="hidden" value="user" name="user">
 						<c:forEach items="${list2 }" var="j">
 							<c:if test="${i.qna_no == j.qna_no }">
 								<input type="hidden" value="${j.nickname }" name="nickname">
@@ -112,26 +100,6 @@
 						</c:forEach>
 					</td>
 				</form>
-				<c:forEach items="${list2 }" var="j">
-					<c:if test="${i.qna_no == j.qna_no && j.a_content !=null}">
-						<td>답변완료<td>
-					</c:if>
-					
-					<c:if test="${i.qna_no == j.qna_no && j.a_content ==null}">
-						<form method="post" action="<%=request.getContextPath()%>/adminqnaanswer">
-							<td><input type="submit" value="답변하기" >
-								<input type="hidden" value="${i.qna_no }" name="no">
-								<input type="hidden" value="${i.qna_subject }" name="sub">
-								<input type="hidden" value="${i.qna_content }" name="con">
-								<c:forEach items="${list2 }" var="j">
-									<c:if test="${i.qna_no == j.qna_no }">
-										<input type="hidden" value="${j.nickname }" name="nickname">
-									</c:if>
-								</c:forEach>								
-							</td>
-						</form>
-					</c:if>
-				</c:forEach>
 			</tr>
 			</c:forEach>
 		</table>
@@ -148,7 +116,9 @@
 	</c:if>
 	
 	<br>
-	<input type="button" value="메인화면" onclick="location.href='<%=request.getContextPath()%>/admin/adminmain';">
+	<input type="button" value="글쓰기" onclick="location.href='<%=request.getContextPath()%>/user/userqnainsert';">
+	<input type="hidden" name="no" value="<%=user.getUser_no()%>">
+	<input type="button" value="메인화면" onclick="location.href='<%=request.getContextPath()%>/main';">
 	<c:if test="${not empty search}">
 		<input type="button" value="전체글목록" onclick="window.location='<%=request.getContextPath()%>/userqna';">
 	</c:if>

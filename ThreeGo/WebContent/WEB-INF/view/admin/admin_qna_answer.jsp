@@ -28,7 +28,7 @@
 		</tr>
 
 		<tr>
-			<td>제목</td>
+			<td >제목</td>
 			<td><input type="text" value="${qna_subject }" name="sub"></td>
 		</tr>
 

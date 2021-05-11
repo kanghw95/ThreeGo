@@ -26,6 +26,8 @@ public class UserLogoutCtrl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.getSession().removeAttribute("admin");
 		request.getSession().removeAttribute("user");
 		request.getSession().removeAttribute("username");
 		response.sendRedirect(request.getContextPath() + "/main"); // 로그아웃 메인으로
