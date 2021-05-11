@@ -12,7 +12,7 @@
 	<h2>아이디 찾기 페이지입니다.</h2>
 	<form action="<%=request.getContextPath()%>/useridfind" method="post" name="idfind">
 		이메일 : <input type="text" size="15" id="email1" name="email1">&nbsp;@&nbsp;<input type="text" size="15" id="email2" name="email2">
-&nbsp;<input type="text" size="30" style="border-width: 0px; font-weight: bold" id="chk" name="chk" value="회원가입시 입력한 이메일을 입력하세요" readonly="readonly"><br><br>
+&nbsp;<input type="text" size="30" style="border-width: 0px; font-weight: bold" id="chk" name="chk" value="회원가입시 입력한  정보를 입력하세요" readonly="readonly"><br><br>
 		이름 : <input type="text" id="name" name="name"> <br><br>
 		<input type="button" id="btnemail" name="btnemail" value="이메일 코드 발송"><br><br>
 		<label>인증번호 : <input type="text" id="emailnum" name="emailnum"></label>

@@ -1,3 +1,4 @@
+<%@page import="threego.model.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,6 +9,7 @@
 <title>유저조회</title>
 </head>
 <body>
+<%User user = (User) session.getAttribute("user"); %>
 	<h2>유저 조회 페이지입니다.</h2>
 	<c:if test="${ empty list }">
 		<p>조회된 회원이 없습니다.</p>
@@ -27,6 +29,7 @@
 				<td><strong>성별</strong></td>
 				<td><strong>생년월일</strong></td>
 				<td><strong>회원자격</strong></td>
+				<td><strong>채팅</strong></td>
 			</tr>
 			<c:forEach items="${list}" var="i">
 				<tr>
@@ -42,6 +45,7 @@
 					<td>${i.gender }</td>
 					<td>${i.birth }</td>
 					<td>${i.user_authority }</td>
+					<td><input type="button" id="bthchat" name="btnchat" value="채팅하기" onclick="location.href='<%=request.getContextPath() %>/main/user/chat'"></td>
 				</tr>
 			</c:forEach>
 		</table>

@@ -12,7 +12,8 @@
 <body>
 	<h2>비밀번호 찾기 페이지입니다.</h2>
 	<form action="<%=request.getContextPath()%>/userpwfind" method="post" name="pwfind">
-		이메일 : <input type="text" size="15" id="email1" name="email1">&nbsp;@&nbsp;<input type="text" size="15" id="email2" name="email2"><br><br>
+		이메일 : <input type="text" size="15" id="email1" name="email1">&nbsp;@&nbsp;<input type="text" size="15" id="email2" name="email2">
+		&nbsp;<input type="text" size="30" style="border-width: 0px; font-weight: bold" id="chk" name="chk" value="회원가입시 입력한  정보를 입력하세요" readonly="readonly"><br><br>
 		이름 : <input type="text" id="name" name="name"> <br><br>
 		아이디 : <input type="text" id="id" name="id"> <br><br>
 		<input type="button" id="btnemail" name="btnemail" value="이메일 코드 발송"><br><br>

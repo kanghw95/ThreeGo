@@ -56,6 +56,7 @@ public class UserEmailCtrl extends HttpServlet {
 		String modemil = request.getParameter("modcheck"); 
 		
 		PrintWriter out = response.getWriter();
+		
 		if (drawemail == null) {
 			String email1 = request.getParameter("email1");
 			String email2 = request.getParameter("email2");
