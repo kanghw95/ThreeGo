@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import threego.model.dao.CommentDAO;
 import threego.model.service.CommentService;
@@ -53,10 +54,10 @@ public class CommentListCtrl extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("/commentlist진입");
 		
-		final int pageSize = 5; // 한페이지당 글 수
-		final int pageBlock = 3; // 화면에 나타날 페이지 링크 수 dP) 화면 하단에 1 2 3
+		final int pageSize = 100; // 한페이지당 글 수
+		final int pageBlock = 5; // 화면에 나타날 페이지 링크 수 dP) 화면 하단에 1 2 3
 
-		CommentService sv = new CommentService();
+		CommentService cs = new CommentService();
 
 		int cnt = 0; // 총 글 개수
 		/********** 검색 *************/
@@ -72,7 +73,7 @@ public class CommentListCtrl extends HttpServlet {
 		} else {
 			search = null;
 		}
-		cnt = sv.getCommentCount(search, bd_content_no);
+		cnt = cs.getCommentCount(search, bd_content_no);
 
 		int pageCnt = (cnt / pageSize) + (cnt % pageSize == 0 ? 0 : 1); // 총 페이지 개수
 
@@ -88,7 +89,7 @@ public class CommentListCtrl extends HttpServlet {
 		}
 
 		int startPage = 1; // 화면에 나타날 시작 페이지
-		int endPage = 1; // 화면에 나타날 마지막 페이지
+		int endPage = 5; // 화면에 나타날 마지막 페이지
 
 		// 문제 구간 생김. currentPage가 pageBlock 배수인 경우 오류 발생 즉, 3,6,9..
 		if (currentPage % pageBlock == 0) { // currentPage가 pageBlock 배수인 경우
@@ -106,13 +107,16 @@ public class CommentListCtrl extends HttpServlet {
 		if (endRnum > cnt)
 			endRnum = cnt;
 
+		//json형태로 실어서 ,,,
+		//var json= {list : "list" , currentPage: "currentPage"};
+		
 		List<Comment_tb> list = null;
 		/********** 검색 *************/
 		if (search != null && !search.equals("")) {
 		} else {
 			search = null;
 		}
-		list = sv.getCommentByPage(startRnum, endRnum, search, bd_content_no);
+		list = cs.getCommentByPage(startRnum, endRnum, search, bd_content_no);
 
 		request.setAttribute("pageCnt", pageCnt);
 		request.setAttribute("startPage", startPage);
@@ -123,7 +127,6 @@ public class CommentListCtrl extends HttpServlet {
 		// request.getRequestDispatcher("/board/boardreaed.jsp").forward(request,
 		// response);
 
-		CommentService cs = new CommentService();
 
 		PrintWriter out = response.getWriter();
 		CommentDAO dao = new CommentDAO();
@@ -134,10 +137,13 @@ public class CommentListCtrl extends HttpServlet {
 //		Gson jobj = new GsonBuilder().create();
 //		jsonlist = jobj.toJson(clist);
 
-		System.out.println(list);
+	//	String jsonString = "{'list' : list, 'pageCnt' : pageCnt , 'startPage' : startPage , 'endPage' : endPage , 'currentPage' : currentPage, 'search' : search}";
+	//	System.out.println(jsonString);
+		
+		
+//		System.out.println(jsonString);
 		Gson jobj = new GsonBuilder().create();
 		jsonlist = jobj.toJson(list);// page 처리 할거면.. 이거 사용
-		
 		System.out.println(jsonlist);
 		out.println(jsonlist);
 		out.flush();

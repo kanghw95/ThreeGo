@@ -18,5 +18,7 @@
 	<input type="submit" id="btnsearch" value="회원검색">
 	</form>
 	<hr>
+	<hr>
+	<input type="button" value="게시판"  onclick="location.href ='<%=request.getContextPath() %>/board/boardmain'">
 </body>
 </html>

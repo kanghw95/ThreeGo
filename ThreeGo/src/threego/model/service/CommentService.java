@@ -17,7 +17,7 @@ public class CommentService {
 		int result= new CommentDAO().CommentWrite(conn, co);
 		JDBCTemplate.close(conn);
 		return result;
-}
+	}
 	 public List<Comment_tb> getCommentAll(int bd_content_no) {
 		Connection conn = JDBCTemplate.getConnection();
 		List<Comment_tb> list = new CommentDAO().getCommentAll(conn,bd_content_no);
@@ -25,27 +25,21 @@ public class CommentService {
 		return list;
 	}
 	
-public ArrayList<Comment_tb> getCommentByPage(int start, int end, String search, int bd_content_no) {
-	Connection conn = JDBCTemplate.getConnection();
-	ArrayList<Comment_tb> list = new CommentDAO().getCommentByPage(conn, start, end, search, bd_content_no);		
-	JDBCTemplate.close(conn);
-	return list;
-}	
+	public ArrayList<Comment_tb> getCommentByPage(int start, int end, String search, int bd_content_no) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Comment_tb> list = new CommentDAO().getCommentByPage(conn, start, end, search, bd_content_no);		
+		JDBCTemplate.close(conn);
+		return list;
+	}	
 
-public Comment_tb getCommentRead(Comment_tb inputCo) {
-	Connection conn = JDBCTemplate.getConnection();
-	Comment_tb result = new CommentDAO().getCommentRead(conn, inputCo);
-	JDBCTemplate.close(conn);
-	return result;
-}
 	
-public int getCommentCount(String search, int bd_content_no) {     
-	Connection conn = JDBCTemplate.getConnection();
-    int result = new CommentDAO().getCommentCount(conn, search, bd_content_no);	
-    JDBCTemplate.close(conn);
-	return result;
-
-}
+	public int getCommentCount(String search, int bd_content_no) {     
+		Connection conn = JDBCTemplate.getConnection();
+	    int result = new CommentDAO().getCommentCount(conn, search, bd_content_no);	
+	    JDBCTemplate.close(conn);
+		return result;
+	
+	}
 
 	/**
 public Comment_tb getCommentRead( Comment_tb co ) {

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import threego.model.service.BoardService;
 import threego.model.vo.Board;
+import threego.model.vo.Board_Attach;
 import threego.model.vo.User;
 
 /**
@@ -42,27 +43,22 @@ public class BoardDeleteCtrl extends HttpServlet {
 		execute(request, response);
 	}
 	
-		private void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BoardService sv = new BoardService();
+	private void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+		int result = 0;
 		Board vo = new Board();
-		User uo = new User();
+
+		BoardService sv = new BoardService();
+		String bd_content_no = (String) request.getParameter("bd_content_no");
+		vo.setBd_content_no(Integer.parseInt(bd_content_no));
 		
-		String user_pwd = request.getParameter("user_pwd");
-		int bd_content_no = Integer.parseInt(request.getParameter("bd_content_no"));
-		vo.setBd_content_no(bd_content_no);
-		
-		vo = sv.getBoardRead(vo);
+		result = sv.getBoardDelete(vo);
 		
 		PrintWriter out = response.getWriter();
-		if(!user_pwd.contentEquals(uo.getUser_pwd())|| user_pwd.contentEquals("")) {
-			out.println("<script>alert('비밀번호를 잘못 입력하셨습니다.');</script>");
-			out.println("<script>history.back();</script>");
-		}else {
-			sv.getBoardDelete(vo);
-			request.setAttribute("vo",vo);
-			request.getRequestDispatcher("/WEB-INF/board/boardwrite.jsp").forward(request, response);
+		if (result == 1) {
+			String msg = "글 삭제 완료";
+			out.println("<script>alert('" +msg+"')</script>");
+			out.println("<script>location.href='./boardlist';</script>");
 		}
 	}
-
 }
-

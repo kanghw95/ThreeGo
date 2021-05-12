@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.io.PrintWriter"%>
+<%@page import="threego.model.vo.User"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.io.File"%>
+<%@page import="java.io.FileInputStream"%>
+<%@page import="org.apache.commons.io.IOUtils"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,45 +22,89 @@ height: 350px;
 </style>
 </head>
 <body>
+<%
+	User user = (User) session.getAttribute("user");
+		if (user == null) {
+%>
+로그인 후 이용하시길 바랍니다.
+<a href="<%=request.getContextPath() %>/main">메인화면으로</a> 
+<%
+		} else {
+%>
+
+
 <h1>글읽기 </h1>
-	<input type="button" value="신고" onclick="window.location='<%=request.getContextPath() %>"> <!-- 신고페이지 -->
-
-
-	<form action="<%=request.getContextPath()%>/WEB-INF/board/boardwrite.jsp" method="post">
+ 	<c:if test="${boardread.bd_writer!=user.getUser_id()}">
+	<input type="button" value="신고" onclick="window.location='<%=request.getContextPath()%>/boardlist';">
+	</c:if>
+	
+		<form action="<%=request.getContextPath()%>/boardupdate" method="post">
+	
 		<input type="hidden" name="bd_content_no" value="${boardread.bd_content_no}">
+		<input type="hidden" name="bd_subject" value="${boardread.bd_subject}">
+		<input type="hidden" name="bd_writer" value="${boardread.bd_writer}">
+		<input type="hidden" name="bd_content" value="${boardread.bd_content}">
+		<input type="hidden" name="fullname" value="${file.fullname}">
+		<input type="hidden" name="filepath" value="${file.filepath}">
 
-		<table border="1">
-			<tr>
-				<td><h3>제목</h3></td>
-				<td>${boardread.bd_subject}</td>
-			</tr>
-			<tr >
-				<td>작성자</td>
-				<td>${boardread.bd_writer}</td>
-			</tr>
-			<tr>
-				<td>작성날짜</td>
-				<td>${boardread.bd_date}</td>
-			</tr>
-			<tr id="textform" >
-				<td>내용</td>
-				<td>${boardread.bd_content}</td>
-			</tr>
-			<tr colspan="2">
+ <table border="1">
+         <tr>
+            <td><h3>제목</h3></td>
+            <td>${boardread.bd_subject}</td>
+         </tr>
+         <tr>
+            <td>작성자</td>
+            <td>${boardread.bd_writer}</td>
+         </tr>
+         <tr>
+            <td>작성날짜</td>
+            <td>${boardread.bd_date}</td>
+         </tr>
+
+         <tr id="textform">
+            <td>내용</td>
+            <td>${boardread.bd_content}</td>
+         </tr>
+
+         <tr>
+            <td>파일</td>
+            <td id="filetd">
+            
+         	<c:forEach var="file" items="${files }">
+            <img id="file" width="100" src="<%=request.getContextPath() %>${file.filepath }/${file.fullname}" alt="file" />
+         	</c:forEach>            
+         <br/>
+            </td>
+         </tr>
+		<c:if test="${boardread.bd_writer!=user.getUser_id()}">
+		<tr colspan="2">
 			<td>
-				<input type=button value="글수정" onclick="window.location='<%=request.getContextPath()%>/boardupdate';">
-				<input type="button" value="글삭제" onclick="window.location='<%=request.getContextPath()%>/WEB-INF/board/boarddelete.jsp';">
-			</td>
+				<input type="submit" value="글수정">
+				<input type="button" value="글삭제" onclick="test()">
+			<td>
+		</tr>
+		</c:if>
 			</tr>
 		</table>
 		</form>
-
+		  
+		<script>
+		    function test() {
+		        if (!confirm("정말 삭제하시겠습니까?")) {//니요
+		        	location.href="<%=request.getContextPath()%>/boardlist";
+		        } else {//네
+		        	location.href="<%=request.getContextPath()%>/boarddelete?bd_content_no=${boardread.bd_content_no}";
+		        }
+		    }
+		</script>
 		
-		
+	
+		<br>
+		<input type="button" value="목록으로" onclick="window.location='<%=request.getContextPath() %>/boardlist';"></td>
 		<hr>
 		<table border="1">
 			<form action="<%=request.getContextPath()%>/commentwrite" method="post" >
-			<input type="text" name="bd_content_no" value="${boardread.bd_content_no }" id="bd_content_no">
+			<input type="hidden" name="bd_content_no" value="${boardread.bd_content_no }" id="bd_content_no">
 			
 			<h2>댓글 </h2>
 				<tr colspan="2">
@@ -64,53 +115,21 @@ height: 350px;
 			</form>
 		</table>
 		
-
-		
+	
+	
+	
 	<form action="<%=request.getContextPath() %>/commentlist" method="get">
-	<!-- action="/commentlist.do" method="get" 쓰지 말고.. -->
+	<!-- action="/commentlist.do" method="get" 쓰지 말고.. 
+	-->
 	<input type="search" name="search" value="${search}" id="search">
 	<button type="button" id="btnSearch">검색</button> 
-	</form>
-	<div id="comments"></div>
-	<!--<c:if test="${not empty search}">
-		<strong>${search}</strong>에 대한 검색 결과입니다.
-	</c:if>
-	<c:if test="${empty commentList}">
-		댓글이 없습니다.
-	</c:if>
-	<c:if test="${not empty commentList}">
-		<table border="1">
-			<tr>
-				<td>작성자</td>
-				<td>${commentread.com_writer}</td>
-			</tr>
-			<tr>	
-				<td>작성일</td>
-				<td>${commentread.rv_date}</td>
-			</tr>
-			<tr>
-				<td>댓글내용</td>
-				<td>${commentread.com_contents}</td>
-			</tr>
-		</table>
-	</c:if>
-	-->
-	<br>
-	<c:if test="${startPage != 1 }">
-		<a href="<%=request.getContextPath() %>/commentlist?pageNum=${startPage-1}&search=${search}">이전</a> 
-	</c:if>
-	<c:forEach begin="${startPage}" end="${endPage}" var="s" step="1">
-		<a href="<%=request.getContextPath() %>/commentlist?pageNum=${s }&search=${search}">${s }</a> 
-	</c:forEach>
-	<c:if test="${endPage < pageCnt}">
-		<a href="<%=request.getContextPath() %>/commentlist?pageNum=${endPage+1}&search=${search}">다음</a>
-	</c:if>
-	<br>
-		<input type="button" value="메인화면" onclick="window.location='<%=request.getContextPath() %>/boardlist?search=${param.search}';"></td>
 	
-
+	</form>
+	
+	<div id="comments"></div>
 <script>
 	console.log('${boardread.bd_content_no}');
+	//console.log('${JSON.currentPage}');
 	let searchWord = "";
 	getComments();  // 로딩되면 일단 comment 일어오기
 	$("#btnSearch").click(function(){
@@ -132,9 +151,7 @@ height: 350px;
 			success:function(data){
 				console.log(data);
 				var htmltags=""
-				if($("#search").val()!=""){
-					//htmltags += "<div><strong>${search}</strong>에 대한 검색 결과입니다.</div>";
-				}
+				
 				$.each(data, function( index, e ){
 					htmltags += "<div><span>"+ e.com_no + " </span>";
 					htmltags += "<span>"+ e.bd_content_no + "</span>";
@@ -164,6 +181,24 @@ height: 350px;
 		 });
 	}
 	</script>
+	<!-- 
+	<br>
+	<c:if test="${startPage != 1 }">
+		<a href="<%=request.getContextPath() %>/commentlist?pageNum=${startPage-1}&search=${search}">이전</a> 
+	</c:if>
+	<c:forEach begin="${startPage}" end="${endPage}" var="s" step="1">
+		<a href="<%=request.getContextPath() %>/commentlist?pageNum=${s}&search=${search}">${s }</a> 
+	</c:forEach>
+	<c:if test="${endPage < pageCnt }">
+		<a href="<%=request.getContextPath() %>/boardlist?pageNum=${endPage+1}&search=${search}">다음</a>
+	</c:if>
+-->
+
+	
+<%
+}
+%>
+
 
 </body>
 </html>

@@ -8,7 +8,7 @@ public class Comment_tb {
 	private  int user_no;
 	private String  com_writer;
 	private String com_contents;
-	private Date  rv_date;
+	private String  rv_date;
 	private int com_ref;
 	private int com_re_step;
 	private int com_re_level;
@@ -55,10 +55,10 @@ public class Comment_tb {
 	public void setCom_contents(String com_contents) {
 		this.com_contents = com_contents;
 	}
-	public Date getRv_date() {
+	public String getRv_date() {
 		return rv_date;
 	}
-	public void setRv_date(Date rv_date) {
+	public void setRv_date(String rv_date) {
 		this.rv_date = rv_date;
 	}
 	public int getCom_ref() {

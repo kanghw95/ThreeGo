@@ -61,9 +61,13 @@ public class PageBoardCtrl extends HttpServlet {
 		else if(com.equals("/board/boardlist")) {
 			viewPage = "/WEB-INF/board/boardlist.jsp";
 		
-		}
+		}else if(com.equals("/board/boarddelete")){
+			viewPage = "/WEB-INF/board/boarddelete.jsp";
+			
+		}else if(com.equals("/board/boardmain")){
+			viewPage = "/WEB-INF/board/board_main.jsp";
 		
-		else{
+		}else{
 			viewPage = "/WEB-INF/index.jsp";
 		}
 		
@@ -71,3 +75,4 @@ public class PageBoardCtrl extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 }
+

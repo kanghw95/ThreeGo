@@ -36,11 +36,12 @@ public class CommentDAO {
 
 	public List<Comment_tb> getCommentAll(Connection conn, int bd_content_no) {
 		List<Comment_tb> list = null;
-		String sql = "select * from board order by com_ref desc,com_re_step asc";
+		String sql = "select * from comment_tb order by rv_date asc where bd_content_no=?";
 		pstmt = null;
 		rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bd_content_no);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				list = new ArrayList<Comment_tb>();
@@ -51,7 +52,7 @@ public class CommentDAO {
 					co.setUser_no(rs.getInt("user_no"));
 					co.setCom_writer(rs.getString("com_writer"));
 					co.setCom_contents(rs.getString("com_contents"));
-					co.setRv_date(rs.getDate("rv_date"));
+					//co.setRv_date(rs.getDate("rv_date"));
 					co.setCom_ref(rs.getInt("com_ref"));
 					co.setCom_re_level(rs.getInt("com_re_level"));
 					co.setCom_re_step(rs.getInt("com_re_step"));
@@ -188,47 +189,20 @@ public class CommentDAO {
 		return result;
 	}
 
-	public Comment_tb getCommentRead(Connection conn, Comment_tb inputCo) {
-		Comment_tb co = null;
-		String sql = "select * from comment_tb where bd_content_no = ?";
-		pstmt = null;
-		rs = null;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, inputCo.getBd_content_no());
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				co = new Comment_tb();
-				co.setCom_no(rs.getInt("com_no"));
-				co.setBd_content_no(rs.getInt("bd_content_no"));
-				co.setUser_no(rs.getInt("user_no"));
-				co.setCom_writer(rs.getString("com_writer"));
-				co.setCom_contents(rs.getString("com_contents"));
-				co.setRv_date(rs.getDate("rv_date"));
-				co.setCom_ref(rs.getInt("com_ref"));
-				co.setCom_re_level(rs.getInt("com_re_level"));
-				co.setCom_re_step(rs.getInt("com_re_step"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		return co;
-	}
 
-	public ArrayList<Comment_tb> getCommentByPage(Connection conn, int start, int end, String search,
-			int bd_content_no) {
-		ArrayList<Comment_tb> list = null;
-		String sql_1 = "( select * from Comment_tb where bd_content_no = ? ";
+	public ArrayList<Comment_tb> getCommentByPage(Connection conn, int start, int end, String search, int bd_content_no) {
+		  ArrayList<Comment_tb> list = null;
+	      String sql_1 = "( select * from Comment_tb where bd_content_no = ? ";
 
-		if (search != null) {
-			sql_1 += " and ( com_writer like '%" + search + "%' or com_contents like '%" + search + "%' ) ";
-		}
-		sql_1 += " order by com_ref desc, com_re_step asc) d ";
+	      if (search != null) {
+	         sql_1 += " and ( com_writer like '%" + search + "%' or com_contents like '%" + search + "%' ) ";
+	      }
+	      sql_1 += " order by rv_date asc ) d ";
 
-		String sql = "select * from (select rownum r, d.* from " + sql_1 + " ) where r >= ? and r <= ?";
+	      String sql = "select d2.bd_content_no, d2.com_writer, d2.com_contents, to_char(d2.rv_date,'yyyy-mm-dd hh24:mi:ss') "
+	      		+ " from (select rownum r, d.* from " + sql_1 + " ) d2 where d2.r >= ? and d2.r <= ?";
 
+		
 		close();
 		
 		try {
@@ -241,15 +215,13 @@ public class CommentDAO {
 				list = new ArrayList<Comment_tb>();
 				do {
 					Comment_tb co = new Comment_tb();
-					co.setCom_no(rs.getInt("com_no"));
+					
 					co.setBd_content_no(rs.getInt("bd_content_no"));
-					co.setUser_no(rs.getInt("user_no"));
+					
 					co.setCom_writer(rs.getString("com_writer"));
 					co.setCom_contents(rs.getString("com_contents"));
-					co.setRv_date(rs.getDate("rv_date"));
-					co.setCom_ref(rs.getInt("com_ref"));
-					co.setCom_re_level(rs.getInt("com_re_level"));
-					co.setCom_re_step(rs.getInt("com_re_step"));
+					co.setRv_date(rs.getString(4));
+					
 					list.add(co);
 				} while (rs.next());
 			}
@@ -288,44 +260,41 @@ public class CommentDAO {
 		return cnt;
 	}
 
-//	public int getCommentUpdate(Connection conn, Comment_tb co) {
-//		pstmt = null; rs=null;
-//		int result = 0;
-//		String sql = "UPDATE comment_tb SET values (? , ? , ? , ? , ? , sysdate ,? ,? ,? ,?) where BD_CONTENT_NO = ?";	
-//	
-//		try {
-//				pstmt= conn.prepareStatement(sql);
-//				pstmt.setInt(1, getNextComment(conn));
-//				pstmt.setInt(2, co.getBd_content_no());
-//				pstmt.setInt(3, co.getUser_no());
-//				pstmt.setString(4, co.getCom_writer());
-//				pstmt.setString(5, co.getCom_contents());
-//				pstmt.setDate(6 mt.executeUpdate();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}finally {
-//			close();
-//		}
-//		return result ;
-//		
-//		}
-//	
-//	public int getCommentDelete(Connection conn, Comment_tb co) {
-//		pstmt = null; rs=null;
-//		int result = 0;
-//		String sql = "DELETE FROM comment_tb WHERE BD_CONTENT_NO = ?";	
-//	
-//		try {
-//				pstmt= conn.prepareStatement(sql);
-//				pstmt.setInt(1, co.getBd_content_no());
-//				result = pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}finally {
-//			close();
-//		}
-//		return result ;
-//		
-//		}
+	public int getCommentUpdate(Connection conn, Comment_tb co) {
+		pstmt = null; rs=null;
+		int result = 0;
+		String sql = "UPDATE comment_tb SET  com_contents=?, bd_date=sysdate where BD_CONTENT_NO = ?";	
+	
+		try {
+				pstmt= conn.prepareStatement(sql);
+				pstmt.setString(1, co.getCom_contents());
+				pstmt.setInt(2, co.getBd_content_no());
+				result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return result ;
+		
+		}
+	
+	public int getCommentDelete(Connection conn, Comment_tb co) {
+		pstmt = null; rs=null;
+		int result = 0;
+		String sql = "DELETE FROM comment_tb WHERE BD_CONTENT_NO = ?";	
+	
+		try {
+				pstmt= conn.prepareStatement(sql);
+				pstmt.setInt(1, co.getBd_content_no());
+				result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return result ;
+		
+		}
 
 }
