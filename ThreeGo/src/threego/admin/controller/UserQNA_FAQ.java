@@ -14,6 +14,7 @@ import threego.admin.AdminService;
 import threego.admin.FAQ;
 import threego.admin.QNA;
 import threego.admin.QNA_USER;
+import threego.model.vo.User;
 
 /**
  * Servlet implementation class UserQNA_FAQ
@@ -118,8 +119,13 @@ public class UserQNA_FAQ extends HttpServlet {
 		list3 = sv.getFAQByPage();
 		request.setAttribute("list3", list3);
 //		List<User> list = new AdminService().list();
-		String user = request.getParameter("user");
+		User user= (User) request.getSession().getAttribute("user");
+//		String user = request.getParameter("user");
+		Admin admin = (Admin) request.getSession().getAttribute("admin");
 		if(user !=null) {
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("WEB-INF/main/user_main/userqna.jsp").forward(request, response);
+		}else if(user==null&&admin==null) {
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("WEB-INF/main/user_main/userqna.jsp").forward(request, response);
 		}else {

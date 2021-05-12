@@ -19,7 +19,9 @@
 	 z-index: 1;
 	 float : left;
 	 position: fixed;
-	 background: rgba(0, 0, 0, 0.3);
+	 background: rgba(0.5, 1, 1, 0.5);
+	 color: aquamarine;
+	 
 }
 
  .modalcontent{
@@ -42,6 +44,7 @@
  }
  #close{
      cursor: pointer;
+     color: balck;
  }
 .inf{
 display : none;

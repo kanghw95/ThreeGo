@@ -10,7 +10,7 @@
 <div class="footer">
 <br>
 <input type="button" id="btnNotify" value="공지사항" onclick="location.href='<%=request.getContextPath()%>/adminnotify'">
-<input type="button" id="btnQna" value="문의사항" onclick="location.href='<%=request.getContextPath()%>/userqna?user=user'">
+<input type="button" id="btnQna" value="문의사항" onclick="location.href='<%=request.getContextPath()%>/userqna'">
 </div>
 </body>
 </html>
