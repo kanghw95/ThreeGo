@@ -42,10 +42,10 @@ public class ParkingSelectedReadCtrl extends HttpServlet {
 			System.out.println("조회 성공");
 			System.out.println(searchlist);
 			request.setAttribute("list",searchlist);
-			request.getRequestDispatcher("WEB-INF/view/map/parking.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/main.jsp").forward(request, response);
 		} else {
 			System.out.println("조회 실패");
-			request.getRequestDispatcher("WEB-INF/view/map/parking.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/main.jsp").forward(request, response);
 		}
 	}
 

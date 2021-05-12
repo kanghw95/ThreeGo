@@ -55,6 +55,7 @@
 			<input type="button" value="회원가입" onclick="inputCheck();">
 			<input type="button" value="취소" onclick="history.back()">
 		</form>
+		<jsp:include page="../map/parking.jsp" />
 	<script>
 	var right = 0; // inputcheck 비밀번호 입력체크를 위한 변수
 	var idCheck = 0; // 아이디 중복확인 체크용

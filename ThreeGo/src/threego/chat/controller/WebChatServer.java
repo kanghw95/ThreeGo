@@ -30,6 +30,7 @@ public class WebChatServer extends HttpServlet {
 	@OnMessage
 	public void onMsg(String message, Session session) throws IOException{
 		String userName = users.get(session).getName();
+		System.out.println();
 		System.out.println(userName + " : " + message);
 		
 		synchronized (users) {

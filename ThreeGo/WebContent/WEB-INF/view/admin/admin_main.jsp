@@ -24,5 +24,6 @@ color : black;
 	<h1><a href="<%=request.getContextPath() %>/userqna">이용자문의사항관리</a></h1>
 	<h1><a href="#">채팅</a></h1>
 	<input type="button" id="btnLogout" value="로그아웃" onclick="location.href='<%=request.getContextPath()%>/userlogout'">
+	<jsp:include page="../map/parking.jsp" />
 </body>
 </html>

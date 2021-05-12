@@ -5,12 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
-<style>
+<style type="text/css">
+@charset "UTF-8";
+
+@charset "UTF-8";
 #container {
 	overflow: hidden;
 	height: 800px;
@@ -138,62 +136,72 @@
 .category .ico_carpark {
 	background-position: -10px -72px;
 }
-
-#search {
-	border: 1px solid white;
-	width: 234px;
-	height: 800px;
-	float: left;
+#img_btn {
+	width: 20px;
+	height: 20px;
 }
 
-#searchBtn {
-	width: 32px;
-	height: 32px;
-	box-sizing: border-content;
-	padding: 0;
-	float: left;
-}
 
-#searchText {
-	width: 197.99px;
-	height: 28px;
-	padding: 0;
-}
 
-#search {
+#page {
+	height: 663px;
+	position : relative;
+	width: 500px;
+	float : left;
+	clear: both;
 	text-align: center;
-	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow: hidden;
+    overflow-y: auto;
+    flex: 1;
+}
+.searchbox{
+	margin: auto;
+	width: 490px;
+	height: 46.6px;
+}
+.search{
+	width: 250px;
+	height: 46.6px;
+	
+}
+.searchbtn{
+	width: 40px;
+	height: 46.6px;
+	background: aquamarine;
+}
+.title{
+font-family: "Audiowide", sans-serif;
+}
+.mainstop{
+	text-align: center;
+	width: 490px;
+	float: left;
+	clear: both;
+	margin: auto;
+	position: relative;
+	top : 0;
+	border : 5px solid aquamarine ;
+}
+.mainmove{
+	margin: auto;
+	position: absolute;
+	left : 66.6px;
+	width: 350px;
+	display : block;
+	overflow: hidden;
 }
 </style>
+<!-- 돋보기 같은 아이콘 -->
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<!-- font -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
 <body>
-
-	<div id="search">
-		<form action="<%=request.getContextPath()%>/ParkingSelectedRead"
-			method="get">
-			<input type="search" name="search" value="${search}">
-			<button type="submit">검색</button>
-		</form>
-		<c:if test="${empty list}">
-	주차장을 검색해주세요!
-	</c:if>
-		<c:if test="${ not empty list }">
-			<c:forEach items="${list }" var="v">
-				<div>
-					<h3>
-						<a
-							href="<%=request.getContextPath() %>/parkingRead?parking_name=${v.parking_name }">${v.parking_name }</a>
-					</h3>
-					<h5>${v.addr }</h5>
-					<h3>평점란</h3>
-					<button type="submit">리뷰확인</button>
-				</div>
-			</c:forEach>
-		</c:if>
-
-	</div>
-	
-
 	<div id="container">
 		<div id="rvWrapper">
 			<div id="roadview" style="width: 100%; height: 100%;"></div>

@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class PageController
  */
 @WebServlet("/main/*") // 무조건 여기로 오게 되어있음.
-public class PageCtrl extends HttpServlet {
+public class MainPageCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PageCtrl() {
+    public MainPageCtrl() {
         super();
     }
 
@@ -60,7 +60,7 @@ public class PageCtrl extends HttpServlet {
 		}else if(com.equals("/main/modify")){
 			viewPage = "/WEB-INF/view/user/UserModPage.jsp";
 		}else if(com.equals("/main/user/usermypage")){
-			viewPage = "/WEB-INF/view/user/UserMyPage.jsp";
+			viewPage = "/WEB-INF/UserMyPage.jsp";
 		}else if(com.equals("/main/idfind")){
 			viewPage = "/WEB-INF/view/user/UserIdFind.jsp";
 		}else if(com.equals("/main/pwfind")){
@@ -71,7 +71,7 @@ public class PageCtrl extends HttpServlet {
 			viewPage = "/WEB-INF/view/chat/chatpage.jsp";
 		}
 		else{
-			viewPage = "/WEB-INF/index.jsp";
+			viewPage = "/WEB-INF/main.jsp";
 		}
 		
 		
