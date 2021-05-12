@@ -60,7 +60,7 @@ public class MainPageCtrl extends HttpServlet {
 		}else if(com.equals("/main/modify")){
 			viewPage = "/WEB-INF/view/user/UserModPage.jsp";
 		}else if(com.equals("/main/user/usermypage")){
-			viewPage = "/WEB-INF/UserMyPage.jsp";
+			 viewPage = "/WEB-INF/main/main_1/main.jsp";
 		}else if(com.equals("/main/idfind")){
 			viewPage = "/WEB-INF/view/user/UserIdFind.jsp";
 		}else if(com.equals("/main/pwfind")){
@@ -71,7 +71,7 @@ public class MainPageCtrl extends HttpServlet {
 			viewPage = "/WEB-INF/view/chat/chatpage.jsp";
 		}
 		else{
-			viewPage = "/WEB-INF/main.jsp";
+			viewPage = "/WEB-INF/main/main.jsp";
 		}
 		
 		

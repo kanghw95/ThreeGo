@@ -3,7 +3,7 @@
 <html>
 <body>
 	<div class="map">
-	<%@ include file="view/map/parking.jsp" %>
+	<%@ include file="../view/map/parking.jsp" %>
 	</div>
 </body>
 </html>
