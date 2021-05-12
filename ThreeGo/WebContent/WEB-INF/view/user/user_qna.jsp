@@ -116,9 +116,11 @@
 	</c:if>
 	
 	<br>
+	<%if(user!=null){ %>
 	<input type="button" value="글쓰기" onclick="location.href='<%=request.getContextPath()%>/user/userqnainsert';">
 	<input type="hidden" name="no" value="<%=user.getUser_no()%>">
-	<input type="button" value="메인화면" onclick="location.href='<%=request.getContextPath()%>/main';">
+	<%} %>
+	<input type="button" value="메인페이지" onclick="location.href='<%=request.getContextPath()%>/main';">
 	<c:if test="${not empty search}">
 		<input type="button" value="전체글목록" onclick="window.location='<%=request.getContextPath()%>/userqna';">
 	</c:if>

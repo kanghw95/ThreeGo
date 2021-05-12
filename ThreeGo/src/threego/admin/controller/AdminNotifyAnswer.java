@@ -44,7 +44,8 @@ public class AdminNotifyAnswer extends HttpServlet {
 		request.setAttribute("no", Integer.parseInt(no));
 		request.setAttribute("sub", sub);
 		request.setAttribute("con", con);
-		request.getRequestDispatcher("/WEB-INF/view/admin/admin_notify_con.jsp").forward(request, response);
+//		request.getRequestDispatcher("/WEB-INF/view/admin/admin_notify_con.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/main/admin_main/adminnotify_con.jsp").forward(request, response);
 	}
 
 }

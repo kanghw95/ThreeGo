@@ -56,7 +56,7 @@
 	
 	<br>
 
-	<input type="button" value="메인화면" onclick="location.href='<%=request.getContextPath()%>/admin/adminmain';">
+	<input type="button" value="메인페이지" onclick="location.href='<%=request.getContextPath()%>/main';">
 	
 	<c:if test="${not empty search}">
 		<input type="button" value="전체글목록" onclick="window.location='<%=request.getContextPath()%>/adminnotify';">

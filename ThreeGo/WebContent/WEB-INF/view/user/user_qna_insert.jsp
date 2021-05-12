@@ -51,7 +51,7 @@
             <td colspan="2"><input type="submit" value="문의하기"></td>
          </tr>
       </table>
-            <input type="button" value="메인화면"
+            <input type="button" value="메인페이지"
                onclick="window.location='<%=request.getContextPath()%>/main';">
 
    </form>

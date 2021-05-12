@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import threego.admin.Admin;
 import threego.admin.AdminService;
 import threego.admin.FAQ;
 import threego.admin.QNA;
@@ -119,13 +120,19 @@ public class AdminNotifyCtrl extends HttpServlet {
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("search", search);
 		User user = (User) request.getSession().getAttribute("user");
+		Admin admin = (Admin) request.getSession().getAttribute("admin");
 		System.out.println("user:"+user);
 //		List<User> list = new AdminService().list();
 		request.setAttribute("list", list);
 		if(user!=null) {
-			request.getRequestDispatcher("/WEB-INF/view/user/user_notify.jsp").forward(request, response);
-		}else{
-			request.getRequestDispatcher("/WEB-INF/view/admin/admin_notify.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/main/user_main/usernotify.jsp").forward(request, response);
+		}
+		else if(user==null && admin==null) {
+			request.getRequestDispatcher("WEB-INF/main/user_main/usernotify.jsp").forward(request, response);
+		}
+		else{
+//			request.getRequestDispatcher("/WEB-INF/view/admin/admin_notify.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/main/admin_main/adminnotify.jsp").forward(request, response);
 		}
 	}
 

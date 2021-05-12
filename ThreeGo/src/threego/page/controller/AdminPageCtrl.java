@@ -54,13 +54,19 @@ public class AdminPageCtrl extends HttpServlet {
 		System.out.println("com : " + com);
 		
 		if(com.equals("/admin/adminmain")) {
-			viewPage = "/WEB-INF/view/admin/admin_main.jsp";
+			viewPage = "/WEB-INF/main/admin_main/adminmain.jsp";
 		}else if(com.equals("/admin/adminboard")) {
-			viewPage = "/WEB-INF/view/admin/admin_board.jsp";
+			viewPage = "/WEB-INF/main/admin_main/adminboard.jsp";
 		}else if(com.equals("/admin/adminqna")) {
 			viewPage = "/WEB-INF/view/admin/user_qna.jsp";
 		}else if(com.equals("/admin/adminqnaanswer")) {
 			viewPage = "/WEB-INF/view/admin/admin_qna_answer.jsp";
+		}else if(com.equals("/admin/start")) {
+			viewPage = "/WEB-INF/start.jsp";
+		}else if(com.equals("/admin/park")) {
+			viewPage = "/WEB-INF/test01.jsp";
+		}else if(com.equals("/admin/adminuser")) {
+			viewPage = "/WEB-INF/main/admin_main/adminuser.jsp";
 		}
 		
 		else{

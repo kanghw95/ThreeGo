@@ -44,12 +44,12 @@ public class ParkingReadCtrl extends HttpServlet {
 		ParkingService sv =new ParkingService();
 		
 		Parking vo = new Parking();
-		List<Parking> list = null;
+		List<Parking> listpark = null;
 		if(vo!=null) {
-			list = sv.getParkingRead();
-			System.out.println(list);
-			if(list != null) {
-				request.setAttribute("parkingcontent", list);
+			listpark = sv.getParkingRead();
+			System.out.println(listpark);
+			if(listpark != null) {
+				request.setAttribute("parkingcontent", listpark);
 				request.getRequestDispatcher("WEB-INF/main/main.jsp").forward(request, response);
 			} else {
 				System.out.println("vo가 널입니다.");

@@ -32,9 +32,9 @@ public class ParkingCtrl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		ArrayList<Parking> list = new ParkingService().getParkingAll();
-		if(list != null) {
-			request.setAttribute("list", list);
+		ArrayList<Parking> listpark = new ParkingService().getParkingAll();
+		if(listpark != null) {
+			request.setAttribute("listpark", listpark);
 			request.getRequestDispatcher("WEB-INF/main/main.jsp").forward(request, response);
 		}else {
 			request.getRequestDispatcher("WEB-INF/main/main.jsp").forward(request, response);;

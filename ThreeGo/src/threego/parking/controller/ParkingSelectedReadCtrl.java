@@ -33,7 +33,7 @@ public class ParkingSelectedReadCtrl extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String search = request.getParameter("search");
+		String search = request.getParameter("searchpark");
 		System.out.println(search);
 
 		ArrayList<Parking> searchlist = new ParkingService().p_selectSearch("parking_name", search);

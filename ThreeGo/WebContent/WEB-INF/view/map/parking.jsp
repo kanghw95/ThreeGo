@@ -417,9 +417,9 @@ font-family: "Audiowide", sans-serif;
 
 		// 커피숍 마커가 표시될 좌표 배열입니다
 		var coffeePositions = [
-			<c:forEach items="${list }" var="v" varStatus="s">
+			<c:forEach items="${listpark }" var="v" varStatus="s">
 			new kakao.maps.LatLng(${v.lat}, ${v.lng})
-			<c:if test="${fn:length(list) > 1 && fn:length(list) > (s.count)}">
+			<c:if test="${fn:length(listpark) > 1 && fn:length(listpark) > (s.count)}">
 			,
 			</c:if>
 			</c:forEach>
@@ -449,9 +449,9 @@ font-family: "Audiowide", sans-serif;
 
 		// 편의점 마커가 표시될 좌표 배열입니다
 		var storePositions = [
-			<c:forEach items="${list }" var="v" varStatus="s">
+			<c:forEach items="${listpark }" var="v" varStatus="s">
 				new kakao.maps.LatLng(${v.lat}, ${v.lng})
-				<c:if test="${fn:length(list) > 1 && fn:length(list) > (s.count) }">
+				<c:if test="${fn:length(listpark) > 1 && fn:length(listpark) > (s.count) }">
 				,
 				</c:if>
 			</c:forEach>
@@ -618,6 +618,6 @@ font-family: "Audiowide", sans-serif;
 		
 	</script>
 	<hr>
-	${fn:length(list) }
+	${fn:length(listpark) }
 </body>
 </html>

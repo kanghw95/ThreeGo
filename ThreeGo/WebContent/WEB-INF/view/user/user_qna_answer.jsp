@@ -41,7 +41,7 @@
 			<td colspan="2">
 				<input type="submit" value="확인" onclick="history.back();">
 				<input type="button" value="메인페이지" readonly
-				onclick="window.location='<%=request.getContextPath()%>/admin/adminmain';">
+				onclick="window.location='<%=request.getContextPath()%>/main';">
 			</td>
 		</tr>
 	</table>
@@ -58,6 +58,7 @@
 <input type="hidden" value="${qna_no }" name="no">
 		<table border="1">
 			<tr>
+			
 				<td>번호</td>
 				<td>${qna_no }</td>
 			</tr>

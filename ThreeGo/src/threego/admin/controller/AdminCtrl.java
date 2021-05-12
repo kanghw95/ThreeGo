@@ -55,7 +55,7 @@ public class AdminCtrl extends HttpServlet {
 
 //		//총 회원의 갯수,검색
 		int cnt = 0;
-		String search = request.getParameter("search");
+		String search = request.getParameter("searchuser");
 		
 		if(search != null && !search.equals("")) {
 		} else {
@@ -117,9 +117,9 @@ public class AdminCtrl extends HttpServlet {
 //		List<User> list = new AdminService().list();
 		if (list != null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("WEB-INF/view/admin/admin_user.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/main/admin_main/adminuser.jsp").forward(request, response);
 		} else {
-			request.getRequestDispatcher("WEB-INF/view/admin/admin_user.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/main/admin_main/adminuser.jsp").forward(request, response);
 		}
 	}
 

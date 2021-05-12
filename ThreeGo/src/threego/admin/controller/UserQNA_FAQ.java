@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import threego.admin.Admin;
 import threego.admin.AdminService;
 import threego.admin.FAQ;
 import threego.admin.QNA;
@@ -116,16 +117,16 @@ public class UserQNA_FAQ extends HttpServlet {
 		List<FAQ> list3 = null;
 		list3 = sv.getFAQByPage();
 		request.setAttribute("list3", list3);
-		
 //		List<User> list = new AdminService().list();
 		String user = request.getParameter("user");
 		if(user !=null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("/WEB-INF/view/user/user_qna.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/main/user_main/userqna.jsp").forward(request, response);
 		}else {
 			if (list != null) {
 				request.setAttribute("list", list);
-				request.getRequestDispatcher("/WEB-INF/view/admin/admin_qna.jsp").forward(request, response);
+//				request.getRequestDispatcher("/WEB-INF/view/admin/admin_qna.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/main/admin_main/adminqna.jsp").forward(request, response);
 			} else {
 				request.getRequestDispatcher("/WEB-INF/view/admin/admin_qna.jsp").forward(request, response);
 			}

@@ -13,22 +13,21 @@
 .stopmodal{
 	text-align : center;
 	 display: none;
-	 width: 100%;
-	 height: 100%;
+	 top: 200px;
+	 width: 300px;
+	 height: 300px;
 	 z-index: 1;
+	 float : left;
 	 position: fixed;
-	 left: 0;
-	 top: 0;
 	 background: rgba(0, 0, 0, 0.3);
 }
 
  .modalcontent{
- width: 300px;
- height: 500px;
+ width: 100%;
  margin: auto;
  background: gray;
  position: relative;
- top: 30px;
+ top: 200px;
  animation-name: modaltop1;
  animation-duration: 0.7s;
  }
@@ -127,7 +126,7 @@ border-collapse : collapse;
 	<c:if test="${not empty list }">
 	<form action="<%=request.getContextPath() %>/adminctrl" method="get">
 	
-		<input type="search" name="search" value="${search}">
+		<input type="search" name="searchuser" value="${search}">
 		<button type="submit">검색</button>
 	</form>
 		<table border ="1">

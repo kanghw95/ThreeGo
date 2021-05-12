@@ -72,9 +72,11 @@ public class AdminQnaAnswer extends HttpServlet {
 		request.setAttribute("list2", list2);		
 		
 		if(user!=null) {
-			request.getRequestDispatcher("WEB-INF/view/user/user_qna_answer.jsp").forward(request, response);
+//			request.getRequestDispatcher("WEB-INF/view/user/user_qna_answer.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/main/user_main/userqna_answer.jsp").forward(request, response);
 		}else {
-			request.getRequestDispatcher("WEB-INF/view/admin/admin_qna_answer.jsp").forward(request, response);
+//			request.getRequestDispatcher("WEB-INF/view/admin/admin_qna_answer.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/main/admin_main/adminnotify_answer.jsp").forward(request, response);
 		}
 		
 	
