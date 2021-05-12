@@ -23,11 +23,6 @@
    <div class="mainmove">
    <c:if test="${empty list}">
    주차장을 검색해주세요!
-   <style>
-#page {
-	display: none;
-}
-</style>
    </c:if>   
    <c:if test = "${ not empty list }">
       <c:forEach items="${list }" var="v">

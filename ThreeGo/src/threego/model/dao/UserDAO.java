@@ -274,8 +274,7 @@ public class UserDAO {
 		pstmt = null;
 		rs = null;
 		String sqlMaxUser_no = "select nvl(max(USER_NO),0)+1 from user_tb";
-		String sql = "insert into user_tb values(?,?,?,?,?,?,sysdate,?,?,'" + vo.getGender()
-				+ "',to_date(?,'yyyy-mm-dd'),DEFAULT)";
+		String sql = "insert into user_tb values(?,?,?,?,?,?,sysdate,?,?,'" + vo.getGender() + "',to_date(?,'yy-mm-dd'),DEFAULT)";
 
 		try {
 			pstmt = conn.prepareStatement(sqlMaxUser_no);
@@ -283,7 +282,6 @@ public class UserDAO {
 
 			if (rs.next()) {
 				max = rs.getInt(1);
-				System.out.println(max);
 			} else {
 				return 0;
 			}

@@ -182,3 +182,7 @@ font-family: "Audiowide", sans-serif;
 	display : block;
 	overflow: hidden;
 }
+
+#page {
+	display: none;
+}

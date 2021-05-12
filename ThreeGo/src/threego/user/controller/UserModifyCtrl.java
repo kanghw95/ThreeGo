@@ -56,7 +56,7 @@ public class UserModifyCtrl extends HttpServlet {
 		
 		if(insertResult>0) {  
 			out.println("<script>alert('회원정보 수정 완료!');</script>");
-			request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/main/main.jsp").forward(request, response);
 			out.close();
 		} else {  
 			

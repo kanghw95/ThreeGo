@@ -104,7 +104,7 @@ System.out.println("이동완료");
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("boardList", list);
 		request.setAttribute("search", search);
-		request.getRequestDispatcher("/WEB-INF/board/boardlist.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/main/board_main/list.jsp").forward(request, response);
 	}
 	
 	
