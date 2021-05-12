@@ -117,6 +117,15 @@
 
 		
 		// 주차장 제목 클릭 시 지도 이동 이벤트
+		function panTo(name){
+			<c:forEach items="${listpark }" var="v" varStatus="s">
+			console.log('${v.lat}, ${v.lng}');
+			if(name == '${v.parking_name}'){
+			var moveLatLon = new kakao.maps.LatLng(${v.lat}, ${v.lng});
+			}
+			</c:forEach>
+				map.panTo(moveLatLon);
+		}
 		//지도에 클릭 이벤트를 등록합니다
 		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 			

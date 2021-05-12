@@ -31,7 +31,7 @@ display: none;
    </c:if>   
    <c:if test = "${ not empty listpark }">
       <c:forEach items="${listpark }" var="v">
-         <h3><a id = "pkname" onclick = "panTo()" href="<%=request.getContextPath() %>/ParkingSelectedRead?search=${v.parking_name }">${v.parking_name }</a></h3>
+         <h3><a id = "pkname" onclick = "panTo('${v.parking_name}')" >${v.parking_name }</a></h3>
          <h5>${v.addr }</h5>
          <h3>평점란</h3>
          <button type = "submit">리뷰확인</button>
