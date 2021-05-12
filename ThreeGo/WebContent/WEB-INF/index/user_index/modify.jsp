@@ -10,9 +10,9 @@
 
 </head>
 <body>
-<%@ include file="./header.jsp" %>
-<%@ include file="../board/board_main.jsp" %>
+<%@ include file="../header.jsp" %>
+<%@ include file="../../view/user/UserModPage.jsp" %>
 <br>
-<%@ include file="./footer.jsp" %>
+<%@ include file="../footer.jsp" %>
 </body>
 </html>

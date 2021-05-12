@@ -50,7 +50,7 @@ public class ParkingReadCtrl extends HttpServlet {
 			System.out.println(list);
 			if(list != null) {
 				request.setAttribute("parkingcontent", list);
-				request.getRequestDispatcher("WEB-INF/main.jsp").forward(request, response);
+				request.getRequestDispatcher("WEB-INF/main/main.jsp").forward(request, response);
 			} else {
 				System.out.println("vo가 널입니다.");
 			}

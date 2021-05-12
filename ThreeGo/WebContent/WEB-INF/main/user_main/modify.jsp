@@ -6,13 +6,17 @@
 <head>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <meta charset="UTF-8">
-<title>index</title>
+<title>main</title>
 
 </head>
 <body>
-<%@ include file="./header.jsp" %>
-<%@ include file="../board/board_main.jsp" %>
-<br>
-<%@ include file="./footer.jsp" %>
+
+<div class="father">
+<div class="index">
+<%@ include file="../../index/user_index/modify.jsp" %>
+</div>
+<%@ include file="../map.jsp" %>
+<%@ include file="../main_footer.jsp" %>
+</div>
 </body>
 </html>

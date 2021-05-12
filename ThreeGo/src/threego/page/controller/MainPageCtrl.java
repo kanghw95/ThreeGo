@@ -56,17 +56,17 @@ public class MainPageCtrl extends HttpServlet {
 		System.out.println("com : " + com);
 	
 		if(com.equals("/main/insert")) {
-			viewPage = "/WEB-INF/view/user/UserInsert.jsp";
+			viewPage = "/WEB-INF/main/user_main/insert.jsp";
 		}else if(com.equals("/main/modify")){
-			viewPage = "/WEB-INF/view/user/UserModPage.jsp";
+			 viewPage = "/WEB-INF/main/user_main/modify.jsp";
 		}else if(com.equals("/main/user/usermypage")){
-			 viewPage = "/WEB-INF/main/main_1/main.jsp";
+			 viewPage = "/WEB-INF/main/user_main/mypage.jsp";
 		}else if(com.equals("/main/idfind")){
-			viewPage = "/WEB-INF/view/user/UserIdFind.jsp";
+			viewPage = "/WEB-INF/main/user_main/idfind.jsp";
 		}else if(com.equals("/main/pwfind")){
-			viewPage = "/WEB-INF/view/user/UserPwFind.jsp";
+			viewPage = "/WEB-INF/main/user_main/pwfind.jsp";
 		}else if(com.equals("/main/drawal")){
-			viewPage = "/WEB-INF/view/user/UserDrawal.jsp";
+			 viewPage = "/WEB-INF/main/user_main/drawal.jsp";
 		}else if(com.equals("/main/user/chat")){
 			viewPage = "/WEB-INF/view/chat/chatpage.jsp";
 		}

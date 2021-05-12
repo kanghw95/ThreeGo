@@ -13,7 +13,7 @@
 
 <div class="father">
 <div class="index">
-<%@ include file="../../index/index_1/index.jsp" %>
+<%@ include file="../../index/user_index/idfind.jsp" %>
 </div>
 <%@ include file="../map.jsp" %>
 <%@ include file="../main_footer.jsp" %>
