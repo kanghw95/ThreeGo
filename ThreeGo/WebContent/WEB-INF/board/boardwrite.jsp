@@ -1,3 +1,4 @@
+<%@page import="threego.model.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -24,10 +25,8 @@ $(function(){
 </head>
 <body>
 <%
-String user_id =null;
-if(session.getAttribute("user_id")!=null) {
-   user_id = (String)session.getAttribute("user_id");
-}%>
+User user = (User) session.getAttribute("user");
+%>
 
    <h1>글쓰기</h1>
    <form action="<%=request.getContextPath()%>/boardWrite"
@@ -41,7 +40,7 @@ if(session.getAttribute("user_id")!=null) {
          </tr>
          <tr>
             <td>닉네임</td>
-            <td><input type="text" name="bd_writer" value="로그인 " readonly ></td>
+            <td><input type="text" name="bd_writer" value="<%=user.getNickname() %> " readonly ></td>
          </tr>
          <tr>
             <td>파일첨부</td>

@@ -10,11 +10,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="mainstop">
+   <div class="mainstop">
    <h1 class="title">얻다대GO</h1>
       <div class="searchbox">
          <form action = "<%=request.getContextPath() %>/ParkingSelectedRead" method = "get" >
-         <input type = "search" class="search" name = "searchpark" value="${searchpklot}" placeholder="주차장을 검색하세요">
+         <input type = "search" class="search" name = "search" value="${searchpklot}" placeholder="주차장을 검색하세요">
          <button type = "submit" class="searchbtn"><i class="fas fa-search fa-lg"></i></button>
          </form>
       </div>
@@ -23,10 +23,15 @@
    <div class="mainmove">
    <c:if test="${empty listpark}">
    주차장을 검색해주세요!
+   <style>
+#page{
+display: none;
+}
+</style>
    </c:if>   
    <c:if test = "${ not empty listpark }">
       <c:forEach items="${listpark }" var="v">
-         <h3><a href="<%=request.getContextPath() %>/parkingRead?parking_name=${v.parking_name }">${v.parking_name }</a></h3>
+         <h3><a id = "pkname" onclick = "panTo()" href="<%=request.getContextPath() %>/ParkingSelectedRead?search=${v.parking_name }">${v.parking_name }</a></h3>
          <h5>${v.addr }</h5>
          <h3>평점란</h3>
          <button type = "submit">리뷰확인</button>
@@ -35,6 +40,6 @@
    </c:if>
    </div>   
    </div>
-	
+   
 </body>
 </html>

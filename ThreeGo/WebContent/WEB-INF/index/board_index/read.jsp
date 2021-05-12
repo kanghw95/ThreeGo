@@ -11,7 +11,7 @@
 </head>
 <body>
 <%@ include file="../header.jsp" %>
-<%@ include file="../../board/boardlist.jsp" %>
+<%@ include file="../../board/boardread.jsp" %>
 <br>
 <%@ include file="../footer.jsp" %>
 </body>

@@ -55,7 +55,7 @@ public class PageBoardCtrl extends HttpServlet {
 		System.out.println("com : " + com);
 		
 		if(com.equals("/board/boardwrite")) {
-			viewPage = "/WEB-INF/board/boardwrite.jsp";
+			viewPage = "/WEB-INF/main/board_main/write.jsp";
 			
 		}else if(com.equals("/board/boardlist")) {
 			viewPage = "/WEB-INF/main/board_main/list.jsp";

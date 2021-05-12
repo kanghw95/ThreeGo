@@ -179,7 +179,7 @@ public class BoardWriteCtrl extends HttpServlet {
          } else { // 입력 실패
             System.out.println("입력 실패!!");
             request.setAttribute("msg", "글 등록 실패");
-            request.getRequestDispatcher("WEB-INF/board/boardwrite.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/main/board_main/write.jsp").forward(request, response);
             out.println("<script>alert('입력 실패!')</script>");
             out.println("<script>history.back();</script>"); }
          
