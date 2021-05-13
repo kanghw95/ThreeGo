@@ -12,27 +12,27 @@ import threego.model.vo.Board_Attach;
 import threego.model.vo.Board;
 
 public class BoardDAO {
-   private Statement stmt = null;
-   private PreparedStatement pstmt = null;
-   private ResultSet rs = null;
+	private Statement stmt = null;
+	private PreparedStatement pstmt = null;
+	private ResultSet rs = null;
 
-   private void close() {
-      try {
-         if (rs != null) {
-            rs.close();
-         }
-         if (pstmt != null) {
-            pstmt.close();
-         }
-         if (stmt != null) {
-            stmt.close();
-         }
-      } catch (SQLException e) {
-         e.printStackTrace();
-      }
-   }
+	private void close() {
+		try {
+			if (rs != null) {
+				rs.close();
+			}
+			if (pstmt != null) {
+				pstmt.close();
+			}
+			if (stmt != null) {
+				stmt.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-   public int getNext(Connection conn, Board vo) {
+	public int getNext(Connection conn, Board vo) {
 //	   if(bd_category == review ) {
 //	   String sql ="select nvl(max(bd_content_no),1000) from board where bd_content_no > 10 and bd_content_no <5";
 //	   }else if (bd_category==share) {
@@ -44,253 +44,253 @@ public class BoardDAO {
 //	   }else if (bd_category==boast) {
 //		   
 //	   }
-	   
-      // 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
-      String sql = "select bd_content_no from board order by bd_content_no desc";
-      try {
-         PreparedStatement pstmt = conn.prepareStatement(sql);
-         rs = pstmt.executeQuery();
-         if (rs.next()) {
-            int result = rs.getInt(1) + 1;
-            return result;
 
-         }
-         return 1; // 첫 번째 게시물인 경우
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
-      return -1; // 데이터베이스 오류
-   }
+		// 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
+		String sql = "select bd_content_no from board order by bd_content_no desc";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int result = rs.getInt(1) + 1;
+				return result;
 
-   public int getNextF(Connection conn) {
-      // 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
-      String sql = "select file_no from board_attach order by file_no desc";
-      try {
-         PreparedStatement pstmt = conn.prepareStatement(sql);
-         rs = pstmt.executeQuery();
-         if (rs.next()) {
-            int result = rs.getInt(1) + 1;
-            return result;
-         }
-         return 1; // 첫 번째 게시물인 경우
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
-      return -1; // 데이터베이스 오류
-   }
+			}
+			return 1; // 첫 번째 게시물인 경우
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // 데이터베이스 오류
+	}
 
-   public int boardWrite(Connection conn, Board vo) {
-      pstmt = null;
-      int result = 0;
+	public int getNextF(Connection conn) {
+		// 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
+		String sql = "select file_no from board_attach order by file_no desc";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int result = rs.getInt(1) + 1;
+				return result;
+			}
+			return 1; // 첫 번째 게시물인 경우
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // 데이터베이스 오류
+	}
 
-      String sql = "insert into board values (? , ? , ? , ? , ? , sysdate ,? ,?)";
-      try {
-         pstmt = conn.prepareStatement(sql);
+	public int boardWrite(Connection conn, Board vo) {
+		pstmt = null;
+		int result = 0;
 
-         pstmt.setInt(1, vo.getBd_content_no());
-         pstmt.setInt(2, 2);
-         pstmt.setString(3, vo.getBd_writer());
-         pstmt.setString(4, vo.getBd_subject());
-         pstmt.setString(5, vo.getBd_content());
-         pstmt.setInt(6, vo.getBd_likecnt());
-         pstmt.setString(7, vo.getBd_category());
-         result = pstmt.executeUpdate();
-         if (result < 0) {
-            System.out.println("작성실패");
-         } else {
-         }
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         close();
-      }
-      System.out.println("작성성공");
-      return result;
-   }
+		String sql = "insert into board values (? , ? , ? , ? , ? , sysdate ,? ,?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
 
-   public int getNextF2(Connection conn) {
-	      // 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
-	      String sql = "select file_no from board_attach order by file_no desc";
-	      try {
-	         PreparedStatement pstmt = conn.prepareStatement(sql);
-	         rs = pstmt.executeQuery();
-	         if (rs.next()) {
-	            int result = rs.getInt(1) + 1;
-	            return result;
-	         }
-	         return 1; // 첫 번째 게시물인 경우
-	      } catch (Exception e) {
-	         e.printStackTrace();
-	      }
-	      return -1; // 데이터베이스 오류
-	   }
+			pstmt.setInt(1, vo.getBd_content_no());
+			pstmt.setInt(2, 2);
+			pstmt.setString(3, vo.getBd_writer());
+			pstmt.setString(4, vo.getBd_subject());
+			pstmt.setString(5, vo.getBd_content());
+			pstmt.setInt(6, vo.getBd_likecnt());
+			pstmt.setString(7, vo.getBd_category());
+			result = pstmt.executeUpdate();
+			if (result < 0) {
+				System.out.println("작성실패");
+			} else {
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		System.out.println("작성성공");
+		return result;
+	}
 
-	   public int boardWrite2(Connection conn, Board vo) {
-	      pstmt = null;
-	      int result = 0;
+	public int getNextF2(Connection conn) {
+		// 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
+		String sql = "select file_no from board_attach order by file_no desc";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int result = rs.getInt(1) + 1;
+				return result;
+			}
+			return 1; // 첫 번째 게시물인 경우
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // 데이터베이스 오류
+	}
 
-	      String sql = "insert into board values (? , ? , ? , ? , ? , sysdate ,? ,2)";
-	      try {
-	         pstmt = conn.prepareStatement(sql);
+	public int boardWrite2(Connection conn, Board vo) {
+		pstmt = null;
+		int result = 0;
 
-	         pstmt.setInt(1, vo.getBd_content_no());
-	         pstmt.setInt(2, 2);
-	         pstmt.setString(3, vo.getBd_writer());
-	         pstmt.setString(4, vo.getBd_subject());
-	         pstmt.setString(5, vo.getBd_content());
-	         pstmt.setInt(6, vo.getBd_likecnt());
-	         pstmt.setString(7, vo.getBd_category());
-	         result = pstmt.executeUpdate();
-	         if (result < 0) {
-	            System.out.println("작성실패");
-	         } else {
-	         }
-	      } catch (SQLException e) {
-	         e.printStackTrace();
-	      } finally {
-	         close();
-	      }
-	      System.out.println("작성성공");
-	      return result;
-	   }
+		String sql = "insert into board values (? , ? , ? , ? , ? , sysdate ,? ,2)";
+		try {
+			pstmt = conn.prepareStatement(sql);
 
-	   public int getNextF3(Connection conn) {
-		      // 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
-		      String sql = "select file_no from board_attach order by file_no desc";
-		      try {
-		         PreparedStatement pstmt = conn.prepareStatement(sql);
-		         rs = pstmt.executeQuery();
-		         if (rs.next()) {
-		            int result = rs.getInt(1) + 1;
-		            return result;
-		         }
-		         return 1; // 첫 번째 게시물인 경우
-		      } catch (Exception e) {
-		         e.printStackTrace();
-		      }
-		      return -1; // 데이터베이스 오류
-		   }
+			pstmt.setInt(1, vo.getBd_content_no());
+			pstmt.setInt(2, 2);
+			pstmt.setString(3, vo.getBd_writer());
+			pstmt.setString(4, vo.getBd_subject());
+			pstmt.setString(5, vo.getBd_content());
+			pstmt.setInt(6, vo.getBd_likecnt());
+			pstmt.setString(7, vo.getBd_category());
+			result = pstmt.executeUpdate();
+			if (result < 0) {
+				System.out.println("작성실패");
+			} else {
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		System.out.println("작성성공");
+		return result;
+	}
 
-		   public int boardWrite3(Connection conn, Board vo) {
-		      pstmt = null;
-		      int result = 0;
+	public int getNextF3(Connection conn) {
+		// 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
+		String sql = "select file_no from board_attach order by file_no desc";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int result = rs.getInt(1) + 1;
+				return result;
+			}
+			return 1; // 첫 번째 게시물인 경우
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // 데이터베이스 오류
+	}
 
-		      String sql = "insert into board values (? , ? , ? , ? , ? , sysdate ,? ,3)";
-		      try {
-		         pstmt = conn.prepareStatement(sql);
+	public int boardWrite3(Connection conn, Board vo) {
+		pstmt = null;
+		int result = 0;
 
-		         pstmt.setInt(1, vo.getBd_content_no());
-		         pstmt.setInt(2, 2);
-		         pstmt.setString(3, vo.getBd_writer());
-		         pstmt.setString(4, vo.getBd_subject());
-		         pstmt.setString(5, vo.getBd_content());
-		         pstmt.setInt(6, vo.getBd_likecnt());
-		         pstmt.setString(7, vo.getBd_category());
-		         result = pstmt.executeUpdate();
-		         if (result < 0) {
-		            System.out.println("작성실패");
-		         } else {
-		         }
-		      } catch (SQLException e) {
-		         e.printStackTrace();
-		      } finally {
-		         close();
-		      }
-		      System.out.println("작성성공");
-		      return result;
-		   }
+		String sql = "insert into board values (? , ? , ? , ? , ? , sysdate ,? ,3)";
+		try {
+			pstmt = conn.prepareStatement(sql);
 
-		   public int getNextF4(Connection conn) {
-			      // 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
-			      String sql = "select file_no from board_attach order by file_no desc";
-			      try {
-			         PreparedStatement pstmt = conn.prepareStatement(sql);
-			         rs = pstmt.executeQuery();
-			         if (rs.next()) {
-			            int result = rs.getInt(1) + 1;
-			            return result;
-			         }
-			         return 1; // 첫 번째 게시물인 경우
-			      } catch (Exception e) {
-			         e.printStackTrace();
-			      }
-			      return -1; // 데이터베이스 오류
-			   }
+			pstmt.setInt(1, vo.getBd_content_no());
+			pstmt.setInt(2, 2);
+			pstmt.setString(3, vo.getBd_writer());
+			pstmt.setString(4, vo.getBd_subject());
+			pstmt.setString(5, vo.getBd_content());
+			pstmt.setInt(6, vo.getBd_likecnt());
+			pstmt.setString(7, vo.getBd_category());
+			result = pstmt.executeUpdate();
+			if (result < 0) {
+				System.out.println("작성실패");
+			} else {
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		System.out.println("작성성공");
+		return result;
+	}
 
-			   public int boardWrite4(Connection conn, Board vo) {
-			      pstmt = null;
-			      int result = 0;
+	public int getNextF4(Connection conn) {
+		// 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
+		String sql = "select file_no from board_attach order by file_no desc";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int result = rs.getInt(1) + 1;
+				return result;
+			}
+			return 1; // 첫 번째 게시물인 경우
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // 데이터베이스 오류
+	}
 
-			      String sql = "insert into board values (? , ? , ? , ? , ? , sysdate ,? ,4)";
-			      try {
-			         pstmt = conn.prepareStatement(sql);
+	public int boardWrite4(Connection conn, Board vo) {
+		pstmt = null;
+		int result = 0;
 
-			         pstmt.setInt(1, vo.getBd_content_no());
-			         pstmt.setInt(2, 2);
-			         pstmt.setString(3, vo.getBd_writer());
-			         pstmt.setString(4, vo.getBd_subject());
-			         pstmt.setString(5, vo.getBd_content());
-			         pstmt.setInt(6, vo.getBd_likecnt());
-			         pstmt.setString(7, vo.getBd_category());
-			         result = pstmt.executeUpdate();
-			         if (result < 0) {
-			            System.out.println("작성실패");
-			         } else {
-			         }
-			      } catch (SQLException e) {
-			         e.printStackTrace();
-			      } finally {
-			         close();
-			      }
-			      System.out.println("작성성공");
-			      return result;
-			   }
+		String sql = "insert into board values (? , ? , ? , ? , ? , sysdate ,? ,4)";
+		try {
+			pstmt = conn.prepareStatement(sql);
 
-			   public int getNextF5(Connection conn) {
-				      // 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
-				      String sql = "select file_no from board_attach order by file_no desc";
-				      try {
-				         PreparedStatement pstmt = conn.prepareStatement(sql);
-				         rs = pstmt.executeQuery();
-				         if (rs.next()) {
-				            int result = rs.getInt(1) + 1;
-				            return result;
-				         }
-				         return 1; // 첫 번째 게시물인 경우
-				      } catch (Exception e) {
-				         e.printStackTrace();
-				      }
-				      return -1; // 데이터베이스 오류
-				   }
+			pstmt.setInt(1, vo.getBd_content_no());
+			pstmt.setInt(2, 2);
+			pstmt.setString(3, vo.getBd_writer());
+			pstmt.setString(4, vo.getBd_subject());
+			pstmt.setString(5, vo.getBd_content());
+			pstmt.setInt(6, vo.getBd_likecnt());
+			pstmt.setString(7, vo.getBd_category());
+			result = pstmt.executeUpdate();
+			if (result < 0) {
+				System.out.println("작성실패");
+			} else {
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		System.out.println("작성성공");
+		return result;
+	}
 
-				   public int boardWrite5(Connection conn, Board vo) {
-				      pstmt = null;
-				      int result = 0;
+	public int getNextF5(Connection conn) {
+		// 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
+		String sql = "select file_no from board_attach order by file_no desc";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int result = rs.getInt(1) + 1;
+				return result;
+			}
+			return 1; // 첫 번째 게시물인 경우
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // 데이터베이스 오류
+	}
 
-				      String sql = "insert into board values (? , ? , ? , ? , ? , sysdate ,? ,5)";
-				      try {
-				         pstmt = conn.prepareStatement(sql);
+	public int boardWrite5(Connection conn, Board vo) {
+		pstmt = null;
+		int result = 0;
 
-				         pstmt.setInt(1, vo.getBd_content_no());
-				         pstmt.setInt(2, 2);
-				         pstmt.setString(3, vo.getBd_writer());
-				         pstmt.setString(4, vo.getBd_subject());
-				         pstmt.setString(5, vo.getBd_content());
-				         pstmt.setInt(6, vo.getBd_likecnt());
-				         pstmt.setString(7, vo.getBd_category());
-				         result = pstmt.executeUpdate();
-				         if (result < 0) {
-				            System.out.println("작성실패");
-				         } else {
-				         }
-				      } catch (SQLException e) {
-				         e.printStackTrace();
-				      } finally {
-				         close();
-				      }
-				      System.out.println("작성성공");
-				      return result;
-				   }
+		String sql = "insert into board values (? , ? , ? , ? , ? , sysdate ,? ,5)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, vo.getBd_content_no());
+			pstmt.setInt(2, 2);
+			pstmt.setString(3, vo.getBd_writer());
+			pstmt.setString(4, vo.getBd_subject());
+			pstmt.setString(5, vo.getBd_content());
+			pstmt.setInt(6, vo.getBd_likecnt());
+			pstmt.setString(7, vo.getBd_category());
+			result = pstmt.executeUpdate();
+			if (result < 0) {
+				System.out.println("작성실패");
+			} else {
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		System.out.println("작성성공");
+		return result;
+	}
 
 //   public int boardComment(Connection conn, Board vo) {
 //   int result =0;
@@ -315,177 +315,180 @@ public class BoardDAO {
 //}
 //   
 
-   public List<Board> getBoardAll(Connection conn) {
-      List<Board> list = null;
-      Board vo = new Board();
-      String sql = "select * from board  order by bd_content_no desc";
-      pstmt = null;
-      rs = null;
-      try {
-         pstmt = conn.prepareStatement(sql);
+	public List<Board> getBoardAll(Connection conn) {
+		List<Board> list = null;
+		Board vo = new Board();
+		String sql = "select * from board  order by bd_content_no desc";
+		pstmt = null;
+		rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
 //         pstmt.setInt(1, vo.getBd_number());
-         rs = pstmt.executeQuery();
-         if (rs.next()) {
-            list = new ArrayList<Board>();
-            do {
-               vo.setBd_content(rs.getString("bd_content"));
-               vo.setBd_content_no(rs.getInt("bd_content_no"));
-               vo.setBd_date(rs.getDate("bd_date"));
-               vo.setBd_subject(rs.getString("bd_subject"));
-               vo.setBd_writer(rs.getString("bd_writer"));
-               vo.setUser_no(rs.getInt("user_no"));
-               vo.setBd_likecnt(rs.getInt("bd_likecnt"));
-               list.add(vo);
-            } while (rs.next());
-         }
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         close();
-      }
-      return list;
-   }
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				list = new ArrayList<Board>();
+				do {
+					vo.setBd_content(rs.getString("bd_content"));
+					vo.setBd_content_no(rs.getInt("bd_content_no"));
+					vo.setBd_date(rs.getDate("bd_date"));
+					vo.setBd_subject(rs.getString("bd_subject"));
+					vo.setBd_writer(rs.getString("bd_writer"));
+					vo.setUser_no(rs.getInt("user_no"));
+					vo.setBd_likecnt(rs.getInt("bd_likecnt"));
+					list.add(vo);
+				} while (rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
 
-   public List<Board> getBoardByPage(Connection conn, int start, int end, String search) {
-      List<Board> list = null;
-      String sql_1 = "(select * from board";
+	public List<Board> getBoardByPage(Connection conn, int start, int end, String search) {
+		List<Board> list = null;
+		String sql_1 = "(select * from board";
 
-      if (search == null) {
-         sql_1 += " order by bd_content_no desc) d";
-      } else {
-         sql_1 += " where bd_subject like '%" + search + "%' or bd_content like '%" + search + "%'"
-               + " order by bd_content_no desc) d";
-      }
+		if (search == null) {
+			sql_1 += " order by bd_content_no desc) d";
+		} else {
+			sql_1 += " where bd_subject like '%" + search + "%' or bd_content like '%" + search + "%'"
+					+ " order by bd_content_no desc) d";
+		}
 
-      String sql = "select * from " + " (select rownum r, d.* from " + sql_1 + " ) " + " where r >= ? and r <= ?";
+		String sql = "select * from " + " (select rownum r, d.* from " + sql_1 + " ) " + " where r >= ? and r <= ?";
 
-      pstmt = null;
-      rs = null;
+		pstmt = null;
+		rs = null;
 
-      try {
-         pstmt = conn.prepareStatement(sql);
-         pstmt.setInt(1, start);
-         pstmt.setInt(2, end);
-         rs = pstmt.executeQuery();
-         if (rs.next()) {
-            list = new ArrayList<Board>();
-            do {
-               Board vo = new Board();
-               vo.setBd_content(rs.getString("bd_content"));
-               vo.setBd_content_no(rs.getInt("bd_content_no"));
-               vo.setBd_date(rs.getDate("bd_date"));
-               vo.setBd_subject(rs.getString("bd_subject"));
-               vo.setBd_writer(rs.getString("bd_writer"));
-               vo.setUser_no(rs.getInt("user_no"));
-               vo.setBd_likecnt(rs.getInt("bd_likecnt"));
-               vo.setBd_category(rs.getString("bd_category"));
-               list.add(vo);
-            } while (rs.next());
-         }
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         close();
-      }
-      System.out.println(list);
-      return list;
-   }
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				list = new ArrayList<Board>();
+				do {
+					Board vo = new Board();
+					vo.setBd_content(rs.getString("bd_content"));
+					vo.setBd_content_no(rs.getInt("bd_content_no"));
+					vo.setBd_date(rs.getDate("bd_date"));
+					vo.setBd_subject(rs.getString("bd_subject"));
+					vo.setBd_writer(rs.getString("bd_writer"));
+					vo.setUser_no(rs.getInt("user_no"));
+					vo.setBd_likecnt(rs.getInt("bd_likecnt"));
+					vo.setBd_category(rs.getString("bd_category"));
+					list.add(vo);
+				} while (rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		System.out.println(list);
+		return list;
+	}
 
-   public int getBoardCount(Connection conn, String search) {
-      int cnt = 0;
-      String sql = "select COUNT(*) from board ";
+	public int getBoardCount(Connection conn, String search) {
+		int cnt = 0;
+		String sql = "select COUNT(*) from board ";
 
-      if (search != null) {
-         sql += " and bd_subject like '%" + search + "%' or bd_content like '%" + search + "%'";
-      }
+		if (search != null) {
+			sql += " and bd_subject like '%" + search + "%' or bd_content like '%" + search + "%'";
+		}
 
-      pstmt = null;
-      rs = null;
-      try {
-         pstmt = conn.prepareStatement(sql);
-         rs = pstmt.executeQuery();
-         if (rs.next()) {
-            cnt = rs.getInt(1);
-         }
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         close();
-      }
-      return cnt;
-   }
+		pstmt = null;
+		rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
 
-   public Board getBoardRead(Connection conn, Board inputVo) {
-      Board vo = null;
-      String sql = "select * from board where bd_content_no  =? ";
-      pstmt = null;
-      rs = null;
-      try {
-         pstmt = conn.prepareStatement(sql);
-         pstmt.setInt(1, inputVo.getBd_content_no());
-         rs = pstmt.executeQuery();
-         if (rs.next()) {
-            vo = new Board();
-            vo.setBd_content(rs.getString("bd_content"));
-            vo.setBd_content_no(rs.getInt("bd_content_no"));
-            vo.setBd_date(rs.getDate("bd_date"));
-            vo.setBd_subject(rs.getString("bd_subject"));
-            vo.setBd_writer(rs.getString("bd_writer"));
-            vo.setUser_no(rs.getInt("user_no"));
-            vo.setBd_likecnt(rs.getInt("bd_likecnt"));
-            vo.setBd_category(rs.getString("bd_category"));
-         }
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         close();
-      }
-      return vo;
-   }
+	public Board getBoardRead(Connection conn, Board inputVo) {
+		Board vo = null;
+		String sql = "select * from board where bd_content_no  =? ";
+		pstmt = null;
+		rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, inputVo.getBd_content_no());
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				vo = new Board();
+				vo.setBd_content(rs.getString("bd_content"));
+				vo.setBd_content_no(rs.getInt("bd_content_no"));
+				vo.setBd_date(rs.getDate("bd_date"));
+				vo.setBd_subject(rs.getString("bd_subject"));
+				vo.setBd_writer(rs.getString("bd_writer"));
+				vo.setUser_no(rs.getInt("user_no"));
+				vo.setBd_likecnt(rs.getInt("bd_likecnt"));
+				vo.setBd_category(rs.getString("bd_category"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return vo;
+	}
 
 	public int getBoardUpdate(Connection conn, Board vo) {
-		pstmt = null; rs=null;
+		pstmt = null;
+		rs = null;
 		int result = 0;
-		String sql = "UPDATE board SET bd_subject=?, bd_content=?, bd_date=sysdate , filepath=? , fullname=?  where BD_CONTENT_NO = ?";	
-	
-		try {
-				pstmt= conn.prepareStatement(sql);
-						pstmt.setString(1, vo.getBd_subject());
-						pstmt.setString(2, vo.getBd_content());
-					
-						pstmt.setInt(3, vo.getBd_content_no());
-						result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close();
-		}
-		return result ;
-		
-		}
-	public int getBoardUpdateF(Connection conn, Board_Attach ao) {
-		pstmt = null; rs=null;
-		int result = 0;
-		String sql = "UPDATE board_attach SET filepath=? , fullname=? ,contents_type=?  where BD_CONTENT_NO = ?";	
-	
-		try {
-				pstmt= conn.prepareStatement(sql);
-					
-						pstmt.setString(1,	ao.getFilepath());
-						pstmt.setString(2, ao.getFullname());
-						pstmt.setString(3, ao.getContents_type());
-						pstmt.setInt(4, ao.getBd_content_no());
-						result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close();
-		}
-		return result ;
-		
-		}
+		String sql = "UPDATE board SET bd_subject=?, bd_content=?, bd_date=sysdate , filepath=? , fullname=?  where BD_CONTENT_NO = ?";
 
-	public int getBoardDelete(Connection conn, Board vo ) {
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getBd_subject());
+			pstmt.setString(2, vo.getBd_content());
+
+			pstmt.setInt(3, vo.getBd_content_no());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return result;
+
+	}
+
+	public int getBoardUpdateF(Connection conn, Board_Attach ao) {
+		pstmt = null;
+		rs = null;
+		int result = 0;
+		String sql = "UPDATE board_attach SET filepath=? , fullname=? ,contents_type=?  where BD_CONTENT_NO = ?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, ao.getFilepath());
+			pstmt.setString(2, ao.getFullname());
+			pstmt.setString(3, ao.getContents_type());
+			pstmt.setInt(4, ao.getBd_content_no());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return result;
+
+	}
+
+	public int getBoardDelete(Connection conn, Board vo) {
 		pstmt = null;
 		rs = null;
 		int result = 0;
@@ -504,91 +507,127 @@ public class BoardDAO {
 
 	}
 
-   // writefile
-   public int boardWriteF(Connection conn, Board_Attach ao) {
-      int result = 0;
-      pstmt = null;
-      rs = null;
-      String sql = "insert  into board_attach values(? , ? , ? ,  ? , ?)";
-      String sqlB = "select bd_content_no from board order by bd_content_no  desc"; // bd_content_no 부모키 값 가져오기
-      try {
-         System.out.println("첨부 dao 진입성공");
+	// writefile
+	public int boardWriteF(Connection conn, Board_Attach ao) {
+		int result = 0;
+		pstmt = null;
+		rs = null;
+		String sql = "insert  into board_attach values(? , ? , ? ,  ? , ?)";
+		String sqlB = "select bd_content_no from board order by bd_content_no  desc"; // bd_content_no 부모키 값 가져오기
+		try {
+			System.out.println("첨부 dao 진입성공");
 
-         pstmt = conn.prepareStatement(sqlB);
-         System.out.println("rs오류 찾기");
-         rs = pstmt.executeQuery();
-         System.out.println(rs);
-         if (rs.next()) {
-            ao.setBd_content_no(rs.getInt("bd_content_no"));
-            close();
-         }
+			pstmt = conn.prepareStatement(sqlB);
+			System.out.println("rs오류 찾기");
+			rs = pstmt.executeQuery();
+			System.out.println(rs);
+			if (rs.next()) {
+				ao.setBd_content_no(rs.getInt("bd_content_no"));
+				close();
+			}
 
-         pstmt = conn.prepareStatement(sql);
-         System.out.println(getNextF(conn));
-         pstmt.setInt(1, getNextF(conn));
-         System.out.println(ao.getBd_content_no());
+			pstmt = conn.prepareStatement(sql);
+			System.out.println(getNextF(conn));
+			pstmt.setInt(1, getNextF(conn));
+			System.out.println(ao.getBd_content_no());
 
-         pstmt.setInt(2, ao.getBd_content_no());
-         System.out.println(ao.getFullname());
+			pstmt.setInt(2, ao.getBd_content_no());
+			System.out.println(ao.getFullname());
 
-         pstmt.setString(3, ao.getFullname());
+			pstmt.setString(3, ao.getFullname());
 
-         System.out.println(ao.getContents_type());
+			System.out.println(ao.getContents_type());
 
-         pstmt.setString(4, ao.getContents_type()); // 확장자
-         System.out.println(ao.getFilepath());
+			pstmt.setString(4, ao.getContents_type()); // 확장자
+			System.out.println(ao.getFilepath());
 
-         pstmt.setString(5, ao.getFilepath()); // path
-         result = pstmt.executeUpdate();
-         System.out.println("첨부파일 업로드 성공");
-         if (result < 0) {
-            System.out.println("업로드 실패");
+			pstmt.setString(5, ao.getFilepath()); // path
+			result = pstmt.executeUpdate();
+			System.out.println("첨부파일 업로드 성공");
+			if (result < 0) {
+				System.out.println("업로드 실패");
 
-         } else {
+			} else {
 
-         }
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         close();
-      }
-      return result;
-   }
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return result;
+	}
 
-   // readfile
-   public List<Board_Attach> boardReadF(Connection conn, List<Board_Attach> inputF, Board vo) {
-      List<Board_Attach> list = null;
+	// readfile
+	public List<Board_Attach> boardReadF(Connection conn, List<Board_Attach> inputF, Board vo) {
+		List<Board_Attach> list = null;
 
-      String sql = "select * from board_attach where bd_content_no =? ";
-      pstmt = null;
-      rs = null;
-      try {
-         pstmt = conn.prepareStatement(sql);
-         pstmt.setInt(1, vo.getBd_content_no());
-         rs = pstmt.executeQuery();
-         if (rs.next()) {
-            list = new ArrayList<Board_Attach>();
-            do {
-               Board_Attach ao = new Board_Attach();
-               ao.setFile_no(rs.getInt("file_no"));
-               ao.setBd_content_no(rs.getInt("bd_content_no"));
-               ao.setFullname(rs.getString("fullname"));
-               ao.setContents_type(rs.getString("contents_type"));
-               ao.setFilepath(rs.getString("filepath"));
-               list.add(ao);
-            } while (rs.next());
-         }
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         close();
-      }
-      return list;
+		String sql = "select * from board_attach where bd_content_no =? ";
+		pstmt = null;
+		rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getBd_content_no());
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				list = new ArrayList<Board_Attach>();
+				do {
+					Board_Attach ao = new Board_Attach();
+					ao.setFile_no(rs.getInt("file_no"));
+					ao.setBd_content_no(rs.getInt("bd_content_no"));
+					ao.setFullname(rs.getString("fullname"));
+					ao.setContents_type(rs.getString("contents_type"));
+					ao.setFilepath(rs.getString("filepath"));
+					list.add(ao);
+				} while (rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
 
-   }
+	}
+
+	public int ReportSend(Connection conn, String user_no, String user_no2, String report_content,
+			String bd_content_no) {
+		int result = 0;
+		int max = 1;
+		
+		pstmt = null;
+		rs = null;
+		
+		String sqlMaxReport_no = "select nvl(max(bd_report_no),0)+1 from board_report";
+		String sql = "insert into board_report values(? , ? , ? ,  ? , ?, sysdate)";
+		try {
+			pstmt = conn.prepareStatement(sqlMaxReport_no);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				max = rs.getInt(1);
+			} else {
+				return 0;
+			}
+
+			{
+				close();
+
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, max);
+				pstmt.setInt(2, Integer.parseInt(user_no));
+				pstmt.setInt(3, Integer.parseInt(bd_content_no));
+				pstmt.setInt(4, Integer.parseInt(user_no2));
+				pstmt.setString(5, report_content);
+
+				result = pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return result;
+	}
 
 }
-
-
-
-	

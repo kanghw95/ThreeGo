@@ -70,7 +70,7 @@ public class BoardUpdateCtrl2 extends HttpServlet {
 				//vo.setBd_likecnt(Integer.parseInt(request.getParameter("bd_likecnt")));
 
 				result1 = sv.getBoardUpdate(vo);
-				result2 = sv.getBoardUpdate(ao);
+				result2 = sv.getBoardUpdateF(ao);
 			}
 		 
 			PrintWriter out = response.getWriter();

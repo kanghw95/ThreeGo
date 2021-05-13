@@ -58,7 +58,7 @@ public class BoardService {
           JDBCTemplate.close(conn);
          return result;
       }
-     public int getBoardUpdate( Board_Attach ao) {
+     public int getBoardUpdateF( Board_Attach ao) {
          Connection conn = JDBCTemplate.getConnection();
           int result = new BoardDAO().getBoardUpdateF(conn, ao);   
           JDBCTemplate.close(conn);
@@ -89,6 +89,13 @@ public class BoardService {
       JDBCTemplate.close(conn);
       return list;
    }
+
+   public int ReportSend(String user_no, String user_no2, String report_content, String bd_content_no) {
+	     Connection conn = JDBCTemplate.getConnection();
+	       int result = new BoardDAO().ReportSend(conn, user_no, user_no2, report_content, bd_content_no);   
+			  JDBCTemplate.close(conn);
+	      return result;
+}
    
    
    

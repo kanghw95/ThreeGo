@@ -35,7 +35,8 @@ height: 350px;
 
 <h1>글읽기 </h1>
  	<c:if test="${boardread.bd_writer!=user.getUser_id()}">
-	<input type="button" value="신고" onclick="window.location='<%=request.getContextPath()%>/boardlist1';">
+ 	
+	<input type="button" value="신고" onclick="window.location='<%=request.getContextPath()%>/boardreport?bd_content_no=${boardread.bd_content_no}';">
 	</c:if>
 	
 		<form action="<%=request.getContextPath()%>/boardupdate" method="post">

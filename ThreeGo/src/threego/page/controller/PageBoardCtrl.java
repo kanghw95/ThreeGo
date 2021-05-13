@@ -57,15 +57,12 @@ public class PageBoardCtrl extends HttpServlet {
 		if(com.equals("/board/boardwrite")) {
 			viewPage = "/WEB-INF/main/board_main/write.jsp";
 			
-		}else if(com.equals("/board/boardlist1")) {
-			viewPage = "/WEB-INF/main/board_main/list.jsp";
-
 		}else if(com.equals("/board/boarddelete")){
 			viewPage = "/WEB-INF/board/boarddelete.jsp";
 			
-		}else if(com.equals("/board/boardmain")){
-			viewPage = "/WEB-INF/board/board_main.jsp";
-		
+		}else if(com.equals("/board/boardreport")){
+			viewPage = "/WEB-INF/main/board_main/report.jsp";
+			
 		}else{
 			viewPage = "/WEB-INF/index.jsp";
 		}

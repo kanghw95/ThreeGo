@@ -73,7 +73,7 @@ public class BoardUpdateCtrl extends HttpServlet {
 			request.setAttribute("fullname", fullname);
 			request.setAttribute("filepath", filepath);
 			request.setAttribute("contents_type", contents_type);
-			request.getRequestDispatcher("/WEB-INF/board/boardupdate.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/main/board_main/update.jsp").forward(request, response);
 	}
 }
 			 

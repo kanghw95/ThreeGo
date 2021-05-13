@@ -1,3 +1,4 @@
+<%@page import="threego.model.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,22 +9,24 @@
 </head>
 <body>
 <h1>신고하기</h1>
-<form action="<%=request.getContextPath()%>/board/boardwrite.jsp" method="post">
+<%	User user = (User) session.getAttribute("user"); %>
+<form action="<%=request.getContextPath()%>/boardreportsend" method="post">
+	
+		<input type="text" name="user_no" value="${boardread.user_no}">
+		<input type="text" name="user_no2" value="<%=user.getUser_no()%>">
+		<input type="text" name="bd_content_no" value="${boardread.bd_content_no}">
 	<table>
 			<tr>
-				<td>닉네임1을 신고</td> 
-				<td>${boardread.bd_writer }</td>
-			</tr>	
+				<td>신고할 닉네임 : </td> 
+				<td><input type="text" id="report_nick" name="report_nick" readonly="readonly" size="38" value="${boardread.bd_writer}"></td>
+			</tr>
 			<tr>
-				<td>신고이유</td> 
-				<td>${boardreport.report_content }</td>
-			</tr>	
-	<input type="submit" value="신고 완료">
-	<td colspan="2">
-			<input type="button" value="메인화면" onclick="window.location='<%=request.getContextPath()%>/boardlist';">
-			<input type="button" value="마이페이지" onclick="window.location='<%=request.getContextPath()%>/boardlist';">
-	
-	</td>
+				<td>신고이유 :</td> 
+				<td><textarea id="report_content" name="report_content" rows="10" cols="40" placeholder="신고사유를 작성해주세요"></textarea></td>
+			</tr>
+			<tr>
+			<td><input type="submit" value="신고하기"></td>
+			</tr>
 	</table>
 </form>
 </body>
