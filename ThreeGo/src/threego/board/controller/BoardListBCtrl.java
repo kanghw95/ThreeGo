@@ -15,14 +15,14 @@ import threego.model.vo.Board;
 /**
  * Servlet implementation class BoardListCtrl
  */
-@WebServlet("/boardlist4")
-public class BoardListCtrl extends HttpServlet {
+@WebServlet("/boardlist5")
+public class BoardListBCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListCtrl() {
+    public BoardListBCtrl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -105,7 +105,7 @@ public class BoardListCtrl extends HttpServlet {
 		request.setAttribute("boardList", list);
 		request.setAttribute("search", search);
 		
-		   request.getRequestDispatcher("/WEB-INF/main/board_main/Freelist.jsp").forward(request, response);
+		   request.getRequestDispatcher("/WEB-INF/main/board_main/Blist.jsp").forward(request, response);
 		
 		
 	}

@@ -20,10 +20,10 @@ public class BoardService {
          return result;
    }
    
-   public int getNext() {
+   public int getNext(Board vo) {
       // 현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
       Connection conn = JDBCTemplate.getConnection();
-      int result= new BoardDAO().getNext(conn );
+      int result= new BoardDAO().getNext(conn, vo );
       JDBCTemplate.close(conn);
       return result;
    }
@@ -52,9 +52,15 @@ public class BoardService {
        JDBCTemplate.close(conn);
       return result;
    }
-     public int getBoardUpdate( Board vo ,Board_Attach ao) {
+     public int getBoardUpdate( Board vo ) {
          Connection conn = JDBCTemplate.getConnection();
-          int result = new BoardDAO().getBoardUpdate(conn, vo, ao);   
+          int result = new BoardDAO().getBoardUpdate(conn, vo);   
+          JDBCTemplate.close(conn);
+         return result;
+      }
+     public int getBoardUpdate( Board_Attach ao) {
+         Connection conn = JDBCTemplate.getConnection();
+          int result = new BoardDAO().getBoardUpdateF(conn, ao);   
           JDBCTemplate.close(conn);
          return result;
       }

@@ -106,16 +106,16 @@ public class BoardWriteCtrl extends HttpServlet {
 
       ArrayList<String> images = null;
       String imageNames = null;
+      String bd_category = null;
       
-      
+      Board vo = new Board();
       
       //게시판 글  등록
    try {
    
       BoardService sv = new BoardService();
-      int bno = sv.getNext(); // 게시물 번호
+      int bno = sv.getNext(vo); // 게시물 번호
       System.out.println("bno 값"+bno);
-      Board vo = new Board();
       vo.setBd_content_no(bno);
       vo.setBd_writer(mReq.getParameter("bd_writer"));
       vo.setBd_subject(mReq.getParameter("bd_subject"));
@@ -172,14 +172,14 @@ public class BoardWriteCtrl extends HttpServlet {
             System.out.println("정상 입력");
             String msg = "글 등록 완료";
             request.setAttribute("msg", "글 등록 완료");
-            response.sendRedirect("boardlist");
+            response.sendRedirect("boardlist1");
 
             out.println("<script>alert('" + msg + "')</script>");
-            out.println("<script>location.href='./boardlist';</script>");
+            out.println("<script>location.href='./boardlist1';</script>");
          } else { // 입력 실패
             System.out.println("입력 실패!!");
             request.setAttribute("msg", "글 등록 실패");
-            request.getRequestDispatcher("/WEB-INF/main/board_main/write.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/board/boardwrite.jsp").forward(request, response);
             out.println("<script>alert('입력 실패!')</script>");
             out.println("<script>history.back();</script>"); }
          

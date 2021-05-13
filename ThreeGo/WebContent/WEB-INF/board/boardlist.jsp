@@ -5,17 +5,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판</title>
+<title>자유 게시판</title>
 </head>
 <body>
-
+<h1>자유게시판</h1>
 <%
 	User user = (User) session.getAttribute("user");
 		if (user == null) {
 %>
 
 
-	<form action="<%=request.getContextPath() %>/boardlist" method="get">
+	<form action="<%=request.getContextPath() %>/boardlist1" method="get">
 		<input type="search" name="search" value="${search}">
 		<button type="submit">검색</button>
 	</form>
@@ -32,6 +32,7 @@
 				<th>제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
+				<th>좋아요 수</th>
 			</tr>
 		<c:forEach items="${boardList }" var="v">
 			<tr>
@@ -59,13 +60,13 @@
 	<br>
 	<br>
 	<c:if test="${not empty search}">
-		<input type="button" value="전체글목록" onclick="window.location='<%=request.getContextPath()%>/boardlist';">
+		<input type="button" value="전체글목록" onclick="window.location='<%=request.getContextPath()%>/boardlist1';">
 	</c:if>
 	<%
 		} else {
 	%>
 	
-	<form action="<%=request.getContextPath() %>/boardlist" method="get">
+	<form action="<%=request.getContextPath() %>/boardlist1" method="get">
 		<input type="search" name="search" value="${search}">
 		<button type="submit">검색</button>
 	</form>
@@ -82,6 +83,7 @@
 				<th>제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
+				<th>좋아요 수</th>
 			</tr>
 		<c:forEach items="${boardList }" var="v">
 			<tr>

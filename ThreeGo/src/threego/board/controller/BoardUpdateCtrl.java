@@ -18,7 +18,7 @@ import threego.model.vo.Board_Attach;
  */
 @WebServlet("/boardupdate")
 public class BoardUpdateCtrl extends HttpServlet {
-   private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -28,50 +28,53 @@ public class BoardUpdateCtrl extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-   /**
-    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-    */
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-         throws ServletException, IOException {
-      execute(request, response);
-   }
+			throws ServletException, IOException {
+		execute(request, response);
+	}
 
-   /**
-    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-    *      response)
-    */
-   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-         throws ServletException, IOException {
-      execute(request, response);
-   }
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		execute(request, response);
+	}
 
-   private void execute(HttpServletRequest request, HttpServletResponse response)
-         throws ServletException, IOException {
-      int result=0;
-      Board vo = new Board();
-      BoardService sv = new BoardService();
-      Board_Attach ao = new Board_Attach();
-      String bd_content_no = (String) request.getParameter("bd_content_no");
-      String bd_subject= request.getParameter("bd_subject");
-      String bd_content = request.getParameter("bd_content");
-      String fullname = request.getParameter("fullname");
-      String filepath = request.getParameter("filepath");
-      
-            vo.setBd_content_no(Integer.parseInt(bd_content_no));
-            vo.setBd_subject(bd_subject);
-            vo.setBd_content(bd_content);
-            ao.setFilepath(filepath);
-            ao.setFullname(fullname);
-            //vo.setBd_likecnt(Integer.parseInt(request.getParameter("bd_likecnt")));
-            
-            
-         request.setAttribute("bd_content_no", bd_content_no);
-         request.setAttribute("bd_subject", bd_subject);
-         request.setAttribute("bd_content", bd_content);
-         request.setAttribute("fullname", fullname);
-         request.setAttribute("filepath", filepath);
-         request.getRequestDispatcher("/WEB-INF/main/board_main/update.jsp").forward(request, response);
-   }
+	private void execute(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int result=0;
+		Board vo = new Board();
+		BoardService sv = new BoardService();
+		Board_Attach ao = new Board_Attach();
+		String bd_content_no = (String) request.getParameter("bd_content_no");
+		String bd_subject= request.getParameter("bd_subject");
+		String bd_content = request.getParameter("bd_content");
+		String fullname = request.getParameter("fullname");
+		String filepath = request.getParameter("filepath");
+		String contents_type = request.getParameter("contents_type");
+		
+				vo.setBd_content_no(Integer.parseInt(bd_content_no));
+				vo.setBd_subject(bd_subject);
+				vo.setBd_content(bd_content);
+				ao.setFilepath(filepath);
+				ao.setFullname(fullname);
+				ao.setContents_type(contents_type);
+				//vo.setBd_likecnt(Integer.parseInt(request.getParameter("bd_likecnt")));
+				
+				
+			request.setAttribute("bd_content_no", bd_content_no);
+			request.setAttribute("bd_subject", bd_subject);
+			request.setAttribute("bd_content", bd_content);
+			request.setAttribute("fullname", fullname);
+			request.setAttribute("filepath", filepath);
+			request.setAttribute("contents_type", contents_type);
+			request.getRequestDispatcher("/WEB-INF/board/boardupdate.jsp").forward(request, response);
+	}
 }
-          
-   
+			 
+	

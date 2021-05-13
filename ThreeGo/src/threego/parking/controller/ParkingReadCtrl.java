@@ -47,9 +47,9 @@ public class ParkingReadCtrl extends HttpServlet {
 		List<Parking> listpark = null;
 		if(vo!=null) {
 			listpark = sv.getParkingRead();
-			System.out.println(listpark);
+			System.out.println("파킹리드컨트롤러"+listpark);
 			if(listpark != null) {
-				request.setAttribute("parkingcontent", listpark);
+				request.setAttribute("listpark", listpark);
 				request.getRequestDispatcher("WEB-INF/main/main.jsp").forward(request, response);
 			} else {
 				System.out.println("vo가 널입니다.");

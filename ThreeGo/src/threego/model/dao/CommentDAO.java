@@ -190,37 +190,36 @@ public class CommentDAO {
 	}
 
 
-	public ArrayList<Comment_tb> getCommentByPage(Connection conn, int start, int end, String search, int bd_content_no) {
+	public ArrayList<Comment_tb> getCommentByPage(Connection conn, int start, int end,  int bd_content_no) {
 		  ArrayList<Comment_tb> list = null;
-	      String sql_1 = "( select * from Comment_tb where bd_content_no = ? ";
-
-	      if (search != null) {
-	         sql_1 += " and ( com_writer like '%" + search + "%' or com_contents like '%" + search + "%' ) ";
-	      }
-	      sql_1 += " order by rv_date asc ) d ";
-
-	      String sql = "select d2.bd_content_no, d2.com_writer, d2.com_contents, to_char(d2.rv_date,'yyyy-mm-dd hh24:mi:ss') "
-	      		+ " from (select rownum r, d.* from " + sql_1 + " ) d2 where d2.r >= ? and d2.r <= ?";
-
-		
+//	      String sql_1 = "( select * from Comment_tb where bd_content_no = ? ";
+//
+//	      if (search != null) {
+//	         sql_1 += " and ( com_writer like '%" + search + "%' or com_contents like '%" + search + "%' ) ";
+//	      }
+//	      sql_1 += " order by rv_date asc ) d ";
+//
+//	      String sql = "select d2.bd_content_no, d2.com_writer, d2.com_contents, to_char(d2.rv_date,'yyyy-mm-dd hh24:mi:ss') "
+//	      		+ " from (select rownum r, d.* from " + sql_1 + " ) d2 where d2.r >= ? and d2.r <= ?";
+		  
+		  String sql = " select com_writer, com_contents, to_char(rv_date,'yyyy-mm-dd hh24:mi:ss') from Comment_tb where bd_content_no = ? ";
 		close();
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bd_content_no);
-			pstmt.setInt(2, start);
-			pstmt.setInt(3, end);
+//			pstmt.setInt(2, start);
+//			pstmt.setInt(3, end);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				list = new ArrayList<Comment_tb>();
 				do {
 					Comment_tb co = new Comment_tb();
 					
-					co.setBd_content_no(rs.getInt("bd_content_no"));
-					
+					//co.setBd_content_no(rs.getInt("bd_content_no"));
 					co.setCom_writer(rs.getString("com_writer"));
 					co.setCom_contents(rs.getString("com_contents"));
-					co.setRv_date(rs.getString(4));
+					co.setRv_date(rs.getString(3));
 					
 					list.add(co);
 				} while (rs.next());
@@ -234,14 +233,10 @@ public class CommentDAO {
 		return list;
 	}
 
-	public int getCommentCount(Connection conn, String search, int bd_content_no) {
+	public int getCommentCount(Connection conn, int bd_content_no) {
 		int cnt = 0;
 		String sql = "select COUNT(*) from Comment_tb where bd_content_no = ?";
-		if (search != null) {
-			System.out.println("search is not null");
-			sql += " and (com_writer like '%" + search + "%' or com_contents like '%" + search + "%' )";
-		}
-
+		
 		pstmt = null;
 		rs = null;
 		try {

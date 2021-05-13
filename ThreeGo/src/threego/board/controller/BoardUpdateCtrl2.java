@@ -47,7 +47,8 @@ public class BoardUpdateCtrl2 extends HttpServlet {
 
 	private void execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int result=0;
+		int result1=0;
+		int result2=0;
 		Board vo = new Board();
 		BoardService sv = new BoardService();
 		Board_Attach ao = new Board_Attach();
@@ -55,10 +56,9 @@ public class BoardUpdateCtrl2 extends HttpServlet {
 		String bd_content_no = (String) request.getParameter("bd_content_no");
 		String bd_subject= request.getParameter("bd_subject");
 		String bd_content = request.getParameter("bd_content");
-		String fullname = request.getParameter("fullname");
 		String filepath = request.getParameter("filepath");
-		
-		
+		String fullname = request.getParameter("fullname");
+		String contents_type = request.getParameter("contents_type");
 			if (bd_content_no != null) {
 
 				vo.setBd_content_no(Integer.parseInt(bd_content_no));
@@ -66,18 +66,20 @@ public class BoardUpdateCtrl2 extends HttpServlet {
 				vo.setBd_content(bd_content);
 				ao.setFilepath(filepath);
 				ao.setFullname(fullname);
+				ao.setContents_type(contents_type);
 				//vo.setBd_likecnt(Integer.parseInt(request.getParameter("bd_likecnt")));
 
-				result = sv.getBoardUpdate(vo,ao);
+				result1 = sv.getBoardUpdate(vo);
+				result2 = sv.getBoardUpdate(ao);
 			}
 		 
 			PrintWriter out = response.getWriter();
-			if (result > 0) {
+			if (result1+result2 == 2) {
 				out.println("<script>alert('글 수정 완료')</script>");
-				out.println("<script>location.href='./boardlist';</script>");
+				out.println("<script>location.href='./boardlist1';</script>");
 			} else {
 				out.println("<script>alert('글 수정에 실패하였습니다!')</script>");
-				out.println("<script>location.href='./boardlist';</script>");
+				out.println("<script>location.href='./boardlist1';</script>");
 			}
 			
 	}

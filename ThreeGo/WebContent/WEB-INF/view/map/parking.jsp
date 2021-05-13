@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/search_park.css" type="text/css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/modal.css" type="text/css">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,7 +7,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-</style>
 <!-- 돋보기 같은 아이콘 -->
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <!-- font -->
@@ -42,6 +42,13 @@
 			</ul>
 		</div>
 	</div>
+	
+<button type='button' id="modal_btn">로그인</button>
+	<div class="black_bg"></div>
+		<div class="modal_wrap">
+   			 <div class="modal_close"><a href="#">close</a></div>
+    	<div><%@ include file="../login.jsp" %></div>
+</div>
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7e6ffb44bc370496fed6af6daa18ce21"></script>
 	<script>
@@ -440,6 +447,23 @@
 			}
 			
 		}
+		
+		 window.onload = function() {
+			 
+			    function onClick() {
+			        document.querySelector('.modal_wrap').style.display ='block';
+			        document.querySelector('.black_bg').style.display ='block';
+			    }   
+			    function offClick() {
+			        document.querySelector('.modal_wrap').style.display ='none';
+			        document.querySelector('.black_bg').style.display ='none';
+			    }
+			 
+			    document.getElementById('modal_btn').addEventListener('click', onClick);
+			    document.querySelector('.modal_close').addEventListener('click', offClick);
+			 
+			};
+
 		
 	</script>
 	<hr>

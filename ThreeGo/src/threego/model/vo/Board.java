@@ -9,19 +9,20 @@ private String bd_writer;
 private String bd_subject;
 private String bd_content;
 private Date bd_date;
-private int bd_ref;
-private int bd_re_step;
-private int bd_re_level;
 private int bd_likecnt;
+private String bd_category;
+
+
+
+
+
+
 @Override
 public String toString() {
 	return "Board [bd_content_no=" + bd_content_no + ", user_no=" + user_no + ", bd_writer=" + bd_writer
-			+ ", bd_subject=" + bd_subject + ", bd_content=" + bd_content + ", bd_date=" + bd_date + ", bd_ref="
-			+ bd_ref + ", bd_re_step=" + bd_re_step + ", bd_re_level=" + bd_re_level + ", bd_likecnt=" + bd_likecnt
-			+ "]";
+			+ ", bd_subject=" + bd_subject + ", bd_content=" + bd_content + ", bd_date=" + bd_date + ", bd_likecnt="
+			+ bd_likecnt + ", bd_category=" + bd_category + "]";
 }
-
-public Board () {}
 public int getBd_content_no() {
 	return bd_content_no;
 }
@@ -58,33 +59,18 @@ public Date getBd_date() {
 public void setBd_date(Date bd_date) {
 	this.bd_date = bd_date;
 }
-public int getBd_ref() {
-	return bd_ref;
-}
-public void setBd_ref(int bd_ref) {
-	this.bd_ref = bd_ref;
-}
-public int getBd_re_step() {
-	return bd_re_step;
-}
-public void setBd_re_step(int bd_re_step) {
-	this.bd_re_step = bd_re_step;
-}
-public int getBd_re_level() {
-	return bd_re_level;
-}
-public void setBd_re_level(int bd_re_level) {
-	this.bd_re_level = bd_re_level;
-}
 public int getBd_likecnt() {
 	return bd_likecnt;
 }
 public void setBd_likecnt(int bd_likecnt) {
 	this.bd_likecnt = bd_likecnt;
 }
-
-
-
+public String getBd_category() {
+	return bd_category;
+}
+public void setBd_category(String bd_category) {
+	this.bd_category = bd_category;
+}
 
 
 }

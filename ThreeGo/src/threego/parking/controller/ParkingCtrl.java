@@ -35,6 +35,7 @@ public class ParkingCtrl extends HttpServlet {
 		ArrayList<Parking> listpark = new ParkingService().getParkingAll();
 		if(listpark != null) {
 			request.setAttribute("listpark", listpark);
+			System.out.println("파킹컨트롤러" + listpark);
 			request.getRequestDispatcher("WEB-INF/main/main.jsp").forward(request, response);
 		}else {
 			request.getRequestDispatcher("WEB-INF/main/main.jsp").forward(request, response);;

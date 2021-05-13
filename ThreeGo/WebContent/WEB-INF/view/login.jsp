@@ -1,9 +1,9 @@
 <%@page import="threego.model.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%User users = (User) session.getAttribute("user"); %>
 <%
-	User user = (User) session.getAttribute("user");
-		if (user == null) {
+		if (users == null) {
 %>
 	<div>
 	<form id="loginfrm">
@@ -22,7 +22,7 @@
 	<div>
 		<%= session.getAttribute("msg") %>
 		<input type="hidden" <%= session.getAttribute("username") %>>
-		<p>마지막 접속 시간 : <span><%=user.getLast_login()%></span></p><br>
+		<p>마지막 접속 시간 : <span><%=users.getLast_login()%></span></p><br>
 		<input type="button" id="btnmypage" value="마이페이지" onclick="location.href='<%=request.getContextPath()%>/main/user/usermypage'">
 		<input type="button" id="btnLogout" value="로그아웃" onclick="location.href='<%=request.getContextPath()%>/userlogout'">
 	</div>

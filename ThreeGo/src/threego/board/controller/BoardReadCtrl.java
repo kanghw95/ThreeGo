@@ -76,7 +76,7 @@ public class BoardReadCtrl extends HttpServlet {
                   request.setAttribute("boardread", vo);
                   request.setAttribute("files", inputF);
                   
-                  request.getRequestDispatcher("/WEB-INF/main/board_main/read.jsp").forward(request, response);
+                  request.getRequestDispatcher("/WEB-INF/board/boardread.jsp").forward(request, response);
                   
                   
                

@@ -32,7 +32,7 @@ height: 350px;
 				<td>내용</td>
 				      
 				<td>
-		         	<input type="file" name="fullname"  multiple accept="image/* ">
+		         	<input type="file" id="fileupload" name="uploads" multiple accept="image/*">
 		         	<input type="reset" id ="filecancel" value=삭제 >
 		         	<br>
 					<textarea name="bd_content" id="bd_content">${bd_content}</textarea>

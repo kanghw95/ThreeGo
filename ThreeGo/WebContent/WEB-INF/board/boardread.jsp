@@ -35,7 +35,7 @@ height: 350px;
 
 <h1>글읽기 </h1>
  	<c:if test="${boardread.bd_writer!=user.getUser_id()}">
-	<input type="button" value="신고" onclick="window.location='<%=request.getContextPath()%>/boardlist';">
+	<input type="button" value="신고" onclick="window.location='<%=request.getContextPath()%>/boardlist1';">
 	</c:if>
 	
 		<form action="<%=request.getContextPath()%>/boardupdate" method="post">
@@ -46,6 +46,8 @@ height: 350px;
 		<input type="hidden" name="bd_content" value="${boardread.bd_content}">
 		<input type="hidden" name="fullname" value="${file.fullname}">
 		<input type="hidden" name="filepath" value="${file.filepath}">
+		<input type="hidden" name="fullname" value="${file.contents_type}">
+		
 
  <table border="1">
          <tr>
@@ -70,7 +72,7 @@ height: 350px;
             <td>파일</td>
             <td id="filetd">
             
-         	<c:forEach var="file" items="${files }">
+         	<c:forEach var="file" items="${files}">
             <img id="file" width="100" src="<%=request.getContextPath() %>${file.filepath }/${file.fullname}" alt="file" />
          	</c:forEach>            
          <br/>
@@ -91,7 +93,7 @@ height: 350px;
 		<script>
 		    function test() {
 		        if (!confirm("정말 삭제하시겠습니까?")) {//니요
-		        	location.href="<%=request.getContextPath()%>/boardlist";
+		        	location.href="<%=request.getContextPath()%>/history.back()";
 		        } else {//네
 		        	location.href="<%=request.getContextPath()%>/boarddelete?bd_content_no=${boardread.bd_content_no}";
 		        }
@@ -100,7 +102,7 @@ height: 350px;
 		
 	
 		<br>
-		<input type="button" value="목록으로" onclick="window.location='<%=request.getContextPath() %>/boardlist';"></td>
+		<input type="button" value="목록으로" onclick="window.location='<%=request.getContextPath() %>/boardlist1';"></td>
 		<hr>
 		<table border="1">
 			<form action="<%=request.getContextPath()%>/commentwrite" method="post" >
@@ -118,62 +120,85 @@ height: 350px;
 	
 	
 	
-	<form action="<%=request.getContextPath() %>/commentlist" method="get">
-	<!-- action="/commentlist.do" method="get" 쓰지 말고.. 
-	-->
-	<input type="search" name="search" value="${search}" id="search">
-	<button type="button" id="btnSearch">검색</button> 
+	<form action="<%=request.getContextPath() %>/commentlist" method="get"> 
+
+	<div id="comments">
 	
-	</form>
-	
-	<div id="comments"></div>
-<script>
-	console.log('${boardread.bd_content_no}');
-	//console.log('${JSON.currentPage}');
-	let searchWord = "";
-	getComments();  // 로딩되면 일단 comment 일어오기
-	$("#btnSearch").click(function(){
-		searchWord=$("#search").val();
-		getComments();
-	});// 찾기 눌러도 아래 comment 가지러 갔다오기
+	</div>
+	<script>
+		    function commentdelete() {
+		        if (!confirm("정말 삭제하시겠습니까?")) {//니요
+		        	location.href="<%=request.getContextPath()%>/history.back();";
+		        } else {//네
+		        	location.href="<%=request.getContextPath()%>/commentdelete?bd_content_no=${boardread.bd_content_no}";
+		        }
+		    }
+		</script>
+		
+	<script>
+	let p = 1;
+	getComments();
+	// 로딩되면 일단 comment 일어오기
 	function getComments(){
+		console.log(p);
+		p = (p > 0) ? p : 1;
 		$.ajax({
 			url: "<%=request.getContextPath()%>/commentlist",
-			type : "GET" ,   // get방식을 쓰고..
+			type : "POST" ,   // get방식을 쓰고..
 			data : {
 				bd_content_no : "${boardread.bd_content_no}",
-				pageNum : "1"  
+				pageNum : p
 				// ${pageNum} 없네요. 임시로 1
-				, search: searchWord  // 여기 ajax 로 가는게 더 좋아 보임.
+				// 여기 ajax 로 가는게 더 좋아 보임.
 			},
 			
 			dataType : "json",
+			
 			success:function(data){
+			      console.log("됐다!!!");
+			         console.log('[ejkim] data:'+ data);
+			         console.log('[ejkim] data.pageCnt: '+ data.pageCnt);
+			         console.log('[ejkim] data.startPage: '+ data.startPage);
+			         console.log('[ejkim] data.endPage: '+ data.endPage);
+			         console.log('[ejkim] data.currentPage: '+ data.currentPage);
+			         p = data.currentPage;
+
 				console.log(data);
 				var htmltags=""
-				
-				$.each(data, function( index, e ){
-					htmltags += "<div><span>"+ e.com_no + " </span>";
-					htmltags += "<span>"+ e.bd_content_no + "</span>";
-					htmltags += "<span>"+ e.user_no + "</span>";
-					htmltags += "<span>"+ e.com_writer + " </span>";
-					htmltags += "<span>"+ e.com_contents+ " </span>";
-					htmltags += "<span>"+ e.rv_date+ " </span>"; 
-					htmltags += "<span>"+ e.com_ref+ " </span>"; 
-					htmltags += "<span>"+ e.com_re_step+ " </span>"; 
-					htmltags += "<span>"+ e.com_re_level+ " </span>"; 
-				});       
+				var List = data.List;
+				$.each(List, function(i,list){
+					console.log('[ejkim]List[i].com_writer: '+ List[i].com_writer);
+					console.log('[ejkim]List[i].com_writer: '+ List[i].com_contents);
+					console.log('[ejkim]List[i].com_writer: '+ List[i].rv_date);
+					//htmltags += "<div><span>"+ e.com_no + " </span>";
+					//htmltags += "<span>"+ e.bd_content_no + "</span>";
+					//htmltags += "<span>"+ e.user_no + "</span>";
+					htmltags += "<span>"+ List[i].com_writer + " </span>";
+					htmltags += "<span>"+ List[i].com_contents+ " </span>";
+					htmltags += "<span>"+ List[i].rv_date+ " </span></div><br>"; 
+					//htmltags += "<span>"+ e.com_ref+ " </span>"; 
+					//htmltags += "<span>"+ e.com_re_step+ " </span>"; 
+					//htmltags += "<span>"+ e.com_re_level+ " </span>"; 
+					$("#comments").append(htmltags);
+				});
 				if(htmltags==""){
 					htmltags += "<div> 댓글이 없습니다. </div>";
 				}
-				//if(htmltags!=""){
-					// ???
-					// 요정도~~ 됐나요?  아래 page 만들든.. 암만들든.. 잠시만요
-					//htmltags += "<div> e.com_writer</div> ";
-					//htmltags += "<div> e.rv_date</div> ";
-					//htmltags += "<div> e.com_contents</div> ";
-				//}
 				$("#comments").html(htmltags);
+				
+				var htmlpagingtags="";
+				if(data.startPage != 1) {
+					var pre = data.startPage-1;
+					htmlpagingtags += "<a href='commentlist?pageNum="+pre+"'>이전</a>";
+				}
+				for(var i=data.startPage; i<=data.endPage; i++){
+					htmlpagingtags += "<a href='commentlist?pageNum="+i+"'>"+i+"</a>";
+				}
+				if(data.endPage < data.pageCnt ) {
+					var pro = data.endPage+1;
+					htmlpagingtags += "<a href='commentlist?pageNum="+pro+"'>이후</a>";
+				}
+				$("#page_content").html(htmlpagingtags);
 			},
 			error: function(request, status, error){
 				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
@@ -181,18 +206,13 @@ height: 350px;
 		 });
 	}
 	</script>
-	<!-- 
+	</form>
+	
 	<br>
-	<c:if test="${startPage != 1 }">
-		<a href="<%=request.getContextPath() %>/commentlist?pageNum=${startPage-1}&search=${search}">이전</a> 
-	</c:if>
-	<c:forEach begin="${startPage}" end="${endPage}" var="s" step="1">
-		<a href="<%=request.getContextPath() %>/commentlist?pageNum=${s}&search=${search}">${s }</a> 
-	</c:forEach>
-	<c:if test="${endPage < pageCnt }">
-		<a href="<%=request.getContextPath() %>/boardlist?pageNum=${endPage+1}&search=${search}">다음</a>
-	</c:if>
--->
+	<div id="page_content">
+	</div>
+
+
 
 	
 <%

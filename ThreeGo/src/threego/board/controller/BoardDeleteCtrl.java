@@ -58,7 +58,7 @@ public class BoardDeleteCtrl extends HttpServlet {
 		if (result == 1) {
 			String msg = "글 삭제 완료";
 			out.println("<script>alert('" +msg+"')</script>");
-			out.println("<script>location.href='./boardlist';</script>");
+			out.println("<script>location.href='./boardlist1';</script>");
 		}
 	}
 }

@@ -1,4 +1,3 @@
-<%@page import="threego.model.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -24,9 +23,18 @@ $(function(){
 
 </head>
 <body>
-<%
-User user = (User) session.getAttribute("user");
-%>
+<c:if test="${msg == '글 등록 성공' }">
+		<script>
+			alert("${msg}");
+			location.href = "boardlist1";
+		</script>
+	</c:if>
+	<c:if test="${msg == '글 등록 실패' }">
+		<script>
+			alert("${msg}");
+		</script>
+	</c:if>
+
 
    <h1>글쓰기</h1>
    <form action="<%=request.getContextPath()%>/boardWrite"
@@ -40,7 +48,7 @@ User user = (User) session.getAttribute("user");
          </tr>
          <tr>
             <td>닉네임</td>
-            <td><input type="text" name="bd_writer" value="<%=user.getNickname() %> " readonly ></td>
+            <td><input type="text" name="bd_writer" value="로그인 " readonly ></td>
          </tr>
          <tr>
             <td>파일첨부</td>
@@ -63,7 +71,7 @@ User user = (User) session.getAttribute("user");
          </tr>
       </table>
             <input type="button" value="글목록"
-               onclick="window.location='<%=request.getContextPath()%>/boardlist';">
+               onclick="window.location='<%=request.getContextPath()%>/boardlist1';">
 
    </form>
 </body>

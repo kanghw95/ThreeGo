@@ -1,6 +1,6 @@
 package threego.board.controller;
 
-import java.io.IOException; 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,16 +13,16 @@ import threego.model.service.BoardService;
 import threego.model.vo.Board;
 
 /**
- * Servlet implementation class BoardListCtrl
+ * Servlet implementation class BoardListRVCtrl
  */
-@WebServlet("/boardlist4")
-public class BoardListCtrl extends HttpServlet {
+@WebServlet("/boardlist1")
+public class BoardListRVCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListCtrl() {
+    public BoardListRVCtrl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,7 +30,7 @@ public class BoardListCtrl extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		execute(request, response);
 	}
 
@@ -105,7 +105,7 @@ public class BoardListCtrl extends HttpServlet {
 		request.setAttribute("boardList", list);
 		request.setAttribute("search", search);
 		
-		   request.getRequestDispatcher("/WEB-INF/main/board_main/Freelist.jsp").forward(request, response);
+		   request.getRequestDispatcher("/WEB-INF/main/board_main/RVlist.jsp").forward(request, response);
 		
 		
 	}

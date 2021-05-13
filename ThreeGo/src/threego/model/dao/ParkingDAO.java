@@ -238,7 +238,7 @@ public class ParkingDAO {
 
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-
+			
 			if (rs != null) { // 결과가 1개이상 있다면
 				if (rs.next()) {
 					list = new ArrayList<Parking>();

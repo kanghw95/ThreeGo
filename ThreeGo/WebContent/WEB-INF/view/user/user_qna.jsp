@@ -3,9 +3,7 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="threego.model.vo.User"%>
-<%
-	User user = (User) session.getAttribute("user");
-	%>
+<%User user = (User) session.getAttribute("user");%>
 <!DOCTYPE html>
 <html>
 <head>
