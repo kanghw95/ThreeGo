@@ -36,7 +36,7 @@ public class SelectAllUserCtrl extends HttpServlet {
 		
 		ArrayList<User> list = new UserService().selectAll();
 		if (list != null) {
-			request.setAttribute("list", list);
+			request.setAttribute("reviewlist", list);
 			request.getRequestDispatcher("WEB-INF/view/user/UserAllView.jsp").forward(request, response);
 		} else {
 			request.getRequestDispatcher("WEB-INF/view/user/UserAllView.jsp").forward(request, response);

@@ -182,4 +182,6 @@ font-family: "Audiowide", sans-serif;
 	overflow: hidden;
 }
 
-
+#fav{
+	float : right;
+}

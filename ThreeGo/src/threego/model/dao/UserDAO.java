@@ -76,7 +76,6 @@ public class UserDAO {
 		ArrayList<User> list = new ArrayList<User>();
 
 		String sql = "select * from USER_TB where " + col + " like '" + str +"' ";
-//		String sql = "select * from USER_TB where " + col + " like '%" + str + "%' ";
 
 		pstmt = null;
 		rs = null;

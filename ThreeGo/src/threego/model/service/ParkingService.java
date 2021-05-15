@@ -38,17 +38,16 @@ public class ParkingService {
 		}
 		
 		
-		public int getParkingCount(String search) {
-			Connection conn = JDBCTemplate.getConnection();
-			int result = new ParkingDAO().getParkingCount(conn, search);
-			JDBCTemplate.close(conn);
-			return result;
-		}
+		
 		public List<Parking> getParkingByPage(int start, int end, String search){
 			Connection conn = JDBCTemplate.getConnection();
 			List<Parking> list = new ParkingDAO().getParkingByPage(conn, start, end, search);
 			JDBCTemplate.close(conn);
 			return list;
 		}
+		
+		
+		
+	
 		
 }

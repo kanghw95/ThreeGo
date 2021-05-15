@@ -33,7 +33,7 @@
 		</div>
 		<div class="category">
 			<ul>
-				<li id="coffeeMenu" onclick="changeMarker('coffee')"><span
+				<li  id="coffeeMenu" onclick="changeMarker('coffee')"><span
 					class="ico_comm ico_carpark"></span>무료</li>
 				<li id="carparkMenu" onclick="changeMarker('carpark')"><span
 					class="ico_comm ico_carpark"></span>유료</li>
@@ -116,22 +116,23 @@
 				function(mouseEvent) {
 
 					// 현재 마커가 놓인 자리의 좌표입니다 
-					var position = rv_marker.getPosition();
+					var rv_position = rv_marker.getPosition();
 
 					// 마커가 놓인 위치를 기준으로 로드뷰를 설정합니다
-					toggleRoadview(position);
+					toggleRoadview(rv_position);
 				});
 
 		
 		// 주차장 제목 클릭 시 지도 이동 이벤트
 		function panTo(name,code){
 			var code = code;
+			
 			var codeclass1 = document.getElementsByClassName("park");
 			var codeclass = document.getElementsByClassName("park"+code);
 			for(var i=0; i<codeclass1.length; i++){
 				codeclass1[i].style.background = "none";
 			}
-			codeclass[0].style.background = "black";
+			codeclass[0].style.background = "#DBFAF4";
         	
 			
 			
@@ -141,6 +142,7 @@
 			var moveLatLon = new kakao.maps.LatLng(${v.lat}, ${v.lng});
 			}
 			</c:forEach>
+			
 			
 				map.panTo(moveLatLon);
 		}
@@ -153,33 +155,33 @@
 			}
 
 			// 클릭한 위치의 좌표입니다 
-			var position = mouseEvent.latLng;
+			var rv_position = mouseEvent.latLng;
 
 			// 마커를 클릭한 위치로 옮깁니다
-			rv_marker.setPosition(position);
+			rv_marker.setPosition(rv_position);
 
 			// 클락한 위치를 기준으로 로드뷰를 설정합니다
-			toggleRoadview(position);
+			toggleRoadview(rv_position);
 		});
 
 		// 전달받은 좌표(position)에 가까운 로드뷰의 파노라마 ID를 추출하여
 		// 로드뷰를 설정하는 함수입니다
-		function toggleRoadview(position) {
+		function toggleRoadview(rv_position) {
 			rvClient.getNearestPanoId(position, 50, function(panoId) {
 				// 파노라마 ID가 null 이면 로드뷰를 숨깁니다
 				if (panoId === null) {
-					toggleMapWrapper(true, position);
+					toggleMapWrapper(true, rv_position);
 				} else {
-					toggleMapWrapper(false, position);
+					toggleMapWrapper(false, rv_position);
 
 					// panoId로 로드뷰를 설정합니다
-					rv.setPanoId(panoId, position);
+					rv.setPanoId(panoId, rv_position);
 				}
 			});
 		}
 
 		// 지도를 감싸고 있는 div의 크기를 조정하는 함수입니다
-		function toggleMapWrapper(active, position) {
+		function toggleMapWrapper(active, rv_position) {
 			if (active) {
 
 				// 지도를 감싸고 있는 div의 너비가 100%가 되도록 class를 변경합니다 
@@ -189,7 +191,7 @@
 				map.relayout();
 
 				// 지도의 너비가 변경될 때 지도중심을 입력받은 위치(position)로 설정합니다
-				map.setCenter(position);
+				map.setCenter(rv_position);
 			} else {
 
 				// 지도만 보여지고 있는 상태이면 지도의 너비가 50%가 되도록 class를 변경하여
@@ -201,7 +203,7 @@
 					map.relayout();
 
 					// 지도의 너비가 변경될 때 지도중심을 입력받은 위치(position)로 설정합니다
-					map.setCenter(position);
+					map.setCenter(rv_position);
 				}
 			}
 		}
@@ -253,51 +255,48 @@
 
 		// 로드뷰에서 X버튼을 눌렀을 때 로드뷰를 지도 뒤로 숨기는 함수입니다
 		function closeRoadview() {
-			var position = rv_marker.getPosition();
-			toggleMapWrapper(true, position);
+			var rv_position = rv_marker.rgetPosition();
+			toggleMapWrapper(true, rv_position);
 		}
 		map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
 
-		// 커피숍 마커가 표시될 좌표 배열입니다
+		// 무료 마커가 표시될 좌표 배열입니다
 		var coffeePositions = [
+			<c:forEach items="${listpark }" var="v" varStatus="s">
+			<c:if test = "${fn:contains(v.pay_yn, 'N')}">
+
+			new kakao.maps.LatLng(${v.lat}, ${v.lng})
+			<c:if test="${fn:length(listpark) > 1 && fn:length(listpark) > (s.count)}">
+			,
+			</c:if>
+			</c:if>
+
+			</c:forEach>
+			/* new kakao.maps.LatLng(37.58024201,127.0100353),
+			new kakao.maps.LatLng(37.57464656,126.9677885) */
+		];
+
+		// 유료 마커가 표시될 좌표 배열입니다
+		var carparkPositions = [
+			<c:forEach items="${listpark }" var="v" varStatus="s">
+			<c:if test = "${fn:contains(v.pay_yn, 'Y')}">
+			new kakao.maps.LatLng(${v.lat}, ${v.lng})
+			<c:if test="${fn:length(listpark) > 1 && fn:length(listpark) > (s.count)}">
+			,
+			</c:if>
+			</c:if>
+			</c:forEach>
+				];
+
+		// 전체 마커가 표시될 좌표 배열입니다
+		var storePositions = [
 			<c:forEach items="${listpark }" var="v" varStatus="s">
 			new kakao.maps.LatLng(${v.lat}, ${v.lng})
 			<c:if test="${fn:length(listpark) > 1 && fn:length(listpark) > (s.count)}">
 			,
 			</c:if>
 			</c:forEach>
-			/* new kakao.maps.LatLng(37.58024201,127.0100353),
-			new kakao.maps.LatLng(37.57464656,126.9677885) */
-		];
-
-		// 주차장 마커가 표시될 좌표 배열입니다
-		var carparkPositions = [
-				new kakao.maps.LatLng(37.57449014, 126.9741859),
-				new kakao.maps.LatLng(37.57107424, 126.9731594),
-				new kakao.maps.LatLng(37.57449014, 126.9741859),
-				new kakao.maps.LatLng(37.57107424, 126.9950416),
-				new kakao.maps.LatLng(37.56983402, 126.9815059),
-				new kakao.maps.LatLng(37.56914518, 126.9950416),
-				new kakao.maps.LatLng(37.56955668, 126.9833738),
-				new kakao.maps.LatLng(37.57231272, 126.9846183),
-				new kakao.maps.LatLng(37.57158787, 126.9729356),
-				new kakao.maps.LatLng(37.57806188, 126.9893414),
-				new kakao.maps.LatLng(37.57067078, 127.0177646),
-				new kakao.maps.LatLng(37.57540383, 126.9786815),
-				new kakao.maps.LatLng(37.57185042, 126.9844954),
-				new kakao.maps.LatLng(37.56829903, 126.9880723),
-				new kakao.maps.LatLng(37.56947712, 126.9923344),
-				new kakao.maps.LatLng(37.58411794, 126.9698478) 
-				];
-
-		// 편의점 마커가 표시될 좌표 배열입니다
-		var storePositions = [
-			<c:forEach items="${listpark }" var="v" varStatus="s">
-				new kakao.maps.LatLng(${v.lat}, ${v.lng})
-				<c:if test="${fn:length(listpark) > 1 && fn:length(listpark) > (s.count) }">
-				,
-				</c:if>
-			</c:forEach>
+			
 			 ];
 		var markerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png'; // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
 		coffeeMarkers = [], // 커피숍 마커 객체를 가지고 있을 배열입니다
@@ -324,8 +323,18 @@
 			});
 
 		    
+			var iwContent = '<div style="padding:5px;"></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		    iwRemoveable = true; 
+
+			var infowindow = new kakao.maps.InfoWindow({
+			    content : iwContent,
+			    removable : iwRemoveable
+			});
+			
 		    kakao.maps.event.addListener(marker, 'click', function() {
-						
+		        infowindow.open(map, marker);  
+		        console.log(position);
+
 		    });
 			return marker;
 			
@@ -419,7 +428,11 @@
 
 			// 커피숍 카테고리가 클릭됐을 때
 			if (type === 'coffee') {
-
+				<c:forEach items="${listpark }" var="v" varStatus="s">
+				<c:if test = "${v.pay_yn} == 'N'">
+				console.log("${v.pay_yn}")
+				</c:if>
+				</c:forEach>
 				// 커피숍 카테고리를 선택된 스타일로 변경하고
 				coffeeMenu.className = 'menu_selected';
 
