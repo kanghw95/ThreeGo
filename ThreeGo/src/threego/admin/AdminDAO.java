@@ -638,4 +638,86 @@ public class AdminDAO {
 
 			return resultVo;
 		}
+		/****신고글 불러오기****/
+		public List<Report> getPeportByPage(Connection conn, int start, int end, String type) {
+			List<Report> list = null;
+			String sql= "select a.*,b.nickname as reported,c.nickname as reporter,d.bd_content as bd_content from board_report a join user_tb b on a.user_no=b.user_no join user_tb c on a.user_no2=c.user_no join board d on a.bd_content_no=d.bd_content_no";
+			
+			if(type == "grade"||type.equals("grade")) {
+				sql += " where a.bd_content_no<1001";
+			} else if(type == "share"||type.equals("share")){
+				sql += " where a.bd_content_no>1000 and a.bd_content_no<2001";
+			} else if(type == "dirve"||type.equals("dirve")){
+				sql += " where a.bd_content_no>2000 and a.bd_content_no<3001";
+			} else if(type == "free"||type.equals("free")){
+				sql += " where a.bd_content_no>3000 and a.bd_content_no<4001";
+			} else {
+				sql += " where a.bd_content_no>4000 and a.bd_content_no<5001";
+			}
+			sql += " order by bd_report_no";
+
+			pstmt=null;
+			rs=null;
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					list = new ArrayList<Report>();
+					do {
+					Report vo = new Report();
+					vo.setBd_content_no(rs.getInt("bd_content_no"));
+					vo.setBd_report_no(rs.getInt("bd_report_no"));
+					vo.setReport_content(rs.getString("report_content"));
+					vo.setReport_date(rs.getDate("report_date"));
+					vo.setUser_no(rs.getInt("user_no"));
+					vo.setUser_no2(rs.getInt("user_no2"));
+					vo.setReported(rs.getString("reported"));
+					vo.setReporter(rs.getNString("reporter"));
+					vo.setBd_content(rs.getString("bd_content"));
+					list.add(vo);
+					}while(rs.next());
+					
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close();
+			}
+			
+			return list;
+		}
+		/***신고글 갯수 가지고 오기***/
+		public int getReportCount(Connection conn, String type) {
+			int cnt = 0;
+			String sql="select COUNT(*) from board_report ";
+			if(type == "grade"||type.equals("grade")) {
+				sql += " where bd_content_no<1001";
+			} else if(type == "share"||type.equals("share")){
+				sql += " where bd_content_no>1000 and bd_content_no<2001";
+			} else if(type == "dirve"||type.equals("dirve")){
+				sql += " where bd_content_no>2000 and bd_content_no<3001";
+			} else if(type == "free"||type.equals("free")){
+				sql += " where bd_content_no>3000 and bd_content_no<4001";
+			} else {
+				sql += " where bd_content_no>4000 and bd_content_no<5001";
+			}
+
+				
+			pstmt = null; rs = null;		
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					cnt = rs.getInt(1);
+				}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}		
+			return cnt;
+		}
+
 }

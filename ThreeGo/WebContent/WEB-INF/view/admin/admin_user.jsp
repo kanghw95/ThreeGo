@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/table.css" type="text/css">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -21,6 +22,7 @@
 	 position: fixed;
 	 background: rgba(0.5, 1, 1, 0.5);
 	 color: aquamarine;
+	 left: 80px;
 	 
 }
 
@@ -29,7 +31,7 @@
  margin: auto;
  background: gray;
  position: relative;
- top: 200px;
+ top: 78.22px;
  animation-name: modaltop1;
  animation-duration: 0.7s;
  }
@@ -43,6 +45,7 @@
 	 }
  }
  #close{
+ text-align: center;
      cursor: pointer;
      color: balck;
  }
@@ -51,6 +54,14 @@ display : none;
 border-color : red;
 border-collapse : collapse;
 }
+.userno{
+	width: 85px;
+	
+}
+.nik{
+width: 140px;
+}
+
 
 </style>
 <script > 
@@ -86,7 +97,7 @@ border-collapse : collapse;
 		close.style.cursor="pointer";
 		var infclass = document.getElementsByClassName("a"+no);
 		close.onclick = function(){
-			for(var i=0; i<infclass.length; i++){
+		for(var i=0; i<infclass.length; i++){
 				infclass[i].style.display = "none";
 			}
         }
@@ -104,8 +115,9 @@ border-collapse : collapse;
 <input type="hidden" name ="list" value="${list }">
 		
 	<div id="stopmodal" class="stopmodal">
-		<div id="madalcontent" class="madalcontent">
+		<div id="modalcontent" class="modalcontent">
 			<p id="close">&#10006;</p>
+			<br><br>
 			<h3 id="who"></h3>
 			<h3>몇 개월 정지 시킬지 선택</h3>
 			<input type="hidden" name="list" value="${list }">
@@ -123,6 +135,7 @@ border-collapse : collapse;
 		
 	<h1>회원관리</h1>
 	<input type="button" id="btnlist" value="모든회원정보 " onclick="location.href='<%=request.getContextPath() %>/selectalluser'"> 
+	<input type="button" id="reportbtn" value="신고접수 " onclick="location.href='<%=request.getContextPath() %>/admin/reportmenu'"> 
 	<c:if test="${ empty list }">
 		<p>조회된 회원이 없습니다.</p>
 	</c:if>
@@ -132,11 +145,11 @@ border-collapse : collapse;
 		<input type="search" name="searchuser" value="${search}">
 		<button type="submit">검색</button>
 	</form>
-		<table border ="1">
+		<table >
 			<tr>
-				<th>&nbsp;회원  번호&nbsp;</th>
-				<th>닉네임</th>
-				<th>일시정지</th>
+				<th class="userno">&nbsp;회원  번호&nbsp;</th>
+				<th class="nik">닉네임</th>
+				<th class="ansbtn">일시정지</th>
 			</tr>
 		 	<c:forEach items="${list }" var="i">
 			<tr>
@@ -189,7 +202,7 @@ border-collapse : collapse;
 				<td colspan="2">${i.user_authority }</td>
 			</tr>
 			<tr class="inf a${i.user_no }" id="infchat${i.user_no }" >
-				<td colspan="3" style="text-align: center;">${i.nickname }님이랑 채팅하러가기</td>
+				<td colspan="3" style="text-align: center;cursor: pointer;" onclick="location.href ='<%=request.getContextPath() %>/main/user/chat'">${i.nickname }님이랑 채팅하러가기</td>
 			</tr>
 			
 			</c:forEach>

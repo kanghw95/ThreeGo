@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/table.css" type="text/css">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -40,10 +40,10 @@
 	</form>
 <h2>자주묻는질문</h2>
 	
-		<table border ="1">
+		<table class="miniTable">
 			<tr>
-				<th>No</th>
-				<th>제목</th>
+				<th class="no">No</th>
+				<th class="subj">제목</th>
 
 			</tr>
 		 	<c:forEach items="${list3 }" var="i" >
@@ -67,24 +67,20 @@
 		<p>게시글이 없습니다.</p>
 	</c:if>
 	<c:if test="${not empty list }">
-		<table border ="1">
+		<table class="mainTable" >
 			<tr>
-				<th>No</th>
-				<th>닉네임</th>
-				<th>제목</th>
+				<th class="no">No</th>
+				<th class="subj">제목</th>
+				<th class="writer">작성자</th>
 				
 			</tr>
 		 	<c:forEach items="${list }" var="i" >
 			<tr>
 				<td>${i.qna_no }</td>
-				<c:forEach items="${list2 }" var="j">
-				<c:if test="${i.qna_no == j.qna_no }">
-					<td>${j.nickname }</td>
-				</c:if>
-				</c:forEach>
+				
 				<form id="frm"  method="post" action="<%=request.getContextPath()%>/adminqnaanswer">
 					<td>
-						<input type="submit" class="btnc" value="${i.qna_subject }" name="test" onclick="return passch('${i.qna_pwd}','${i.qna_open }')">
+						<input type="submit" class="btnc" style="width: 250px;" value="${i.qna_subject }" name="test" onclick="return passch('${i.qna_pwd}','${i.qna_open }')">
 						<input type="hidden" value="${i.qna_no }" name="no">
 						<input type="hidden" value="${i.qna_subject }" name="sub">
 						<input type="hidden" value="${i.qna_content }" name="con">
@@ -98,6 +94,12 @@
 						</c:forEach>
 					</td>
 				</form>
+				
+				<c:forEach items="${list2 }" var="j">
+				<c:if test="${i.qna_no == j.qna_no }">
+					<td>${j.nickname }</td>
+				</c:if>
+				</c:forEach>
 			</tr>
 			</c:forEach>
 		</table>

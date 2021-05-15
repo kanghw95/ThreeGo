@@ -1,7 +1,6 @@
 package threego.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,19 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import threego.admin.AdminService;
+import threego.admin.Report;
 import threego.model.vo.User;
 
 /**
- * Servlet implementation class AdminCtrl
+ * Servlet implementation class AdminReportCtrl
  */
-@WebServlet("/adminctrl")
-public class AdminCtrl extends HttpServlet {
+@WebServlet("/adminreportctrl")
+public class AdminReportCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminCtrl() {
+    public AdminReportCtrl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +32,7 @@ public class AdminCtrl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
 		execute(request, response);
 	}
 
@@ -53,15 +53,12 @@ public class AdminCtrl extends HttpServlet {
 		AdminService sv= new AdminService();
 
 //		//총 회원의 갯수,검색
+		String type = request.getParameter("type");
+		System.out.println(type);
 		int cnt = 0;
-		String search = request.getParameter("searchuser");
 		
-		if(search != null && !search.equals("")) {
-		} else {
-			search = null;
-		}
 //		//회원의수
-		cnt= sv.getUserCount(search);
+		cnt= sv.getReportCount(type);
 		//총 페이지 갯수
 		int pageCnt = (cnt / pageSize) + (cnt % pageSize == 0 ? 0 : 1);
 		
@@ -95,29 +92,25 @@ public class AdminCtrl extends HttpServlet {
 		if(endRnum > cnt) 
 			endRnum = cnt;
 		
-		List<User> list = null;
+		List<Report> list = null;
 		/********** 검색 *************/
-		if(search != null && !search.equals("")) {
-		} else {
-			search = null;
-		}
-//		if(search ==null) {
-//			list = new AdminService().list();
-//		}else {
-		list = new AdminService().getUserByPage(startRnum,endRnum ,search);
-//		}
+		list = new AdminService().getPeportByPage(startRnum,endRnum ,type);
 		request.setAttribute("pageCnt", pageCnt);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("currentPage", currentPage);
-		request.setAttribute("search", search);
+		request.setAttribute("type", type);
 //		List<User> list = new AdminService().list();
 		if (list != null) {
+			
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("WEB-INF/main/admin_main/adminuser.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/main/admin_main/adminreport.jsp").forward(request, response);
 		} else {
-			request.getRequestDispatcher("WEB-INF/main/admin_main/adminuser.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/main/admin_main/adminreport.jsp").forward(request, response);
 		}
+	
+	
+	
 	}
 
 }

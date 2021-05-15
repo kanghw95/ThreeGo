@@ -1,0 +1,88 @@
+@charset "UTF-8";
+    	body{
+    		text-align: center;
+    		font-family: 맑은고딕, Malgun Gothic, dotum, gulim, sans-serif;
+    	}
+
+        .btnc{
+            background-color: white;
+            border : 0;
+            outline: 0;
+            cursor: pointer;
+            white-space:nowrap;  
+			text-overflow:ellipsis; 
+			overflow:hidden;
+			width: 200px;
+			text-align: left;
+        }
+         .btnc:hover{
+            color: purple;
+            text-decoration: underline;
+        }
+        .ans{
+        	width: 85px;
+        	text-align: center;
+        }
+        .ansbtn{
+        	text-align: center;
+        	
+        }
+        table{
+       		 margin-left:auto; 
+    		margin-right:auto;
+    		border-collapse : collapse;
+        }
+		.mainTable{
+			width : 415px;
+			table-layout:fixed;
+			margin-left:auto; 
+    		margin-right:auto;
+    		border-collapse : collapse;
+    		
+		}
+		.subTable{
+			margin-left:auto; 
+    		margin-right:auto;
+    		border-collapse : collapse;
+		}
+		.mainTable td{
+			white-space:nowrap;  
+			text-overflow:ellipsis; 
+			overflow:hidden;
+		}
+        .no{
+        	width: 30px;
+        }
+        .subj{
+        	width: 200px;
+        }
+        .writer{
+        	width: 100px;
+        }
+        tr{
+        	border-bottom:1px solid aquamarine;
+       		height: 25px;
+        }
+		table * tr:first-child{
+			background-color: aquamarine;
+	        font-weight:bold;
+	        text-align:center;
+		}
+        .minisearch{
+			width: 150px;
+			height: 20px;
+			
+		}
+		.minisearchbtn{
+			width: 20px;
+			height: 20px;
+			background: aquamarine;
+		}
+		.sub{
+			display: none;
+			position: relative;
+			width: 500px;
+			overflow: visible;
+			text-overflow: clip;
+		}
+

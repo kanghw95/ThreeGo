@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/table.css" type="text/css">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -20,10 +21,10 @@
 			<input type="search" name="search" value="${search}">
 			<button type="submit">검색</button>
 		</form>
-		<table border ="1">
+		<table >
 			<tr>
-				<th>No</th>
-				<th>제목</th>
+				<th class="no">No</th>
+				<th class="subj">제목</th>
 
 			</tr>
 		 	<c:forEach items="${list }" var="i" >

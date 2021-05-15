@@ -116,5 +116,17 @@ public class AdminService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
-	
+	public List<Report> getPeportByPage(int start, int end, String type) {
+		Connection conn = JDBCTemplate.getConnection();
+		List<Report> list = new AdminDAO().getPeportByPage(conn, start,end, type);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+	public int getReportCount( String type) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new AdminDAO().getReportCount(conn, type);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
 }

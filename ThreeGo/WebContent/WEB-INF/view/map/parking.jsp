@@ -124,13 +124,24 @@
 
 		
 		// 주차장 제목 클릭 시 지도 이동 이벤트
-		function panTo(name){
+		function panTo(name,code){
+			var code = code;
+			var codeclass1 = document.getElementsByClassName("park");
+			var codeclass = document.getElementsByClassName("park"+code);
+			for(var i=0; i<codeclass1.length; i++){
+				codeclass1[i].style.background = "none";
+			}
+			codeclass[0].style.background = "black";
+        	
+			
+			
 			<c:forEach items="${listpark }" var="v" varStatus="s">
 			console.log('${v.lat}, ${v.lng}');
 			if(name == '${v.parking_name}'){
 			var moveLatLon = new kakao.maps.LatLng(${v.lat}, ${v.lng});
 			}
 			</c:forEach>
+			
 				map.panTo(moveLatLon);
 		}
 		//지도에 클릭 이벤트를 등록합니다

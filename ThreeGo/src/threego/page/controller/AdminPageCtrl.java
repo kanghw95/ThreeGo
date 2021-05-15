@@ -67,6 +67,10 @@ public class AdminPageCtrl extends HttpServlet {
 			viewPage = "/WEB-INF/test01.jsp";
 		}else if(com.equals("/admin/adminuser")) {
 			viewPage = "/WEB-INF/main/admin_main/adminuser.jsp";
+		}else if(com.equals("/admin/reportmenu")) {
+			viewPage = "/WEB-INF/main/admin_main/adminreportmenu.jsp";
+		}else if(com.equals("/admin/adminreport")) {
+			viewPage = "/WEB-INF/view/admin/admin_report_con.jsp";
 		}
 		
 		else{
