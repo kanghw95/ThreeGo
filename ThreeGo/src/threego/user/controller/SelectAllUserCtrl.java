@@ -15,7 +15,7 @@ import threego.model.vo.User;
 /**
  * Servlet implementation class ParkingSelectAllUserCtrl
  */
-@WebServlet("/selectalluser")
+@WebServlet("/selectalluser") // 전체유저 조회 서블릿
 public class SelectAllUserCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class SelectAllUserCtrl extends HttpServlet {
 		
 		ArrayList<User> list = new UserService().selectAll();
 		if (list != null) {
-			request.setAttribute("reviewlist", list);
+			request.setAttribute("list", list);
 			request.getRequestDispatcher("WEB-INF/view/user/UserAllView.jsp").forward(request, response);
 		} else {
 			request.getRequestDispatcher("WEB-INF/view/user/UserAllView.jsp").forward(request, response);

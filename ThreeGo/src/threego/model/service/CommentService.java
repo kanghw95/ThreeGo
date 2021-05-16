@@ -30,6 +30,13 @@ public class CommentService {
 		ArrayList<Comment_tb> list = new CommentDAO().getCommentByPage(conn, start, end,  bd_content_no);		
 		JDBCTemplate.close(conn);
 		return list;
+	}
+	
+	public ArrayList<Comment_tb> getCommentByPage(int start, int end,String user_no) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Comment_tb> list = new CommentDAO().getCommentByPage(conn, start, end, user_no);		
+		JDBCTemplate.close(conn);
+		return list;
 	}	
 
 	

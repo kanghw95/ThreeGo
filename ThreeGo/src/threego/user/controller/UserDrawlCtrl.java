@@ -15,7 +15,7 @@ import threego.model.vo.User;
 /**
  * Servlet implementation class UserDrawlCtrl
  */
-@WebServlet("/userdrawl")
+@WebServlet("/userdrawl") // 회원탈퇴 서블릿
 public class UserDrawlCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -32,6 +32,12 @@ public class AdminService {
 		JDBCTemplate.close(conn);
 		return result;		
 	}
+	public int userStart( User vo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new AdminDAO().userStart(conn, vo);
+		JDBCTemplate.close(conn);
+		return result;	
+	}
 	public List<User> selectUser( int no) {
 		Connection conn = JDBCTemplate.getConnection();
 		List<User> list = new AdminDAO().selectUser(conn,no);

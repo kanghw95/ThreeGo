@@ -1,3 +1,4 @@
+<%@page import="threego.model.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -23,23 +24,19 @@ $(function(){
 
 </head>
 <body>
-<c:if test="${msg == '글 등록 성공' }">
-		<script>
-			alert("${msg}");
-			location.href = "boardlist1";
-		</script>
-	</c:if>
-	<c:if test="${msg == '글 등록 실패' }">
-		<script>
-			alert("${msg}");
-		</script>
-	</c:if>
+
+
+<%
+User user = (User) session.getAttribute("user");
+String nickname = user.getNickname();
+int userno =user.getUser_no();
+%>
 
 
    <h1>글쓰기</h1>
-   <form action="<%=request.getContextPath()%>/boardWrite"
-      method="post" enctype="multipart/form-data">
-
+   <form action="<%=request.getContextPath()%>/boardWrite" method="post" enctype="multipart/form-data">
+ <input type="text" name="bd_category_1" value="${bd_category}">  
+<input type="hidden" name="userno" value=<%=userno %> >
 
       <table border="1">
          <tr>
@@ -48,7 +45,7 @@ $(function(){
          </tr>
          <tr>
             <td>닉네임</td>
-            <td><input type="text" name="bd_writer" value="로그인 " readonly ></td>
+            <td><input type="text" name="bd_writer" value=<%=nickname %>  readonly ></td>
          </tr>
          <tr>
             <td>파일첨부</td>
@@ -70,8 +67,7 @@ $(function(){
             </td>
          </tr>
       </table>
-            <input type="button" value="글목록"
-               onclick="window.location='<%=request.getContextPath()%>/boardlist1';">
+            <input type="button" value="목록으로" onclick="window.location='<%=request.getContextPath()%>/board/boardlist';">
 
    </form>
 </body>

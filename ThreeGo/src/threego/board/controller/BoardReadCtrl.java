@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import threego.model.service.BoardService;
 import threego.model.vo.Board;
+import threego.model.vo.BoardLike;
 import threego.model.vo.Board_Attach;
 
 /**
@@ -61,21 +62,24 @@ public class BoardReadCtrl extends HttpServlet {
 //      Board_Attach inputF = new Board_Attach();
       List<Board_Attach> inputF = null;
       String str = request.getParameter("bd_content_no");
-
-      
+      String bd_category_1 = request.getParameter("bd_category_1");
+      String user_no = request.getParameter("user_no");
+      BoardLike blvo = new BoardLike();     
    
 
             if (str != null ) {
                vo.setBd_content_no(Integer.parseInt(str));
-               vo = sv.getBoardRead(vo);
+               vo = sv.getBoardRead(vo, bd_category_1);
                inputF = sv.boardReadF(inputF, vo);
-               
+               blvo =sv.getLike(str,user_no);
+               request.setAttribute("like", blvo);
+               System.out.println(blvo);
                System.out.println("첨부파일 정보:" + inputF);
 
                if (vo != null) {
                   request.setAttribute("boardread", vo);
                   request.setAttribute("files", inputF);
-                  
+                  request.setAttribute("bd_category", bd_category_1);
                   request.getRequestDispatcher("/WEB-INF/main/board_main/read.jsp").forward(request, response);
                   
                   

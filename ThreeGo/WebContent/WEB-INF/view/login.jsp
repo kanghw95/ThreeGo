@@ -1,7 +1,13 @@
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/search_park.css" type="text/css">
 <%@page import="threego.model.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%User users = (User) session.getAttribute("user"); %>
+
+   <div class="mainstop">
+   <h1 class="title">얻다대GO</h1>
+   </div>
+
 <%
 		if (users == null) {
 %>
@@ -41,5 +47,22 @@
 		frm.action = "<%=request.getContextPath() %>/userlogin";
 		frm.method = "post";
 		frm.submit();
+	});
+	
+	$(function(){
+		$('#passwd').keydown(function(key){
+			if(key.keyCode == 13){
+				$('#passwd').focus();
+				var frm = document.getElementById("loginfrm");
+				if ($("#id").val().length == 0) {
+					alert("입력된 아이디가 없습니다.")
+					return;
+				}
+
+				frm.action = "<%=request.getContextPath() %>/userlogin";
+				frm.method = "post";
+				frm.submit();
+			}
+		});
 	});
 </script>

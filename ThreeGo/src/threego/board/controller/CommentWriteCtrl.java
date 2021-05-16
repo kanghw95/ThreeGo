@@ -51,34 +51,17 @@ public class CommentWriteCtrl extends HttpServlet {
 		CommentService cs = new CommentService();
 		
 		Comment_tb co = new Comment_tb();
-		//String user_id = request.getParameter("user_id");
-		//int user_no = (Integer.parseInt(request.getParameter("user_no")));
+		String user_name = request.getParameter("user_name");
+		int user_no = (Integer.parseInt(request.getParameter("user_no")));
+		//int com_no = (Integer.parseInt(request.getParameter("com_no")));
 		
-//		HttpSession session = request.getSession(true);
-//		session.setAttribute("user_id",user_id );
-//		session.setAttribute("user_no",user_no );
-//		session.getAttribute("user_id");
-//		session.getAttribute("user_no");
-//		co.setCom_writer("user_id");
-//		co.setUser_no(user_no);
-		
-		co.setCom_writer("이경은");
-		co.setUser_no(4);
+		//co.setCom_no(com_no);
+		co.setCom_writer(user_name);
+		co.setUser_no(user_no);
 		co.setCom_contents(request.getParameter("com_contents"));
-		String no = request.getParameter("bd_content_no");
-		co.setBd_content_no(Integer.parseInt(no));
-
-			if (request.getParameter("com_no") != null && ! request.getParameter("com_no").equals("")) { // 답글인 경우
-				co.setCom_no(Integer.parseInt(request.getParameter("com_no")));
-				co.setCom_ref(Integer.parseInt(request.getParameter("com_ref")));
-				co.setCom_re_step(Integer.parseInt(request.getParameter("com_re_step")));
-				co.setCom_re_level(Integer.parseInt(request.getParameter("com_re_level")));
-				
-				
-				
-			} else {
-				co.setCom_no(0); // 새글인 경우+
-			}
+		int no = Integer.parseInt(request.getParameter("bd_content_no"));
+		co.setBd_content_no(no);
+			
 			System.out.println(co.toString());
 			int result = cs.CommentWrite(co);
 			PrintWriter out = response.getWriter();
@@ -87,7 +70,8 @@ public class CommentWriteCtrl extends HttpServlet {
 				String msg = "글 등록 완료";
 
 				out.println("<script>alert('" + msg + "')</script>");
-				out.println("<script>location.href='./boardRead?bd_content_no="+no+"';</script>");
+				out.println("<script>location.href='"+ request.getContextPath()+"/boardRead?bd_content_no="+no+"';</script>");
+
 
 
 			} else { // 입력 실패

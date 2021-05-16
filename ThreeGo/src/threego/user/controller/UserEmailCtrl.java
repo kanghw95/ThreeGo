@@ -109,7 +109,7 @@ public class UserEmailCtrl extends HttpServlet {
 					out.close();
 					return;
 				}
-				ArrayList<User> searchpw_check = new UserService().selectUser("user_id", "email","name", id, email, name);
+				ArrayList<User> searchpw_check = new UserService().selectUser("user_id", "email","user_name", id, email, name);
 
 				if (searchpw_check.isEmpty() == true) {
 					out.println("아이디,이메일,이름이 맞는지 확인해주세요");

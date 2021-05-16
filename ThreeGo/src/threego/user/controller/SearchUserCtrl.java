@@ -15,7 +15,7 @@ import threego.model.vo.User;
 /**
  * Servlet implementation class SearchUserCtrl
  */
-@WebServlet("/p_searchuser.do")
+@WebServlet("/p_searchuser.do") // 유저조회 서블릿
 public class SearchUserCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

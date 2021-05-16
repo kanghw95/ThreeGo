@@ -51,13 +51,14 @@ public class BoardReportCtrl extends HttpServlet {
 		      BoardService sv = new BoardService();
 		      Board vo = new Board();
 		      String str = request.getParameter("bd_content_no");
+		      String category = request.getParameter("bd_category_1");
 
 		   
 		   
 
 		            if (str != null ) {
 		               vo.setBd_content_no(Integer.parseInt(str));
-		               vo = sv.getBoardRead(vo);
+		               vo = sv.getBoardRead(vo,category);
 		               
 
 		               if (vo != null) {

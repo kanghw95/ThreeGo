@@ -5,7 +5,16 @@ public class Review {
 	private int user_no;
 	private int grade;
 	private int simple_rv_no;
+	private String nickname;
 	private String s_contents;
+	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	
 	public int getParking_code() {
 		return parking_code;
 	}

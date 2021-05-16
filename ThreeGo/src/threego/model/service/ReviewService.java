@@ -15,38 +15,21 @@ public class ReviewService {
 		JDBCTemplate.close(conn);
 		return list;
 	}
-	public ArrayList<Review> getSelectedReview(String col, int num){
+	public ArrayList<Review> getSelectedReview(Review rev){
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Review> list = new ReviewDAO().selectedReview(conn, col, num);
+		ArrayList<Review> list = new ReviewDAO().selectedReview(conn,rev);
 		JDBCTemplate.close(conn);
 		return list;
-	}
-	
-	public int reviewWrite(Review vo) {
-		Connection conn = JDBCTemplate.getConnection();
-		int result = new ReviewDAO().ReviewWrite(conn, vo);
-		JDBCTemplate.close(conn);
-		return result;
-	}
-
-	
-	public int delete(Review vo) {
-		Connection conn = JDBCTemplate.getConnection();
-		int result = new ReviewDAO().delete(conn, vo);
-		JDBCTemplate.close(conn);
-		return result;
-		
-	}
-	
-	public int update(Review vo) {
-		Connection conn = JDBCTemplate.getConnection();
-		int result = new ReviewDAO().update(conn, vo);
-		JDBCTemplate.close(conn);
-		return result;
 	}
 	public int insertReview(String parking_code, String user_no, String grade, String review_content) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new ReviewDAO().insertReview(conn, parking_code, user_no, grade, review_content);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public int deleteReview(String parking_code, String user_no, String grade, String review_content) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReviewDAO().deleteReview(conn, parking_code, user_no, grade, review_content);
 		JDBCTemplate.close(conn);
 		return result;
 	}

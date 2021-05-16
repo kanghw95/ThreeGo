@@ -49,16 +49,18 @@ public class CommentDeleteCtrl extends HttpServlet {
 		Comment_tb co = new Comment_tb();
 
 		CommentService cs = new CommentService();
-		String bd_content_no = (String) request.getParameter("bd_content_no");
-		co.setBd_content_no(Integer.parseInt(bd_content_no));
-		
+//		int bd_content_no = Integer.parseInt(request.getParameter("bd_content_no"));
+//		co.setBd_content_no(bd_content_no);
+		String com_no = request.getParameter("com_no");
+		System.out.println(com_no);
+		co.setCom_no(Integer.parseInt(com_no));
 		result = cs.getCommentDelete(co);
 		
 		PrintWriter out = response.getWriter();
 		if (result == 1) {
 			String msg = "글 삭제 완료";
 			out.println("<script>alert('" +msg+"')</script>");
-			out.println("<script>location.href='./boardlist1';</script>");
+			out.println("<script>history.back();</script>");
 		}
 	}
 }

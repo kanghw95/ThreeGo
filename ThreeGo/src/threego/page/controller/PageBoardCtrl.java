@@ -55,18 +55,18 @@ public class PageBoardCtrl extends HttpServlet {
 		System.out.println("com : " + com);
 		
 		if(com.equals("/board/boardwrite")) {
+			request.setAttribute("bd_category", request.getParameter("bd_category"));
 			viewPage = "/WEB-INF/main/board_main/write.jsp";
 			
+		}else if(com.equals("/board/boardlist")) {
+			viewPage = "/WEB-INF/main/board_main/mainlist.jsp";
+
 		}else if(com.equals("/board/boarddelete")){
 			viewPage = "/WEB-INF/board/boarddelete.jsp";
-			
-		}else if(com.equals("/board/boardreport")){
-			viewPage = "/WEB-INF/main/board_main/report.jsp";
 			
 		}else{
 			viewPage = "/WEB-INF/index.jsp";
 		}
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

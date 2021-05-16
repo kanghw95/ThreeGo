@@ -19,6 +19,6 @@
 	</form>
 	<hr>
 	<hr>
-	<input type="button" value="게시판"  onclick="location.href ='<%=request.getContextPath() %>/board/boardmain'">
+	<input type="button" value="게시판"  onclick="location.href ='<%=request.getContextPath() %>/board/boardlist'">
 </body>
 </html>

@@ -55,7 +55,7 @@ public class AdminstopCtrl extends HttpServlet {
 		sv.userStop(vo);
 		out.println("<scrpit>alert('정지가 되었습니다')</script>");
 //		out.println("<script>history.back();</script>");
-		request.getRequestDispatcher("WEB-INF/view/user/UserAllView.jsp").forward(request, response);
+		request.getRequestDispatcher("/adminctrl").forward(request, response);
 	}
 	
 	

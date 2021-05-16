@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class EmailCheckCtrl
  */
-@WebServlet("/emailcheckctrl")
+@WebServlet("/emailcheckctrl") // 이메일 인
 public class UserEmailCheckCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

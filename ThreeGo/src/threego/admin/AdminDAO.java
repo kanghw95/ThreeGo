@@ -163,6 +163,24 @@ public class AdminDAO {
 		}	
 		return result;
 	}
+	//회원 권한 달래주기.
+		public int userStart(Connection conn, User vo) {
+			int result = 0;
+			String sql = "update user_tb set user_authority =1 where user_no="+vo.getUser_no();
+			System.out.println("test"+vo.getNickname());
+			System.out.println("test"+vo.getUser_no());
+			pstmt =null;
+			try {
+				pstmt = conn.prepareStatement(sql);
+				result = pstmt.executeUpdate();
+
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}	
+			return result;
+		}
 	
 	//회원 정보 보기
 	public List<User> selectUser(Connection conn, int no) {
@@ -592,7 +610,7 @@ public class AdminDAO {
 			try {
 				pstmt=conn.prepareStatement(sql);
 				pstmt.setString(1, vo.getQna_subject());
-				pstmt.setString(2, vo.getQna_subject());
+				pstmt.setString(2, vo.getQna_content());
 				pstmt.setString(3, vo.getQna_kind());
 				pstmt.setInt(4, vo.getQna_no());
 				

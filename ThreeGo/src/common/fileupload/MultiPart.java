@@ -1,9 +1,7 @@
 package common.fileupload;
 
 import java.io.File;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,7 +12,6 @@ import org.apache.commons.fileupload.*;
 import org.apache.commons.fileupload.disk.*;
 import org.apache.commons.fileupload.servlet.*;
 
-import com.sun.mail.iap.Response;
 
 public class MultiPart {
    List<FileItem> items; // 입력 데이터 항목들로 구성된 List

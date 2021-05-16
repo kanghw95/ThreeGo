@@ -45,16 +45,18 @@ public class MainPageCtrl extends HttpServlet {
 		String viewPage = null;
 		Command cmd = null;
 		
+	
 		String uri = request.getRequestURI();
 		String conPath = request.getContextPath();
 		String com = uri.substring(conPath.length());
-		
+
 		
 		// 어떤식으로 나오는지 로그로 확인
 		System.out.println("uri : " + uri);
 		System.out.println("conPath : " + conPath);
 		System.out.println("com : " + com);
 	
+
 		if(com.equals("/main/insert")) {
 			viewPage = "/WEB-INF/main/user_main/insert.jsp";
 		}else if(com.equals("/main/modify")){
@@ -68,8 +70,13 @@ public class MainPageCtrl extends HttpServlet {
 		}else if(com.equals("/main/drawal")){
 			 viewPage = "/WEB-INF/main/user_main/drawal.jsp";
 		}else if(com.equals("/main/user/chat")){
-			viewPage = "/WEB-INF/view/chat/chatpage.jsp";
+			viewPage = "/WEB-INF/main/user_main/chat.jsp";
+		}else if(com.equals("/main/mycomment")){
+			viewPage = "/WEB-INF/main/user_main/mycomment.jsp";
+		}else if(com.equals("/main/reviewwWrite")){
+			viewPage = "/WEB-INF/main/review_main/write.jsp";
 		}
+		
 		else{
 			viewPage = "/WEB-INF/main/main.jsp";
 		}

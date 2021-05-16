@@ -62,28 +62,21 @@ public class CommentListCtrl extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("/commentlist진입");
 		
-
 		
-		final int pageSize = 5; // 한페이지당 글 수
+		
+		final int pageSize = 100; // 한페이지당 글 수
 		final int pageBlock = 5; // 화면에 나타날 페이지 링크 수 dP) 화면 하단에 1 2 3
 
 		CommentService cs = new CommentService();
 
-		int cnt = 0; // 총 글 개수
-		/********** 검색 *************/;
-//		String bd_content_no_str = request.getParameter("bd_content_no");
-//		System.out.println("bd_content_no_str:"+ bd_content_no_str);
-//		int bd_content_no = 0;
-//		if (bd_content_no_str != null && !bd_content_no_str.equals("")) {
-//			bd_content_no = Integer.parseInt(bd_content_no_str);
-//		}
+		int cnt = 0; 
 		int bd_content_no = (Integer.parseInt(request.getParameter("bd_content_no")));
+	
 		cnt = cs.getCommentCount(bd_content_no);
 	
 	
 		/*페이지 조회*/
 		int pageCnt = (cnt / pageSize) + (cnt % pageSize == 0 ? 0 : 1); // 총 페이지 개수
-		
 		int currentPage = 1;  // 현재 페이지. 기본 세팅 1. 클릭되면 바뀌게 됨.
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum != null) {  // 클린 된 숫자를 가지고 온다면
@@ -93,8 +86,6 @@ public class CommentListCtrl extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
-		
 		int startPage = 1; // 화면에 나타날 시작 페이지
 		int endPage = 1; // 화면에 나타날 마지막 페이지
 		
@@ -115,8 +106,7 @@ public class CommentListCtrl extends HttpServlet {
 		List<Comment_tb> list = null;
 
 		list = cs.getCommentByPage(startRnum, endRnum, bd_content_no);
-	
-	//////////////	
+/////	
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("pageCnt", pageCnt);
 		jsonObject.addProperty("startPage", startPage);
@@ -126,17 +116,11 @@ public class CommentListCtrl extends HttpServlet {
 			JsonArray jArray = new JsonArray();
 			for(int i=0; i<list.size(); i++) {
 				JsonObject jobj = new JsonObject();
-				System.out.println(list.get(i).getCom_writer());
-				System.out.println(list.get(i).getCom_contents());
-				System.out.println(list.get(i).getRv_date());
 				jobj.addProperty("com_writer", list.get(i).getCom_writer());
 				jobj.addProperty("com_contents", list.get(i).getCom_contents());
-//				DateFormat Format = new SimpleDateFormat("yyyy-mm-dd hh24:mi:ss");
 				String nowDate = list.get(i).getRv_date();
-//				String today = Format.format(nowDate);
 				jobj.addProperty("rv_date", nowDate);	
-				System.out.println(nowDate);
-				
+				jobj.addProperty("com_no", list.get(i).getCom_no());
 				jArray.add(jobj);
 			}
 			jsonObject.add("List", jArray);

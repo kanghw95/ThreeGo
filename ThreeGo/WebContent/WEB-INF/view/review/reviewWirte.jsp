@@ -20,6 +20,10 @@
 				<td><input type="text" id="wirte_nick" name="wirte_nick" readonly="readonly" size="38" value="<%=user.getNickname()%>"></td>
 			</tr>
 			<tr>
+				<td>주차장 이름 : </td> 
+				<td><input type="text" name=parking_name readonly="readonly" value="<%=request.getParameter("parking_name")%>"></td>
+			</tr>
+			<tr>
 				<td colspan="2">
 			 평점 : <select name="grade">
 			       <option value="1">1점</option>

@@ -26,6 +26,14 @@
 	<hr>
 	<input type="button" value="메인페이지"  onclick="location.href ='<%=request.getContextPath() %>/main'">
 	
+	<form action="<%=request.getContextPath() %>/usermyboard" method="post">
+	<input type="hidden" id="user_no" name="user_no" value="<%=user.getUser_no()%>">
+	<input type="submit" value="내가 쓴 글 보기">
+	</form>
+	
+	<input type="button" value="내가 쓴 댓글 보기" onclick="location.href ='<%=request.getContextPath() %>/main/mycomment'">
+	<input type="button" value="내가 쓴 리뷰 보기" onclick="location.href ='<%=request.getContextPath() %>/main'">
+	
 	</div>
 <%
 		} else {
@@ -47,6 +55,16 @@
 		<input type="button" value="수정" onclick="location.href ='<%=request.getContextPath() %>/main/modify'">
 		<input type="button" value="회원탈퇴" onclick="location.href ='<%=request.getContextPath() %>/main/drawal'">
 		<input type="button" value="메인페이지"  onclick="location.href ='<%=request.getContextPath() %>/main'">
+	
+	<form action="<%=request.getContextPath() %>/usermyboard" method="post">
+	<input type="hidden" id="user_no" name="user_no" value="<%=user.getUser_no()%>">
+	<input type="submit" value="내가 쓴 글 보기">
+	</form>
+	
+	<input type="button" value="내가 쓴 댓글 보기" onclick="location.href ='<%=request.getContextPath() %>/main/mycomment'">
+	<input type="button" value="내가 쓴 리뷰 보기" onclick="location.href ='<%=request.getContextPath() %>/main'">
+		
+		
 		</div>
 <%
 		}
@@ -63,6 +81,24 @@
 		frm.method = "post";
 		frm.submit();
 	});
+	
+	$(function(){
+		$('#passwd').keydown(function(key){
+			if(key.keyCode == 13){
+				$('#passwd').focus();
+				var frm = document.getElementById("frm");
+				if ($("#passwd").val().length == 0) {
+					alert("비밀번호를 입력해주세요")
+					return;
+				}
+
+				frm.action = "<%=request.getContextPath() %>/usermypage";
+				frm.method = "post";
+				frm.submit();
+			}
+		});
+	});
+	
 </script>
 </body>
 </html>

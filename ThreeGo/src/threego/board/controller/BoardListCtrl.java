@@ -1,6 +1,6 @@
 package threego.board.controller;
 
-import java.io.IOException; 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,9 +13,9 @@ import threego.model.service.BoardService;
 import threego.model.vo.Board;
 
 /**
- * Servlet implementation class BoardListCtrl
+ * Servlet implementation class BoardListRVCtrl
  */
-@WebServlet("/boardlist4")
+@WebServlet("/boardlist")
 public class BoardListCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,7 +30,7 @@ public class BoardListCtrl extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		execute(request, response);
 	}
 
@@ -57,8 +57,8 @@ public class BoardListCtrl extends HttpServlet {
 		Board vo = new Board();
 		
 
-		
-		cnt= sv.getBoardCount(search);
+		String bd_category_1 = request.getParameter("bd_category_1");
+		cnt= sv.getBoardCount(search,bd_category_1);
 		System.out.println(cnt);
 		int pageCnt = (cnt / pageSize) + (cnt % pageSize == 0 ? 0 : 1); 
 		
@@ -96,7 +96,7 @@ public class BoardListCtrl extends HttpServlet {
 		} else {
 			search = null;
 		}
-		list = sv.getBoardByPage(startRnum,endRnum, search);
+		list = sv.getBoardByPage(startRnum,endRnum, search,bd_category_1);
 		System.out.println(list);
 		request.setAttribute("pageCnt", pageCnt);
 		request.setAttribute("startPage", startPage);
@@ -104,8 +104,9 @@ public class BoardListCtrl extends HttpServlet {
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("boardList", list);
 		request.setAttribute("search", search);
+		request.setAttribute("bd_category", bd_category_1);
 		
-		   request.getRequestDispatcher("/WEB-INF/main/board_main/Freelist.jsp").forward(request, response);
+		   request.getRequestDispatcher("/WEB-INF/main/board_main/list.jsp").forward(request, response);
 		
 		
 	}
