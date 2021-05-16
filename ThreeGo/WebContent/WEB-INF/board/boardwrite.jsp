@@ -31,7 +31,15 @@ User user = (User) session.getAttribute("user");
 String nickname = user.getNickname();
 int userno =user.getUser_no();
 %>
-
+	<%
+	if (user.getUser_authority()==0 ) {
+		%>
+	아이디가 정지 당했습니다.문의부탁드립니다.
+	<a href="<%=request.getContextPath()%>/main">메인화면으로</a>	
+			
+		<% }else{
+	
+	%>
 
    <h1>글쓰기</h1>
    <form action="<%=request.getContextPath()%>/boardWrite" method="post" enctype="multipart/form-data">
@@ -70,5 +78,7 @@ int userno =user.getUser_no();
             <input type="button" value="목록으로" onclick="window.location='<%=request.getContextPath()%>/board/boardlist';">
 
    </form>
+   <%}
+	%>
 </body>
 </html>

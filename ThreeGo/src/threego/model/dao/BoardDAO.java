@@ -530,9 +530,10 @@ public class BoardDAO {
 		BoardLike resultVo = null;
 
 		String sql = "select * from board_like where user_no=? and bd_content_no=?";
-
+		if(user_no!=null) {
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
 			pstmt.setInt(1, Integer.parseInt(user_no));
 			pstmt.setInt(2, Integer.parseInt(bd_no));
 
@@ -549,6 +550,7 @@ public class BoardDAO {
 			e.printStackTrace();
 		} finally {
 			close();
+		}
 		}
 
 		return resultVo;

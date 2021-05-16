@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import threego.admin.Admin;
 import threego.model.service.BoardService;
 import threego.model.vo.Board;
 import threego.model.vo.BoardLike;
@@ -57,7 +57,7 @@ public class BoardReadCtrl extends HttpServlet {
          throws ServletException, IOException {
       System.out.println("정상작동합니다2.");
       BoardService sv = new BoardService();
-
+      Admin admin = (Admin) request.getSession().getAttribute("admin");
       Board vo = new Board();
 //      Board_Attach inputF = new Board_Attach();
       List<Board_Attach> inputF = null;
@@ -77,11 +77,15 @@ public class BoardReadCtrl extends HttpServlet {
                System.out.println("첨부파일 정보:" + inputF);
 
                if (vo != null) {
+            	  request.setAttribute("str", Integer.parseInt(str));
                   request.setAttribute("boardread", vo);
                   request.setAttribute("files", inputF);
                   request.setAttribute("bd_category", bd_category_1);
+                  if(admin !=null) {
+                	  request.getRequestDispatcher("/WEB-INF/view/admin/admin_boardread.jsp").forward(request, response);
+                  }else {
                   request.getRequestDispatcher("/WEB-INF/main/board_main/read.jsp").forward(request, response);
-                  
+                  }
                   
                
                 }

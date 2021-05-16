@@ -70,8 +70,7 @@ public class CommentWriteCtrl extends HttpServlet {
 				String msg = "글 등록 완료";
 
 				out.println("<script>alert('" + msg + "')</script>");
-				out.println("<script>location.href='"+ request.getContextPath()+"/boardRead?bd_content_no="+no+"';</script>");
-
+				out.println("<script>location.href='./boardRead?bd_content_no="+no+"';</script>");
 
 
 			} else { // 입력 실패

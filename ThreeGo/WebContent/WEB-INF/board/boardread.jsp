@@ -61,7 +61,14 @@ background-color : none;
 	로그인 후 이용하시길 바랍니다.
 	<a href="<%=request.getContextPath()%>/main">메인화면으로</a>
 	<%
-		} else {
+		} else if(user.getUser_authority()==0){
+		%>
+	아이디가 정지 당했습니다.문의부탁드립니다.
+	<a href="<%=request.getContextPath()%>/main">메인화면으로</a>	
+			
+		<% }
+	
+	else {
 	%>
 
 
@@ -183,8 +190,11 @@ background-color : none;
 	
 	<div id="comments"></div>
 
+	<div id="comments"></div>
+
 	<script>
 	function commentInsertUpdate(isUpdate) {
+		console.log(isUpdate);
 		url="<%=request.getContextPath()%>/commentwrite";
 		if(isUpdate){
 			url = "<%=request.getContextPath()%>/commentupdatectrl2";
@@ -199,14 +209,12 @@ background-color : none;
 	var dd = "";
 	var comcontentupdate="";
 	let p = 1;
-	var check 
 	getComments();
-
-	
 	function getComments(){
 		
-		var url = "<%=request.getContextPath()%>/commentlist";	
-		var pagecnt = data.pageCnt;
+		var url = "<%=request.getContextPath()%>/commentlist";
+
+		//console.log(p);
 		p = (p > 0) ? p : 1;
 		$.ajax({
 			url: url,
@@ -220,13 +228,16 @@ background-color : none;
 			
 			success:function(data){
 			    p = data.currentPage;
+				console.log(data);
 				var htmltags=""
 				var List = data.List;
 				var userNickname = '${user.nickname}';
+				console.log("nickname: "+ userNickname);
 				
 				$.each(List, function(i,list){
 					dd = List[i].com_no;
 					comcontentupdate = List[i].com_contents;
+					console.log("asdfasfd"+dd);
 					htmltags += "<span><div>"+ List[i].com_writer + " </span>";
 					htmltags += "<span id='com_con-"+dd+"'>"+ List[i].com_contents+ " </span>";
 					htmltags += "<span>"+ List[i].rv_date+ " </span>";
@@ -238,30 +249,31 @@ background-color : none;
 					}
 					$("#comments").append(htmltags);
 				});
-				
+				if(htmltags==""){
+					htmltags += "<div> 댓글이 없습니다. </div>";
+				}
 				$("#comments").html(htmltags);
 				
-				//var htmlpagingtags="";
+				var htmlpagingtags="";
 
-				//if(data.startPage != 1) {
-				//	var pre = data.startPage-1;
-				//	htmlpagingtags += "<a href='commentlist?pageNum="+pre+"'>이전</a>";
-				//}
-				//for(var i=data.startPage; i<=data.endPage; i++){
-				//	htmlpagingtags += "<a href='commentlist?pageNum="+i+"'>"+i+"</a>";
-				//}
-				//if(data.endPage < data.pageCnt ) {
-				//	var pro = data.endPage+1;
-				//	htmlpagingtags += "<a href='commentlist?pageNum="+pro+"'>이후</a>";
-				//}
-				//$("#page_content").html(htmlpagingtags);
+				if(data.startPage != 1) {
+					var pre = data.startPage-1;
+					htmlpagingtags += "<a href='commentlist?pageNum="+pre+"'>이전</a>";
+				}
+				for(var i=data.startPage; i<=data.endPage; i++){
+					htmlpagingtags += "<a href='commentlist?pageNum="+i+"'>"+i+"</a>";
+				}
+				if(data.endPage < data.pageCnt ) {
+					var pro = data.endPage+1;
+					htmlpagingtags += "<a href='commentlist?pageNum="+pro+"'>이후</a>";
+				}
+				$("#page_content").html(htmlpagingtags);
 			},
 			error: function(request, status, error){
 				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 		    }			
 		 });
 	}
-	
 	$(document).on("click","[id^=com_update-]",function(){
 		var uId = this.id;
 		var unum = uId.split("com_update-")[1];
@@ -269,9 +281,11 @@ background-color : none;
 		var cId = "com_con-"+dd;
 		var rcId = "#"+ cId;
 		var cval= $(rcId).text();
+		console.log(cval);
 		var inputA=document.getElementById('inputA');
 		inputA.value=cval;
 		var com_no=document.getElementById('com_no');
+		console.log("dd"+dd);
 		com_no.value=dd;
 		
 		$("#insertinsert").css('display','none');
@@ -287,12 +301,15 @@ background-color : none;
 	$(document).on("click","[id^=com_delete-]",function(){
 			var dId = this.id;
 			var dnum = dId.split("com_delete-")[1];
+			console.log("dId : "+ dId);
+			console.log("dnum : "+ dnum);
 	        if (!confirm("정말 삭제하시겠습니까?")) {//니요
 	        	location.href="<%=request.getContextPath()%>/history.back()";
 	        } else {//네
 	        	location.href="<%=request.getContextPath()%>/commentdelete?com_no="+dnum;
-							}
-						});
+	        }
+	        });
+
 	</script>
 	</form>
 	<br>

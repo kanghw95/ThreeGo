@@ -62,9 +62,14 @@ public class BoardLikeCtrl extends HttpServlet {
       request.setAttribute("like", blvo);
       
       if(result != 0) {
-      PrintWriter out = response.getWriter();
-      out.println("<script>alert('추천이 되었습니다.');</script>");
+    	  PrintWriter out = response.getWriter();
+      if(blvo != null) {
+    	  out.println("<script>alert('추천이 되었습니다.');</script>");
+      }else {
+    	  out.println("<script>alert('추천이 취소 되었습니다.');</script>");
+      }
       out.println("<script>location.href='"+ request.getContextPath()+"/board/boardlist"+"';</script>");
+      out.close();
       }
    
       

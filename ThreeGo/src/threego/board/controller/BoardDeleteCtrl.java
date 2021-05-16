@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import threego.admin.Admin;
 import threego.model.service.BoardService;
 import threego.model.vo.Board;
 import threego.model.vo.Board_Attach;
@@ -44,12 +45,13 @@ public class BoardDeleteCtrl extends HttpServlet {
 	}
 	
 	private void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
+		Admin admin = (Admin) request.getSession().getAttribute("admin");	
 		int result = 0;
 		Board vo = new Board();
 
 		BoardService sv = new BoardService();
 		String bd_content_no = (String) request.getParameter("bd_content_no");
+		System.out.println("dfsddfasdfasdfasdf"+bd_content_no);
 		vo.setBd_content_no(Integer.parseInt(bd_content_no));
 		
 		result = sv.getBoardDelete(vo);
@@ -58,6 +60,12 @@ public class BoardDeleteCtrl extends HttpServlet {
 		if (result == 1) {
 			String msg = "글 삭제 완료";
 			out.println("<script>alert('" +msg+"')</script>");
+			
+			if(admin!=null) {
+				
+				out.println("<script>location.href='"+ request.getContextPath()+"/admin/adminboard"+"';</script>");
+			}
+			
 			out.println("<script>location.href='"+ request.getContextPath()+"/board/boardlist"+"';</script>");
 
 		}

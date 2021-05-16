@@ -1,15 +1,18 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/search_park.css" type="text/css">
 <%@page import="threego.model.vo.User"%>
+<%@page import="threego.admin.Admin"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%User users = (User) session.getAttribute("user"); %>
-
+<%
+	Admin admin = (Admin) session.getAttribute("admin");
+%>
    <div class="mainstop">
    <h1 class="title">얻다대GO</h1>
    </div>
 
 <%
-		if (users == null) {
+		if (users == null && admin==null) {
 %>
 	<div>
 	<form id="loginfrm">
@@ -23,7 +26,15 @@
 	</form>
 	</div>
 <%
-		} else {
+		} else if(admin!=null){
+		%>	
+		<div>
+		<h2>관리자 계정입니다.</h2>
+		<input type="button" id="btnLogout" value="로그아웃" onclick="location.href='<%=request.getContextPath()%>/userlogout'">
+		</div>
+		
+		
+		<% }else {
 %>
 	<div>
 		<%= session.getAttribute("msg") %>

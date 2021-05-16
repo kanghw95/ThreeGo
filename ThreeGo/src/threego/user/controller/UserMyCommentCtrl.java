@@ -54,7 +54,6 @@ public class UserMyCommentCtrl extends HttpServlet {
 		final int pageSize = 5; // 한페이지당 글 수
 		final int pageBlock = 5; // 화면에 나타날 페이지 링크 수 dP) 화면 하단에 1 2 3
 		String user_no = request.getParameter("user_no");
-		System.out.println(user_no);
 		CommentService cs = new CommentService();
 
 		int cnt = 0; // 총 글 개수

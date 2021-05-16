@@ -62,9 +62,9 @@ public class CommentListCtrl extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("/commentlist진입");
 		
+
 		
-		
-		final int pageSize = 100; // 한페이지당 글 수
+		final int pageSize = 5; // 한페이지당 글 수
 		final int pageBlock = 5; // 화면에 나타날 페이지 링크 수 dP) 화면 하단에 1 2 3
 
 		CommentService cs = new CommentService();
@@ -106,7 +106,8 @@ public class CommentListCtrl extends HttpServlet {
 		List<Comment_tb> list = null;
 
 		list = cs.getCommentByPage(startRnum, endRnum, bd_content_no);
-/////	
+	
+	//////////////	
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("pageCnt", pageCnt);
 		jsonObject.addProperty("startPage", startPage);
@@ -121,6 +122,7 @@ public class CommentListCtrl extends HttpServlet {
 				String nowDate = list.get(i).getRv_date();
 				jobj.addProperty("rv_date", nowDate);	
 				jobj.addProperty("com_no", list.get(i).getCom_no());
+				System.out.println("죽여"+list.get(i).getCom_no());
 				jArray.add(jobj);
 			}
 			jsonObject.add("List", jArray);
