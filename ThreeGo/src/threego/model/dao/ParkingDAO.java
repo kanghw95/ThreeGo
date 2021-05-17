@@ -233,13 +233,25 @@ public class ParkingDAO {
 
 	public ArrayList<Parking> p_selectSearch(Connection conn, String col, String str) {
 		ArrayList<Parking> list = new ArrayList<Parking>();
+		float result = 0;
+
+pstmt = null;
+rs = null;
+
 
 		String sql = "SELECT * FROM PK_LOT WHERE " + col + " LIKE '%" + str + "%' ";
-
-		pstmt = null;
-		rs = null;
+		String sql2 = "select avg(grade) from simple_rv where parking_code = ?";
 
 		try {
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setInt(1, 1452075);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result	 = rs.getFloat(1);
+			} 
+
+			close();
 
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -249,6 +261,7 @@ public class ParkingDAO {
 					list = new ArrayList<Parking>();
 					do {
 						Parking vo = new Parking();
+						vo.setGrade(result);
 						vo.setAddr(rs.getString("addr"));
 						vo.setAdd_rates(rs.getInt("add_rates"));
 						vo.setAdd_time_rate(rs.getInt("add_time_rate"));
@@ -346,125 +359,8 @@ public class ParkingDAO {
 		}
 		return vo;
 	}
-	public ArrayList<Parking> paydistinguish(Connection conn, String col, String str) {
-		ArrayList<Parking> list = new ArrayList<Parking>();
-
-		String sql = "select * from PK_LOT where " + col + " like '%" + str + "%' ";
-
-		pstmt = null;
-		rs = null;
-
-		try {
-
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-
-			if (rs != null) { // 결과가 1개이상 있다면
-				if (rs.next()) {
-					list = new ArrayList<Parking>();
-					do {
-						Parking vo = new Parking();
-						vo.setAddr(rs.getString("addr"));
-						vo.setAdd_rates(rs.getInt("add_rates"));
-						vo.setAdd_time_rate(rs.getInt("add_time_rate"));
-						vo.setCapacity(rs.getInt("capacity"));
-						vo.setParking_code(rs.getInt("parking_code"));
-						vo.setDay_maximum(rs.getInt("day_maximum"));
-						vo.setFulltime_monthly(rs.getString("fulltime_monthly"));
-						vo.setHoliday_begin_time(rs.getString("holiday_begin_time"));
-						vo.setHoliday_end_time(rs.getString("holiday_end_time"));
-						vo.setHoliday_pay_nm(rs.getString("holiday_pay_nm"));
-						vo.setLat(rs.getFloat("lat"));
-						vo.setLng(rs.getFloat("lng"));
-						vo.setParking_name(rs.getString("parking_name"));
-						vo.setNight_free_open(rs.getString("night_free_open").charAt(0));
-						vo.setNight_free_open_nm(rs.getString("night_free_open_nm"));
-						vo.setOperation_rule(rs.getString("operation_rule").charAt(0));
-						vo.setOperation_rule_nm(rs.getString("operation_rule_nm"));
-						vo.setPay_nm(rs.getString("pay_nm"));
-						vo.setPay_yn(rs.getString("pay_yn").charAt(0));
-						vo.setRates(rs.getInt("rates"));
-						vo.setSaturday_pay_nm(rs.getString("saturday_pay_nm"));
-						vo.setSaturday_pay_yn(rs.getString("saturday_pay_yn").charAt(0));
-						vo.setSync_time(rs.getString("sync_time"));
-						vo.setTel(rs.getString("tel"));
-						vo.setTime_rate(rs.getInt("time_rate"));
-						vo.setParking_type(rs.getString("parking_type"));
-						vo.setParking_type_nm(rs.getString("parking_type_nm"));
-						vo.setWeekday_begin_time(rs.getString("weekday_begin_time"));
-						vo.setWeekday_end_time(rs.getString("weekday_end_time"));
-						vo.setWeekend_begin_time(rs.getString("weekend_begin_time"));
-						list.add(vo);
-					} while (rs.next());
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JDBCTemplate.close(rs);
-			JDBCTemplate.close(pstmt);
-		}
-		return list;
-	}
-	public ArrayList<Parking> freeornot(Connection conn, String col1, String str, String col2, String str2) {
-		ArrayList<Parking> list = new ArrayList<Parking>();
-
-		String sql = "SELECT * FROM PK_LOT WHERE 1=1 AND PAY_YN = ''";
-		pstmt = null;
-		rs = null;
-
-		try {
-
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-
-			if (rs != null) { // 결과가 1개이상 있다면
-				if (rs.next()) {
-					list = new ArrayList<Parking>();
-					do {
-						Parking vo = new Parking();
-						vo.setAddr(rs.getString("addr"));
-						vo.setAdd_rates(rs.getInt("add_rates"));
-						vo.setAdd_time_rate(rs.getInt("add_time_rate"));
-						vo.setCapacity(rs.getInt("capacity"));
-						vo.setParking_code(rs.getInt("parking_code"));
-						vo.setDay_maximum(rs.getInt("day_maximum"));
-						vo.setFulltime_monthly(rs.getString("fulltime_monthly"));
-						vo.setHoliday_begin_time(rs.getString("holiday_begin_time"));
-						vo.setHoliday_end_time(rs.getString("holiday_end_time"));
-						vo.setHoliday_pay_nm(rs.getString("holiday_pay_nm"));
-						vo.setLat(rs.getFloat("lat"));
-						vo.setLng(rs.getFloat("lng"));
-						vo.setParking_name(rs.getString("parking_name"));
-						vo.setNight_free_open(rs.getString("night_free_open").charAt(0));
-						vo.setNight_free_open_nm(rs.getString("night_free_open_nm"));
-						vo.setOperation_rule(rs.getString("operation_rule").charAt(0));
-						vo.setOperation_rule_nm(rs.getString("operation_rule_nm"));
-						vo.setPay_nm(rs.getString("pay_nm"));
-						vo.setPay_yn(rs.getString("pay_yn").charAt(0));
-						vo.setRates(rs.getInt("rates"));
-						vo.setSaturday_pay_nm(rs.getString("saturday_pay_nm"));
-						vo.setSaturday_pay_yn(rs.getString("saturday_pay_yn").charAt(0));
-						vo.setSync_time(rs.getString("sync_time"));
-						vo.setTel(rs.getString("tel"));
-						vo.setTime_rate(rs.getInt("time_rate"));
-						vo.setParking_type(rs.getString("parking_type"));
-						vo.setParking_type_nm(rs.getString("parking_type_nm"));
-						vo.setWeekday_begin_time(rs.getString("weekday_begin_time"));
-						vo.setWeekday_end_time(rs.getString("weekday_end_time"));
-						vo.setWeekend_begin_time(rs.getString("weekend_begin_time"));
-						list.add(vo);
-					} while (rs.next());
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JDBCTemplate.close(rs);
-			JDBCTemplate.close(pstmt);
-		}
-		return list;
-	}
+	
+	
 	
 
 

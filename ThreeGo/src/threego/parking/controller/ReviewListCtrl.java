@@ -52,13 +52,10 @@ public class ReviewListCtrl extends HttpServlet {
 		 * ArrayList<Review> list = new ReviewService().getReviewAll(parking);
 		 */
 		
-		if (list != null) {
+		
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("WEB-INF/main/review_main/reviewlist.jsp").forward(request, response);
-		} else {
-			request.getRequestDispatcher("WEB-INF/main/main.jsp").forward(request, response);
-		}
-
+	
 	}
 
 }

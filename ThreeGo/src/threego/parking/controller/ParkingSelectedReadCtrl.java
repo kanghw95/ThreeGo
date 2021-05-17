@@ -35,8 +35,7 @@ public class ParkingSelectedReadCtrl extends HttpServlet {
 			throws ServletException, IOException {
 		String search = request.getParameter("searchpark");
 		System.out.println(search);
-
-		ArrayList<Parking> searchlist = new ParkingService().p_selectSearch("parking_name", search);
+			ArrayList<Parking> searchlist = new ParkingService().p_selectSearch("parking_name", search);
 		
 		if (searchlist != null) {
 			System.out.println("조회 성공");

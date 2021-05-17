@@ -9,11 +9,26 @@
 </head>
 <body>
 <h1>간단 리뷰 작성 페이지</h1>
-<%	User user = (User) session.getAttribute("user"); %>
+<%
+		User user = (User) session.getAttribute("user");
+	if (user == null) {
+	%>
+	로그인 후 이용하시길 바랍니다.
+	<a href="<%=request.getContextPath()%>/main"><br>메인화면으로</a>
+	<%
+		} else if(user.getUser_authority()==0){
+		%>
+	아이디가 정지 당했습니다.문의부탁드립니다.
+	<a href="<%=request.getContextPath()%>/main">메인화면으로</a>	
+			
+		<% }
+	
+	else {
+	%>
 <form action="<%=request.getContextPath()%>/reviewwrite" method="post">
 	
 		<input type="hidden" name="user_no" value="<%=user.getUser_no()%>">
-		<input type="hidden" name=parking_code value="<%=request.getParameter("parking_code")%>">
+		<input type="hidden" name="parking_code" value="<%=request.getParameter("parking_code")%>">
 	<table>
 			<tr>
 				<td>작성자 닉네임 : </td> 
@@ -41,6 +56,9 @@
 			<td><input type="submit" value="리뷰 작성"></td>
 			</tr>
 	</table>
+		<%
+		}
+	%>
 </form>
 </body>
 </html>

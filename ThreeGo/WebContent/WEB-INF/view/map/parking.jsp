@@ -39,12 +39,12 @@
 			
 		<div class="category">
 			<ul>
-				<li id="coffeeMenu" onclick="changeMarker('coffee')"><span
-					class="ico_comm ico_carpark"></span>무료</li>
-				<li id="carparkMenu" onclick="changeMarker('carpark')"><span
-					class="ico_comm ico_carpark"></span>유료</li>
-				<li id="storeMenu" onclick="changeMarker('store')"><span
-					class="ico_comm ico_carpark"></span>전체</li>
+				<li  id="freeMenu" onclick="changeMarker('free')"><span
+					class="ico_comm ico_free"></span>무료</li>
+				<li id="notfreeMenu" onclick="changeMarker('notfree')"><span
+					class="ico_comm ico_notfree"></span>유료</li>
+				<li id="allMenu" onclick="changeMarker('all')"><span
+					class="ico_comm ico_all"></span>전체</li>
 			</ul>
 		</div>
 	</div>
@@ -104,7 +104,7 @@
 				'https://t1.daumcdn.net/localimg/localimages/07/2018/pc/roadview_minimap_wk_2018.png',
 				new kakao.maps.Size(26, 46), {
 					// 스프라이트 이미지를 사용합니다.
-					// 스프라이트 이미지 전체의 크기를 지정하고
+					// 스프라이트 이미지 전체 주차장의 크기를 지정하고
 					spriteSize : new kakao.maps.Size(1666, 168),
 					// 사용하고 싶은 영역의 좌상단 좌표를 입력합니다.
 					// background-position으로 지정하는 값이며 부호는 반대입니다.
@@ -124,15 +124,26 @@
 				function(mouseEvent) {
 
 					// 현재 마커가 놓인 자리의 좌표입니다 
-					var position = rv_marker.getPosition();
+					var rv_position = rv_marker.getPosition();
 
 					// 마커가 놓인 위치를 기준으로 로드뷰를 설정합니다
-					toggleRoadview(position);
+					toggleRoadview(rv_position);
 				});
 
 		
 		// 주차장 제목 클릭 시 지도 이동 이벤트
-		function panTo(name){
+		function panTo(name,code){
+			var code = code;
+			
+			var codeclass1 = document.getElementsByClassName("park");
+			var codeclass = document.getElementsByClassName("park"+code);
+			for(var i=0; i<codeclass1.length; i++){
+				codeclass1[i].style.background = "none";
+			}
+			codeclass[0].style.background = "#EEFDFF";
+        	
+			
+			
 			<c:forEach items="${listpark }" var="v" varStatus="s">
 			console.log('${v.lat}, ${v.lng}');
 			if(name == '${v.parking_name}'){
@@ -150,33 +161,33 @@
 			}
 
 			// 클릭한 위치의 좌표입니다 
-			var position = mouseEvent.latLng;
+			var rv_position = mouseEvent.latLng;
 
 			// 마커를 클릭한 위치로 옮깁니다
-			rv_marker.setPosition(position);
+			rv_marker.setPosition(rv_position);
 
 			// 클락한 위치를 기준으로 로드뷰를 설정합니다
-			toggleRoadview(position);
+			toggleRoadview(rv_position);
 		});
 
 		// 전달받은 좌표(position)에 가까운 로드뷰의 파노라마 ID를 추출하여
 		// 로드뷰를 설정하는 함수입니다
-		function toggleRoadview(position) {
-			rvClient.getNearestPanoId(position, 50, function(panoId) {
+		function toggleRoadview(rv_position) {
+			rvClient.getNearestPanoId(rv_position, 50, function(panoId) {
 				// 파노라마 ID가 null 이면 로드뷰를 숨깁니다
 				if (panoId === null) {
-					toggleMapWrapper(true, position);
+					toggleMapWrapper(true, rv_position);
 				} else {
-					toggleMapWrapper(false, position);
+					toggleMapWrapper(false, rv_position);
 
 					// panoId로 로드뷰를 설정합니다
-					rv.setPanoId(panoId, position);
+					rv.setPanoId(panoId, rv_position);
 				}
 			});
 		}
 
 		// 지도를 감싸고 있는 div의 크기를 조정하는 함수입니다
-		function toggleMapWrapper(active, position) {
+		function toggleMapWrapper(active, rv_position) {
 			if (active) {
 
 				// 지도를 감싸고 있는 div의 너비가 100%가 되도록 class를 변경합니다 
@@ -186,7 +197,7 @@
 				map.relayout();
 
 				// 지도의 너비가 변경될 때 지도중심을 입력받은 위치(position)로 설정합니다
-				map.setCenter(position);
+				map.setCenter(rv_position);
 			} else {
 
 				// 지도만 보여지고 있는 상태이면 지도의 너비가 50%가 되도록 class를 변경하여
@@ -198,7 +209,7 @@
 					map.relayout();
 
 					// 지도의 너비가 변경될 때 지도중심을 입력받은 위치(position)로 설정합니다
-					map.setCenter(position);
+					map.setCenter(rv_position);
 				}
 			}
 		}
@@ -250,62 +261,58 @@
 
 		// 로드뷰에서 X버튼을 눌렀을 때 로드뷰를 지도 뒤로 숨기는 함수입니다
 		function closeRoadview() {
-			var position = rv_marker.getPosition();
-			toggleMapWrapper(true, position);
+			var rv_position = rv_marker.getPosition();
+			toggleMapWrapper(true, rv_position);
 		}
 		map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
 
-		// 커피숍 마커가 표시될 좌표 배열입니다
-		var coffeePositions = [
+		// 무료 주차장 주차장 마커가 표시될 좌표 배열입니다
+		var freePositions = [
+			<c:forEach items="${listpark }" var="v" varStatus="s">
+			<c:if test = "${fn:contains(v.pay_yn, 'N')}">
+
+			new kakao.maps.LatLng(${v.lat}, ${v.lng})
+			<c:if test="${fn:length(listpark) > 1 && fn:length(listpark) > (s.count)}">
+			,
+			</c:if>
+			</c:if>
+
+			</c:forEach>
+			/* new kakao.maps.LatLng(37.58024201,127.0100353),
+			new kakao.maps.LatLng(37.57464656,126.9677885) */
+		];
+
+		// 유료 주차장 마커가 표시될 좌표 배열입니다
+		var notfreePositions = [
+			<c:forEach items="${listpark }" var="v" varStatus="s">
+			<c:if test = "${fn:contains(v.pay_yn, 'Y')}">
+			new kakao.maps.LatLng(${v.lat}, ${v.lng})
+			<c:if test="${fn:length(listpark) > 1 && fn:length(listpark) > (s.count)}">
+			,
+			</c:if>
+			</c:if>
+			</c:forEach>
+				];
+
+		// 전체 주차장 마커가 표시될 좌표 배열입니다
+		var allPositions = [
 			<c:forEach items="${listpark }" var="v" varStatus="s">
 			new kakao.maps.LatLng(${v.lat}, ${v.lng})
 			<c:if test="${fn:length(listpark) > 1 && fn:length(listpark) > (s.count)}">
 			,
 			</c:if>
 			</c:forEach>
-			/* new kakao.maps.LatLng(37.58024201,127.0100353),
-			new kakao.maps.LatLng(37.57464656,126.9677885) */
-		];
-
-		// 주차장 마커가 표시될 좌표 배열입니다
-		var carparkPositions = [
-				new kakao.maps.LatLng(37.57449014, 126.9741859),
-				new kakao.maps.LatLng(37.57107424, 126.9731594),
-				new kakao.maps.LatLng(37.57449014, 126.9741859),
-				new kakao.maps.LatLng(37.57107424, 126.9950416),
-				new kakao.maps.LatLng(37.56983402, 126.9815059),
-				new kakao.maps.LatLng(37.56914518, 126.9950416),
-				new kakao.maps.LatLng(37.56955668, 126.9833738),
-				new kakao.maps.LatLng(37.57231272, 126.9846183),
-				new kakao.maps.LatLng(37.57158787, 126.9729356),
-				new kakao.maps.LatLng(37.57806188, 126.9893414),
-				new kakao.maps.LatLng(37.57067078, 127.0177646),
-				new kakao.maps.LatLng(37.57540383, 126.9786815),
-				new kakao.maps.LatLng(37.57185042, 126.9844954),
-				new kakao.maps.LatLng(37.56829903, 126.9880723),
-				new kakao.maps.LatLng(37.56947712, 126.9923344),
-				new kakao.maps.LatLng(37.58411794, 126.9698478) 
-				];
-
-		// 편의점 마커가 표시될 좌표 배열입니다
-		var storePositions = [
-			<c:forEach items="${listpark }" var="v" varStatus="s">
-				new kakao.maps.LatLng(${v.lat}, ${v.lng})
-				<c:if test="${fn:length(listpark) > 1 && fn:length(listpark) > (s.count) }">
-				,
-				</c:if>
-			</c:forEach>
 			 ];
-		var markerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png'; // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
-		coffeeMarkers = [], // 커피숍 마커 객체를 가지고 있을 배열입니다
-		storeMarkers = [], // 편의점 마커 객체를 가지고 있을 배열입니다
-		carparkMarkers = []; // 주차장 마커 객체를 가지고 있을 배열입니다
+		var markerImageSrc = "/ThreeGo/img/sprite.png"
+		freeMarkers = [], // 무료 주차장 주차장 마커 객체를 가지고 있을 배열입니다
+		allMarkers = [], // 전체 주차장 마커 객체를 가지고 있을 배열입니다
+		notfreeMarkers = []; // 유료 주차장 마커 객체를 가지고 있을 배열입니다
 
-		createCoffeeMarkers(); // 커피숍 마커를 생성하고 커피숍 마커 배열에 추가합니다
-		createStoreMarkers(); // 편의점 마커를 생성하고 편의점 마커 배열에 추가합니다
-		createCarparkMarkers(); // 주차장 마커를 생성하고 주차장 마커 배열에 추가합니다
+		createFreeMarkers(); // 무료 주차장 주차장 마커를 생성하고 무료 주차장 주차장 마커 배열에 추가합니다
+		createAllMarkers(); // 전체 주차장 마커를 생성하고 전체 주차장 마커 배열에 추가합니다
+		createNotFreeMarkers(); // 유료 주차장 마커를 생성하고 유료 주차장 마커 배열에 추가합니다
 
-		changeMarker('store'); // 지도에 커피숍 마커가 보이도록 설정합니다    
+		changeMarker('all'); // 지도에 무료 주차장 주차장 마커가 보이도록 설정합니다    
 
 		// 마커이미지의 주소와, 크기, 옵션으로 마커 이미지를 생성하여 리턴하는 함수입니다
 		function createMarkerImage(src, size, options) {
@@ -321,17 +328,28 @@
 			});
 
 		    
-		    kakao.maps.event.addListener(marker, 'click', function() {
-						
+			var iwContent = "<div id='pk_info' style='padding:5px;'></div>"; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		    iwRemoveable = true; 
+
+			var infowindow = new kakao.maps.InfoWindow({
+			    content : iwContent,
+			    removable : iwRemoveable
+			});
+			
+		    kakao.maps.event.addListener( marker, 'click', function() {
+		    	infowindow.open(map, marker);  
+		    console.log(position);
+			
+
 		    });
 			return marker;
 			
 		}
 
-		// 커피숍 마커를 생성하고 커피숍 마커 배열에 추가하는 함수입니다
-		function createCoffeeMarkers() {
+		// 무료 주차장 주차장 마커를 생성하고 무료 주차장 주차장 마커 배열에 추가하는 함수입니다
+		function createFreeMarkers() {
 
-			for (var i = 0; i < coffeePositions.length; i++) {
+			for (var i = 0; i < freePositions.length; i++) {
 
 				var imageSize = new kakao.maps.Size(22, 26), imageOptions = {
 					spriteOrigin : new kakao.maps.Point(10, 0),
@@ -341,23 +359,23 @@
 				// 마커이미지와 마커를 생성합니다
 				var markerImage = createMarkerImage(markerImageSrc, imageSize,
 						imageOptions), marker = createMarker(
-						coffeePositions[i], markerImage);
+						freePositions[i], markerImage);
 
-				// 생성된 마커를 커피숍 마커 배열에 추가합니다
-				coffeeMarkers.push(marker);
+				// 생성된 마커를 무료 주차장 주차장 마커 배열에 추가합니다
+				freeMarkers.push(marker);
 			}
 		}
 
-		// 커피숍 마커들의 지도 표시 여부를 설정하는 함수입니다
-		function setCoffeeMarkers(map) {
-			for (var i = 0; i < coffeeMarkers.length; i++) {
-				coffeeMarkers[i].setMap(map);
+		// 무료 주차장 주차장 유료 주차장 마커들의 지도 표시 여부를 설정하는 함수입니다
+		function setFreeMarkers(map) {
+			for (var i = 0; i < freeMarkers.length; i++) {
+				freeMarkers[i].setMap(map);
 			}
 		}
 
-		// 편의점 마커를 생성하고 편의점 마커 배열에 추가하는 함수입니다
-		function createStoreMarkers() {
-			for (var i = 0; i < storePositions.length; i++) {
+		// 전체 주차장 유료 주차장 조회 마커를 생성하고 전체 주차장 마커 배열에 추가하는 함수입니다
+		function createAllMarkers() {
+			for (var i = 0; i < allPositions.length; i++) {
 
 				var imageSize = new kakao.maps.Size(22, 26), imageOptions = {
 					spriteOrigin : new kakao.maps.Point(10, 36),
@@ -366,24 +384,24 @@
 
 				// 마커이미지와 마커를 생성합니다
 				var markerImage = createMarkerImage(markerImageSrc, imageSize,
-						imageOptions), marker = createMarker(storePositions[i],
+						imageOptions), marker = createMarker(allPositions[i],
 						markerImage);
 
-				// 생성된 마커를 편의점 마커 배열에 추가합니다
-				storeMarkers.push(marker);
+				// 생성된 마커를 전체 주차장 마커 배열에 추가합니다
+				allMarkers.push(marker);
 			}
 		}
 
-		// 편의점 마커들의 지도 표시 여부를 설정하는 함수입니다
-		function setStoreMarkers(map) {
-			for (var i = 0; i < storeMarkers.length; i++) {
-				storeMarkers[i].setMap(map);
+		// 전체 주차장 마커들의 지도 표시 여부를 설정하는 함수입니다
+		function setAllMarkers(map) {
+			for (var i = 0; i < allMarkers.length; i++) {
+				allMarkers[i].setMap(map);
 			}
 		}
 
-		// 주차장 마커를 생성하고 주차장 마커 배열에 추가하는 함수입니다
-		function createCarparkMarkers() {
-			for (var i = 0; i < carparkPositions.length; i++) {
+		// 유료 주차장 마커를 생성하고 유료 주차장 마커 배열에 추가하는 함수입니다
+		function createNotFreeMarkers() {
+			for (var i = 0; i < notfreePositions.length; i++) {
 
 				var imageSize = new kakao.maps.Size(22, 26), imageOptions = {
 					spriteOrigin : new kakao.maps.Point(10, 72),
@@ -393,65 +411,69 @@
 				// 마커이미지와 마커를 생성합니다
 				var markerImage = createMarkerImage(markerImageSrc, imageSize,
 						imageOptions), marker = createMarker(
-						carparkPositions[i], markerImage);
+						notfreePositions[i], markerImage);
 
-				// 생성된 마커를 주차장 마커 배열에 추가합니다
-				carparkMarkers.push(marker);
+				// 생성된 마커를 유료 주차장 마커 배열에 추가합니다
+				notfreeMarkers.push(marker);
 			}
 		}
 
-		// 주차장 마커들의 지도 표시 여부를 설정하는 함수입니다
-		function setCarparkMarkers(map) {
-			for (var i = 0; i < carparkMarkers.length; i++) {
-				carparkMarkers[i].setMap(map);
+		// 유료 주차장 마커들의 지도 표시 여부를 설정하는 함수입니다
+		function setNotFreeMarkers(map) {
+			for (var i = 0; i < notfreeMarkers.length; i++) {
+				notfreeMarkers[i].setMap(map);
 			}
 		}
 
 		// 카테고리를 클릭했을 때 type에 따라 카테고리의 스타일과 지도에 표시되는 마커를 변경합니다
 		function changeMarker(type) {
 
-			var coffeeMenu = document.getElementById('coffeeMenu');
-			var storeMenu = document.getElementById('storeMenu');
-			var carparkMenu = document.getElementById('carparkMenu');
+			var freeMenu = document.getElementById('freeMenu');
+			var allMenu = document.getElementById('allMenu');
+			var notfreeMenu = document.getElementById('notfreeMenu');
 
-			// 커피숍 카테고리가 클릭됐을 때
-			if (type === 'coffee') {
+			// 무료 주차장 주차장 카테고리가 클릭됐을 때
+			if (type === 'free') {
+				<c:forEach items="${listpark }" var="v" varStatus="s">
+				<c:if test = "${v.pay_yn} == 'N'">
+				console.log("${v.pay_yn}")
+				</c:if>
+				</c:forEach>
+				// 무료 주차장 주차장 카테고리를 선택된 스타일로 변경하고
+				freeMenu.className = 'menu_selected';
 
-				// 커피숍 카테고리를 선택된 스타일로 변경하고
-				coffeeMenu.className = 'menu_selected';
+				// 전체 주차장과 유료 주차장 카테고리는 선택되지 않은 스타일로 바꿉니다
+				allMenu.className = '';
+				notfreeMenu.className = '';
 
-				// 편의점과 주차장 카테고리는 선택되지 않은 스타일로 바꿉니다
-				storeMenu.className = '';
-				carparkMenu.className = '';
+				// 무료 주차장 주차장 마커들만 지도에 표시하도록 설정합니다
+				setFreeMarkers(map);
+				setAllMarkers(null);
+				setNotFreeMarkers(null);
 
-				// 커피숍 마커들만 지도에 표시하도록 설정합니다
-				setCoffeeMarkers(map);
-				setStoreMarkers(null);
-				setCarparkMarkers(null);
+			} else if (type === 'all') { // 전체 주차장 카테고리가 클릭됐을 때
 
-			} else if (type === 'store') { // 편의점 카테고리가 클릭됐을 때
+				// 전체 주차장 카테고리를 선택된 스타일로 변경하고
+				freeMenu.className = '';
+				allMenu.className = 'menu_selected';
+				notfreeMenu.className = '';
 
-				// 편의점 카테고리를 선택된 스타일로 변경하고
-				coffeeMenu.className = '';
-				storeMenu.className = 'menu_selected';
-				carparkMenu.className = '';
+				// 전체 주차장 마커들만 지도에 표시하도록 설정합니다
+				setFreeMarkers(null);
+				setAllMarkers(map);
+				setNotFreeMarkers(null);
 
-				// 편의점 마커들만 지도에 표시하도록 설정합니다
-				setCoffeeMarkers(null);
-				setStoreMarkers(map);
-				setCarparkMarkers(null);
+			} else if (type === 'notfree') { // 유료 주차장 카테고리가 클릭됐을 때
 
-			} else if (type === 'carpark') { // 주차장 카테고리가 클릭됐을 때
+				// 유료 주차장 카테고리를 선택된 스타일로 변경하고
+				freeMenu.className = '';
+				allMenu.className = '';
+				notfreeMenu.className = 'menu_selected';
 
-				// 주차장 카테고리를 선택된 스타일로 변경하고
-				coffeeMenu.className = '';
-				storeMenu.className = '';
-				carparkMenu.className = 'menu_selected';
-
-				// 주차장 마커들만 지도에 표시하도록 설정합니다
-				setCoffeeMarkers(null);
-				setStoreMarkers(null);
-				setCarparkMarkers(map);
+				// 유료 주차장 마커들만 지도에 표시하도록 설정합니다
+				setFreeMarkers(null);
+				setAllMarkers(null);
+				setNotFreeMarkers(map);
 			}
 			
 		}
@@ -472,7 +494,7 @@
 			 
 			};
 
-		
+		$()
 	</script>
 	<hr>
 </body>

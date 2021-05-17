@@ -32,9 +32,16 @@ public class Parking {
 	private int day_maximum;
 	private float lat;
 	private float lng;
+	private float grade;
 	public Parking() {}
 	public int getParking_code() {
 		return parking_code;
+	}
+	public float getGrade() {
+		return grade;
+	}
+	public void setGrade(float grade) {
+		this.grade = grade;
 	}
 	public void setParking_code(int parking_code) {
 		this.parking_code = parking_code;

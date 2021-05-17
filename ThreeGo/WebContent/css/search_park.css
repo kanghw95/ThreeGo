@@ -112,19 +112,19 @@
 	width: 22px;
 	height: 26px;
 	background:
-		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png')
+		url(/ThreeGo/img/sprite.png)
 		no-repeat;
 }
 
-.category .ico_coffee {
-	background-position: -10px 0;
+.category .ico_free {
+	background-position: -10px 0;	
 }
 
-.category .ico_store {
+.category .ico_all {
 	background-position: -10px -36px;
 }
 
-.category .ico_carpark {
+.category .ico_notfree {
 	background-position: -10px -72px;
 }
 #img_btn {
@@ -142,8 +142,9 @@
 	clear: both;
 	text-align: center;
 	overflow: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
     flex: 1;
+    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
 }
 .searchbox{
 	margin: auto;
@@ -185,7 +186,9 @@ font-family: "Audiowide", sans-serif;
 #fav{
 	float : right;
 }
-
+#pkname {
+	cursor : pointer;
+}
 
 .modal {
 	position: absolute;

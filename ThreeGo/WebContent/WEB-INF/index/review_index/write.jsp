@@ -11,7 +11,7 @@
 </head>
 <body>
 <%@ include file="../header.jsp" %>
-<%@ include file="../../view/review/reviewWirte.jsp" %>
+<%@ include file="../../view/review/reviewWrite.jsp" %>
 <br>
 <%@ include file="../footer.jsp" %>
 </body>

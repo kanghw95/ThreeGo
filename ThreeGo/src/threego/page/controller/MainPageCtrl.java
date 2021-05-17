@@ -73,7 +73,7 @@ public class MainPageCtrl extends HttpServlet {
 			viewPage = "/WEB-INF/main/user_main/chat.jsp";
 		}else if(com.equals("/main/mycomment")){
 			viewPage = "/WEB-INF/main/user_main/mycomment.jsp";
-		}else if(com.equals("/main/reviewwWrite")){
+		}else if(com.equals("/main/reviewWrite")){
 			viewPage = "/WEB-INF/main/review_main/write.jsp";
 		}
 		
