@@ -341,6 +341,7 @@ public class UserDAO {
 				resultVo.setEmail(rs.getString("email"));
 				resultVo.setGender(rs.getString("gender").charAt(0));
 				resultVo.setBirth(rs.getString("birth"));
+				resultVo.setUser_authority(rs.getInt("user_authority"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

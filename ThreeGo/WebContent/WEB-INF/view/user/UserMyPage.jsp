@@ -26,7 +26,7 @@
 	<hr>
 	<input type="button" value="메인페이지"  onclick="location.href ='<%=request.getContextPath() %>/main'">
 	
-	<form action="<%=request.getContextPath() %>/usermyboard" method="post">
+	<form action="<%=request.getContextPath() %>/user/userboard" method="post">
 	<input type="hidden" id="user_no" name="user_no" value="<%=user.getUser_no()%>">
 	<input type="submit" value="내가 쓴 글 보기">
 	</form>

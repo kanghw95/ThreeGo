@@ -34,15 +34,19 @@ public class UserMyBoardCtrl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
-
-		
+		execute(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		execute(request, response);
+		
+	}
+	private void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		final int pageSize = 10;  // 
 		final int pageBlock = 5;  // 
 		System.out.println("이동완료");
@@ -50,15 +54,20 @@ public class UserMyBoardCtrl extends HttpServlet {
 		int cnt = 0; 
 		
 		/********** �˻� *************/
+		User user= (User) request.getSession().getAttribute("user");
 		String search = request.getParameter("search");
-		String user_no = request.getParameter("user_no");
-		
+		String user_no = Integer.toString(user.getUser_no());
+		int user_no2 = user.getUser_no();
 		if(search != null && !search.equals("")) {
 		} else {
 			search = null;
 		}
 		
-		cnt= sv.getBoardCount(search);
+		String bd_category_1 = request.getParameter("bd_category_1");
+		
+		
+		
+		cnt= sv.getBoardCount2(search,bd_category_1,user_no2);
 		System.out.println(cnt);
 		int pageCnt = (cnt / pageSize) + (cnt % pageSize == 0 ? 0 : 1); 
 		
@@ -96,7 +105,7 @@ public class UserMyBoardCtrl extends HttpServlet {
 		} else {
 			search = null;
 		}
-		list = sv.getBoardByPage2(startRnum,endRnum, search,user_no);
+		list = sv.getBoardByPage2(startRnum,endRnum, search,user_no,bd_category_1);
 		System.out.println(list);
 		request.setAttribute("pageCnt", pageCnt);
 		request.setAttribute("startPage", startPage);
@@ -104,9 +113,9 @@ public class UserMyBoardCtrl extends HttpServlet {
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("boardList", list);
 		request.setAttribute("search", search);
+		request.setAttribute("bd_category", bd_category_1);
 		
-		request.getRequestDispatcher("/WEB-INF/main/user_main/myboard.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("/WEB-INF/main/user_main/user_myBoard.jsp").forward(request, response);
 		
 	}
 	

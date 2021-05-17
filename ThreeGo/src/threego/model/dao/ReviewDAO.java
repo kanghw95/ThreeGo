@@ -61,13 +61,11 @@ public class ReviewDAO {
 		return list;
 	}
 	
-	public ArrayList<Review> selectedReview(Connection conn, Review rev) {
-		ArrayList<Review> list = null;
-		String sql = "select * from simple_rv where parking_code = ?";
-		String sqlnickname = "select nickname from user_tb a join simple_rv b on a.user_no = b.user_no";
+	public List<Review> selectedReview(Connection conn, Review rev) {
+		List<Review> list = null;
+		String sql = "select b.*,nickname from user_tb a join simple_rv b on a.user_no = b.user_no where parking_code = ? order by simple_rv_no";
 		pstmt = null;
 		stmt = null;
-		
 		
 
 		try {
@@ -77,11 +75,13 @@ public class ReviewDAO {
 			if (rs.next()) {
 				list = new ArrayList<Review>();
 				do {
-					rev.setParking_code(rs.getInt("parking_code"));
-					rev.setUser_no(rs.getInt("user_no"));
-					rev.setGrade(rs.getInt("grade"));
-					rev.setS_contents(rs.getString("s_contents"));
-					list.add(rev);
+					Review vo = new Review();
+					vo.setParking_code(rs.getInt("parking_code"));
+					vo.setUser_no(rs.getInt("user_no"));
+					vo.setGrade(rs.getInt("grade"));
+					vo.setS_contents(rs.getString("s_contents"));
+					vo.setNickname(rs.getNString("nickname"));
+					list.add(vo);
 				} while (rs.next());
 			}
 		} catch (SQLException e) {

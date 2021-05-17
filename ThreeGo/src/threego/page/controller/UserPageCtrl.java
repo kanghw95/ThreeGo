@@ -55,6 +55,8 @@ public class UserPageCtrl extends HttpServlet {
 		
 		if(com.equals("/user/userqnainsert")) {
 			viewPage = "/WEB-INF/main/user_main/userqna_insert.jsp";
+		}else if(com.equals("/user/userboard")) {
+			viewPage = "/WEB-INF/main/user_main/user_myBoard_menu.jsp";
 		}
 		
 		else{

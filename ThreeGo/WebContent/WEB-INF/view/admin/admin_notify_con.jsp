@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import="threego.model.vo.User"%>
 <%@page import="threego.admin.Admin"%>
-<%
-	User user = (User) session.getAttribute("user");
-%>
+
 <%
 	Admin admin = (Admin) session.getAttribute("admin");
 %>

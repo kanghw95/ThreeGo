@@ -71,7 +71,6 @@ background-color : none;
 	else {
 	%>
 
-
 	<c:if test="${boardread.bd_writer!=user.getNickname()}">
 	<input type="button" value="신고" onclick="window.location='<%=request.getContextPath()%>/boardreport?bd_content_no=${boardread.bd_content_no}&bd_category_1=${bd_category_1}';">
 	

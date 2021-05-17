@@ -2,6 +2,7 @@ package threego.parking.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,7 +47,7 @@ public class ReviewListCtrl extends HttpServlet {
 		Review rev = new Review();
 		rev.setParking_code(parking);
 		
-		ArrayList<Review> list = new ReviewService().getSelectedReview(rev);
+		List<Review> list = new ReviewService().getSelectedReview(rev);
 		/*
 		 * ArrayList<Review> list = new ReviewService().getReviewAll(parking);
 		 */

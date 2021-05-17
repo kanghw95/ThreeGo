@@ -58,11 +58,14 @@ public class UserLoginCtrl extends HttpServlet {
 		
 		Admin adminResult = new Admin();
 		adminResult = new AdminService().adminlogin(adminvo);
-		
+		String adminch="1";
 		if(adminResult !=null) {
 			if(admin_pwd.equals(adminResult.getAdmin_pwd())) {
 				request.getSession().setAttribute("admin", adminResult);
+				request.setAttribute("adminResult", adminResult);
+				request.getSession().setAttribute("adminch", adminch);
 				response.sendRedirect(request.getContextPath() + "/admin/adminmain");
+				
 			} else {
 				out.println("<script>alert('비밀번호가 맞지 않습니다.');</script>");
 				out.println("<script>history.back();</script>");

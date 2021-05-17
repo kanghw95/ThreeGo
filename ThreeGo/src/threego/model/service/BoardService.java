@@ -39,9 +39,9 @@ public class BoardService {
 
 	}
 	
-	   public List<Board> getBoardByPage2(  int start , int end , String search, String user_no){
+	   public List<Board> getBoardByPage2(  int start , int end , String search, String user_no,String bd_category_1){
 		      Connection conn = JDBCTemplate.getConnection();
-		      List<Board> list = new BoardDAO().getBoardByPage2(conn, start, end , search, user_no);      
+		      List<Board> list = new BoardDAO().getBoardByPage2(conn, start, end , search, user_no,bd_category_1);      
 		      JDBCTemplate.close(conn);
 		      return list;
 		      
@@ -53,6 +53,12 @@ public class BoardService {
 		JDBCTemplate.close(conn);
 		return result;
 
+	}
+	public int getBoardCount2(String search, String bd_category, int user_no) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new BoardDAO().getBoardCount2(conn, search ,bd_category,user_no);
+		JDBCTemplate.close(conn);
+		return result;
 	}
 	
 	  

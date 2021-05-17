@@ -128,21 +128,21 @@ public class BoardDAO {
 
 		String sql_1 = "(select * from board";
 
+		if (bd_category == "bd_category_1" || bd_category.equals("bd_category_1")) {
+			sql_1 += " where bd_content_no<1001";
+		} else if (bd_category == "bd_category_2" || bd_category.equals("bd_category_2")) {
+			sql_1 += " where bd_content_no>1000 and bd_content_no<2001";
+		} else if (bd_category == "bd_category_3" || bd_category.equals("bd_category_3")) {
+			sql_1 += " where bd_content_no>2000 and bd_content_no<3001";
+		} else if (bd_category == "bd_category_4" || bd_category.equals("bd_category_4")) {
+			sql_1 += " where bd_content_no>3000 and bd_content_no<4001";
+		} else {
+			sql_1 += " where bd_content_no>4000 and bd_content_no<5001";
+		}
 		if (search == null) {
-			if (bd_category == "bd_category_1" || bd_category.equals("bd_category_1")) {
-				sql_1 += " where bd_content_no<1001";
-			} else if (bd_category == "bd_category_2" || bd_category.equals("bd_category_2")) {
-				sql_1 += " where bd_content_no>1000 and bd_content_no<2001";
-			} else if (bd_category == "bd_category_3" || bd_category.equals("bd_category_3")) {
-				sql_1 += " where bd_content_no>2000 and bd_content_no<3001";
-			} else if (bd_category == "bd_category_4" || bd_category.equals("bd_category_4")) {
-				sql_1 += " where bd_content_no>3000 and bd_content_no<4001";
-			} else {
-				sql_1 += " where bd_content_no>4000 and bd_content_no<5001";
-			}
 			sql_1 += " order by bd_content_no desc) d";
 		} else {
-			sql_1 += " where bd_subject like '%" + search + "%' or bd_content like '%" + search + "%'"
+			sql_1 += " and (bd_subject like '%" + search + "%' or bd_content like '%" + search + "%')"
 					+ " order by bd_content_no desc) d";
 		}
 
@@ -179,18 +179,29 @@ public class BoardDAO {
 		return list;
 	}
 	
-	public List<Board> getBoardByPage2(Connection conn, int start, int end, String search,String User_no) {
+	public List<Board> getBoardByPage2(Connection conn, int start, int end, String search,String User_no,String bd_category) {
 		List<Board> list = null;
-		String sql_1 = "(select * from board a join user_tb b on a.user_no = b.user_no where a.user_no = ?";
+		String sql_1 = "(select * from board ";
 
-		if (search == null) {
-			sql_1 += " order by bd_content_no desc) d";
+		if (bd_category == "bd_category_1" || bd_category.equals("bd_category_1")) {
+			sql_1 += " where bd_content_no<1001";
+		} else if (bd_category == "bd_category_2" || bd_category.equals("bd_category_2")) {
+			sql_1 += " where bd_content_no>1000 and bd_content_no<2001";
+		} else if (bd_category == "bd_category_3" || bd_category.equals("bd_category_3")) {
+			sql_1 += " where bd_content_no>2000 and bd_content_no<3001";
+		} else if (bd_category == "bd_category_4" || bd_category.equals("bd_category_4")) {
+			sql_1 += " where bd_content_no>3000 and bd_content_no<4001";
 		} else {
-			sql_1 += " where bd_subject like '%" + search + "%' or bd_content like '%" + search + "%'"
+			sql_1 += " where bd_content_no>4000 and bd_content_no<5001";
+		}
+		if (search == null) {
+			sql_1 += " and user_no=? order by bd_content_no desc) d";
+		} else {
+			sql_1 += " and user_no=? and (bd_subject like '%" + search + "%' or bd_content like '%" + search + "%')"
 					+ " order by bd_content_no desc) d";
 		}
 
-		String sql = "select * from " + " (select rownum r, d.* from " + sql_1 + " ) " + " where r >= ? and r <= ?";
+		String sql = "select * from  (select rownum r, d.* from " + sql_1 + " ) where r >= ? and r <= ?";
 
 		pstmt = null;
 		rs = null;
@@ -241,6 +252,42 @@ public class BoardDAO {
 		}
 		if (search != null) {
 			sql += " and bd_subject like '%" + search + "%' or bd_content like '%" + search + "%'";
+		}
+		pstmt = null;
+		rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}	
+	//내가 쓴 글 갯수 알아오기
+	public int getBoardCount2(Connection conn, String search, String bd_category, int user_no) {
+		int cnt = 0;
+		String sql = "select COUNT(*) from board ";
+		if (bd_category == "bd_category_1" || bd_category.equals("bd_category_1")) {
+			sql += " where bd_content_no<1001";
+		} else if (bd_category == "bd_category_2" || bd_category.equals("bd_category_2")) {
+			sql += " where bd_content_no>1000 and bd_content_no<2001";
+		} else if (bd_category == "bd_category_3" || bd_category.equals("bd_category_3")) {
+			sql += " where bd_content_no>2000 and bd_content_no<3001";
+		} else if (bd_category == "bd_category_4" || bd_category.equals("bd_category_4")) {
+			sql += " where bd_content_no>3000 and bd_content_no<4001";
+		} else {
+			sql += " where bd_content_no>4000 and bd_content_no<5001";
+		}
+		
+		sql+=" and user_no="+user_no;
+		
+		if (search != null) {
+			sql += " and (bd_subject like '%" + search + "%' or bd_content like '%" + search + "%')";
 		}
 		pstmt = null;
 		rs = null;

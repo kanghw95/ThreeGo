@@ -15,9 +15,9 @@ public class ReviewService {
 		JDBCTemplate.close(conn);
 		return list;
 	}
-	public ArrayList<Review> getSelectedReview(Review rev){
+	public List<Review> getSelectedReview(Review rev){
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Review> list = new ReviewDAO().selectedReview(conn,rev);
+		List<Review> list = new ReviewDAO().selectedReview(conn,rev);
 		JDBCTemplate.close(conn);
 		return list;
 	}
