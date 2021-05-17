@@ -58,14 +58,14 @@ public class UserLoginCtrl extends HttpServlet {
 		
 		Admin adminResult = new Admin();
 		adminResult = new AdminService().adminlogin(adminvo);
-		if(resultVo.getUser_authority()==9) {
-			out.println("<script>alert('탈퇴한 회원입니다.');</script>");
-			out.println("<script>history.back();</script>");
-			out.flush();
-			out.close();
-		}
-		
-		
+	      if(resultVo!=null) {
+	          if(resultVo.getUser_authority()==9) {
+	             out.println("<script>alert('탈퇴한 회원입니다.');</script>");
+	             out.println("<script>history.back();</script>");
+	             out.flush();
+	             out.close();
+	          }
+	       }
 		String adminch="1";
 		if(adminResult !=null) {
 			if(admin_pwd.equals(adminResult.getAdmin_pwd())) {

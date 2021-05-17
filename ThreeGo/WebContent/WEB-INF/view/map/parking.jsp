@@ -325,30 +325,44 @@
 		}
 
 		// 좌표와 마커이미지를 받아 마커를 생성하여 리턴하는 함수입니다
-		function createMarker(position, image) {
-			var marker = new kakao.maps.Marker({
-				position : position,
-				image : image
-			});
+	 function createMarker(position, image) {
+         var marker = new kakao.maps.Marker({
+            position : position,
+            image : image
+         });
+         <c:forEach items="${listpark }" var="v" varStatus="s">
+         var name${v.parking_code} = {
+            La: ${v.lng},
+            Ma: ${v.lat}
+         };
+         </c:forEach>
+               
+          iwRemoveable = true; 
 
-		    
-			var iwContent = "<div id='pk_info' style='padding:5px;'></div>"; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-		    iwRemoveable = true; 
+         
+          kakao.maps.event.addListener( marker, 'click', function() {
+         var parkname ;
+            <c:forEach items="${listpark }" var="v" varStatus="s">
+                     
+                  if(JSON.stringify(name${v.parking_code})==JSON.stringify(position)){
+                     parkname="${v.parking_name}";                  
+                  }
+         
+            </c:forEach>
+         var iwContent = "<div id='pk_info' style='padding:5px;'>"+parkname+"</div>"; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+         var infowindow = new kakao.maps.InfoWindow({
+             content : iwContent,
+             removable : iwRemoveable
+         });
+             infowindow.open(map, marker);  
 
-			var infowindow = new kakao.maps.InfoWindow({
-			    content : iwContent,
-			    removable : iwRemoveable
-			});
-			
-		    kakao.maps.event.addListener( marker, 'click', function() {
-		    	infowindow.open(map, marker);  
-		    console.log(position);
-			
+          
+         
 
-		    });
-			return marker;
-			
-		}
+          });
+         return marker;
+         
+      }
 
 		// 무료 주차장 주차장 마커를 생성하고 무료 주차장 주차장 마커 배열에 추가하는 함수입니다
 		function createFreeMarkers() {
