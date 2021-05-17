@@ -115,6 +115,34 @@ public class UserDAO {
 		return list;
 	}
 	
+	   public int drawlSearch(Connection conn, String str) {
+		      String drawlsql = "select user_id from user_tb where user_authority = 9 and email = '"+ str +"' ";
+		      System.out.println(str);
+		      pstmt = null;
+		      rs = null;
+		      int list = 0;
+		      try {
+		         
+		         pstmt = conn.prepareStatement(drawlsql);
+		         list = pstmt.executeUpdate();
+		         System.out.println("result =" + list);
+		         
+		         if (list == 1) { // 결과가 1개이상 있다면
+		            System.out.println("여기로 들어옴");
+		               list = 1;
+		         }
+		         
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      } finally {
+		         JDBCTemplate.close(rs);
+		         JDBCTemplate.close(pstmt);
+		      }
+		      return list;
+		      
+
+		   }
+
 	// 아이디찾기  회원 검증용
 	public ArrayList<User> selectUser(Connection conn, String col, String col2, String str, String str2) {
 		ArrayList<User> list = new ArrayList<User>();

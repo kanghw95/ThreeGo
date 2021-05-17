@@ -26,6 +26,14 @@ public class UserService {
 		return list;
 	}
 	
+	   //회원 탈퇴 검증
+	   public int drawlSearch(String str) {
+	      Connection conn = getConnection();
+	      int list = new UserDAO().drawlSearch(conn, str);
+	      close(conn);
+	      return list;
+	   }
+
 	// 아이디 찾기 검증용
 	public ArrayList<User> selectUser(String col,String col2, String str, String str2) {
 		Connection conn = getConnection();

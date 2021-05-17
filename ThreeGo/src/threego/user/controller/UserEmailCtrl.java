@@ -67,6 +67,15 @@ public class UserEmailCtrl extends HttpServlet {
 			pw = request.getParameter("pass");
 		}
 		
+		   
+		   int drawlemailcheck = new UserService().drawlSearch(email);
+		      if(drawlemailcheck == 1) {
+		         out.println("탈퇴한 회원입니다.");
+		         out.flush();
+		         out.close();
+		         return;
+		      } 
+		
 		ArrayList<User> searchemail = new UserService().selectSearch("email", email);
 		System.out.println(searchemail);
 		System.out.println(email);
@@ -101,6 +110,7 @@ public class UserEmailCtrl extends HttpServlet {
 					return;
 				}
 			}
+			
 
 			if (pwcheck == 1) {
 				if (searchid.isEmpty() == true) {

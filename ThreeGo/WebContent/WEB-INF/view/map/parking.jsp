@@ -30,13 +30,25 @@
 			<!-- 지도를 표시할 div 입니다 -->
 			<div id="roadviewControl" onclick="setRoadviewRoad()"></div>
 		</div>
-	<button type='button' id="modal_btn" class="modal">로그인</button>
-		<div class="black_bg"></div>
-			<div class="modal_wrap">
-	   			 <div class="modal_close"><a href="#">close</a></div>
-	    	<div><%@ include file="../login.jsp" %></div>
-	</div>
-			
+	
+      <div class="black_bg"></div>
+         <div class="modal_wrap">
+                <div class="modal_close"><a href="#">close</a></div>
+          <div><%@ include file="../login.jsp" %></div>   
+
+   </div>
+<%
+      if (users == null) {
+%>
+   <button type='button' id="modal_btn" class="modal" ><img src="<%=request.getContextPath() %>/img/login.png"></button>
+   
+<%
+      } else {
+%>
+   <button type='button' id="modal_btn" class="modal" ><img src="<%=request.getContextPath() %>/img/myinfo.png"></button>
+<%
+      }
+%>
 		<div class="category">
 			<ul>
 				<li  id="freeMenu" onclick="changeMarker('free')"><span
@@ -48,15 +60,7 @@
 			</ul>
 		</div>
 	</div>
-<%
-		if (users == null) {
-%>
-<%
-		} else {
-%>
-<%
-		}
-%>
+
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7e6ffb44bc370496fed6af6daa18ce21"></script>
 	<script>
