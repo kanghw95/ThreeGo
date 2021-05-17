@@ -119,7 +119,7 @@ $(function() {
 		
 		var url = "<%=request.getContextPath()%>/emailctrl";
 		//이메일 정규표현식 검사
-		var regx = /^[a-zA-Z0-9]*$/;
+		var regx = /^[a-zA-Z0-9.]*$/;
 		var regx2 = /^[a-zA-Z0-9.]*$/;
 		if (email1.length == 0 || email1 == null) {
 			alert("이메일을 입력해주세요");
