@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body style="font-family:'서울남산 장체 L', sans-serif;">
 <h1>간단 리뷰 수정 페이지</h1>
 <%	User user = (User) session.getAttribute("user"); %>
 <form action="<%=request.getContextPath()%>/reviewwrite" method="post">

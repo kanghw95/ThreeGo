@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>리뷰 글 조회</title>
 </head>
-<body>
+<body style="font-family:'서울남산 장체 L', sans-serif;">
 <%User user = (User) session.getAttribute("user"); %>
 
 	<c:if test="${empty boardList}">

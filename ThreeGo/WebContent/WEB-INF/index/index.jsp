@@ -13,6 +13,8 @@
 <%@ include file="./header.jsp" %>
 <%@ include file="../board/board_main.jsp" %>
 <br>
+<div style="position:relative ;clear: both;">
 <%@ include file="./footer.jsp" %>
+</div>
 </body>
 </html>

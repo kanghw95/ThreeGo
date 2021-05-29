@@ -50,12 +50,14 @@ public class BoardDeleteCtrl extends HttpServlet {
 		Board vo = new Board();
 
 		BoardService sv = new BoardService();
-		String bd_content_no = (String) request.getParameter("bd_content_no");
-		System.out.println("dfsddfasdfasdfasdf"+bd_content_no);
+		String bd_content_no = request.getParameter("bd_content_no");
 		vo.setBd_content_no(Integer.parseInt(bd_content_no));
 		
-		result = sv.getBoardDelete(vo);
 		
+		result = sv.getBoardDelete(vo);
+		String a = request.getParameter("bd_category_1");
+		
+		System.out.println("category:"+ a);
 		PrintWriter out = response.getWriter();
 		if (result == 1) {
 			String msg = "글 삭제 완료";
@@ -65,9 +67,9 @@ public class BoardDeleteCtrl extends HttpServlet {
 				
 				out.println("<script>location.href='"+ request.getContextPath()+"/admin/adminboard"+"';</script>");
 			}
-			
-			out.println("<script>location.href='"+ request.getContextPath()+"/board/boardlist"+"';</script>");
-
+			else {
+			out.println("<script>history.go(-2);</script>");
+			}
 		}
 	}
 }

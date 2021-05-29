@@ -19,32 +19,16 @@
             color: purple;
             text-decoration: underline;
         }
-        .ans{
-        	width: 85px;
-        	text-align: center;
-        }
-        .ansbtn{
-        	text-align: center;
-        	
-        }
         table{
        		 margin-left:auto; 
     		margin-right:auto;
     		border-collapse : collapse;
-        }
-		.mainTable{
-			width : 415px;
+    		width : 400px;
 			table-layout:fixed;
 			margin-left:auto; 
     		margin-right:auto;
-    		border-collapse : collapse;
     		
-		}
-		.subTable{
-			margin-left:auto; 
-    		margin-right:auto;
-    		border-collapse : collapse;
-		}
+        }
 		.mainTable td{
 			white-space:nowrap;  
 			text-overflow:ellipsis; 
@@ -57,7 +41,15 @@
         	width: 200px;
         }
         .writer{
-        	width: 100px;
+        	width: 85px;
+        }
+        .ans{
+        	width: 85px;
+        	text-align: center;
+        }
+        .ansbtn{
+        	text-align: center;
+        	
         }
         tr{
         	border-bottom:1px solid aquamarine;

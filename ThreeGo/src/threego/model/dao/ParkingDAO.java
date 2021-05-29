@@ -240,7 +240,7 @@ rs = null;
 
 
 		String sql = "SELECT * FROM PK_LOT WHERE " + col + " LIKE '%" + str + "%' ";
-		String sql2 = "select avg(grade) from simple_rv where parking_code = ?";
+		String sql2 = "select ROUND(avg(grade), 1) from simple_rv where parking_code = ?";
 
 		try {
 			pstmt = conn.prepareStatement(sql2);

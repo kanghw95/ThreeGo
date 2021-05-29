@@ -12,11 +12,104 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style type="text/css">
+
+.modal {
+
+   position: absolute;
+   overflow: hidden;
+   top: 10px;
+   right: 10px;
+   z-index: 10;
+   font-family: '서울남산 장체 L', sans-serif;
+   font-size: 12px;
+   text-align: center;
+   background: white;
+   border-radius: 12px;
+   border: 3px solid #CFCFCF;
+   
+}
+
+.modal2 {
+   position: absolute;
+   overflow: hidden;
+   top: 10px;
+   right: 70px;	
+   z-index: 10;
+   height : 54px;
+   font-family: '서울남산 장체 L', sans-serif;
+   font-size: 12px;
+   font-weight : bolder;
+   text-align: center;
+   background: white;
+   padding: 0 7 0 7;
+        border-radius: 12px;
+        border: 3px solid #CFCFCF;
+}
+
+   .modal_wrap{
+   		
+        display: none;
+        width: 300px;
+        height: 170px;
+        position: absolute;
+        top:50%;
+        left: 50%;
+        margin: -100px 0 0 -100px;
+        background:white;
+        z-index: 2;
+        border-radius: 12px;
+        border: 3px solid #CFCFCF;
+        
+    }
+    .black_bg{
+        display: none;
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color:rgba(0, 0,0, 0.5);
+        top:0;
+        left: 0;
+        z-index: 1;
+    }
+    .modal_close{
+        width: 26px;
+        height: 26px;
+        position: absolute;
+        top: -35px;
+        right: 0;
+    }
+    .modal_close> a{
+        display: block;
+        width: 100%;
+        height: 100%;
+        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+        text-indent: -9999px;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+window.onload = function()  {
+	 
+    function onClick() {
+        document.querySelector('.modal_wrap').style.display ='block';
+        document.querySelector('.black_bg').style.display ='block';
+    }   
+    function offClick() {
+        document.querySelector('.modal_wrap').style.display ='none';
+        document.querySelector('.black_bg').style.display ='none';
+    }
+    document.querySelector('.modal_close').addEventListener('click', offClick);
+    document.getElementById("modal_btn").addEventListener('click', onClick);
+    document.getElementById("login_btn").addEventListener("click", onClick);
+    
+};
+</script>
 </head>
 
-<body>
+<body style="   font-family: '서울남산 장체 L', sans-serif;">
 	<div id="container">
 		<div id="rvWrapper">
 			<div id="roadview" style="width: 100%; height: 100%;"></div>
@@ -38,17 +131,22 @@
 
    </div>
 <%
-      if (users == null) {
-%>
-   <button type='button' id="modal_btn" class="modal" ><img src="<%=request.getContextPath() %>/img/login.png"></button>
-   
+      if (users != null || adminch != null) {
+%>	
+	<button type="button" id="modal_btn" class="modal" ><img src="<%=request.getContextPath() %>/img/myinfo.png"></button>
+	
 <%
-      } else {
+      }else{
 %>
-   <button type='button' id="modal_btn" class="modal" ><img src="<%=request.getContextPath() %>/img/myinfo.png"></button>
+	<button type="button" id="login_btn" class="modal2" >로그인/회원가입</button>
+	<button type="button" id="modal_btn" class="modal" ><img src="<%=request.getContextPath() %>/img/login.png"></button>
+
 <%
+      
       }
 %>
+
+
 		<div class="category">
 			<ul>
 				<li  id="freeMenu" onclick="changeMarker('free')"><span
@@ -349,7 +447,7 @@
                   }
          
             </c:forEach>
-         var iwContent = "<div id='pk_info' style='padding:5px;'>"+parkname+"</div>"; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+            var iwContent = "<div id='pk_info' style='padding:5px; text-align:center; width:120px;'>"+parkname+"</div>"; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
          var infowindow = new kakao.maps.InfoWindow({
              content : iwContent,
              removable : iwRemoveable
@@ -496,24 +594,8 @@
 			
 		}
 		
-		 window.onload = function() {
-			 
-			    function onClick() {
-			        document.querySelector('.modal_wrap').style.display ='block';
-			        document.querySelector('.black_bg').style.display ='block';
-			    }   
-			    function offClick() {
-			        document.querySelector('.modal_wrap').style.display ='none';
-			        document.querySelector('.black_bg').style.display ='none';
-			    }
-			 
-			    document.getElementById('modal_btn').addEventListener('click', onClick);
-			    document.querySelector('.modal_close').addEventListener('click', offClick);
-			 
-			};
 
-		$()
+			
 	</script>
-	<hr>
 </body>
 </html>

@@ -39,13 +39,161 @@
 */   
    
 </script>
-    <style>
-       body{
-          text-align: center;
-          font-family: 맑은고딕, Malgun Gothic, dotum, gulim, sans-serif;
-       }
+   <style>
+#textinput{
+border-top: 1px solid #66612D;
+height : 25px;
+border-radius: 12px;
+}
+.td {
+white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden;
+border : none;
+height: 50px;
+border-top : 2px solid #66612D;
 
-        .btnc{
+}
+.tr{
+border : none;
+height: 50px;
+
+}
+
+
+#backtolist {
+margin: 0;
+padding: 1 4 1 4;
+border: 3px solid #E0DEC3;
+border-radius: 12px;
+background: white;
+color: black;
+position: relative;
+height: 25px;
+font-size: 12px;
+cursor: pointer;
+outline: none;
+}
+#write{
+position: relative;
+margin: 0;
+padding-left: 10px;
+padding-right :  10px;
+border: none;
+border-radius: 12px;
+background: #E0DEC3;
+color: black;
+position: relative;
+height: 25px;
+font-size: 13px;
+cursor: pointer;
+outline: none;
+}
+.button {
+position: relative;
+margin: 0;
+padding-left: 10px;
+padding-right :  10px;
+border: 3px solid #E0DEC3;
+border-radius: 12px;
+background: white;
+color: black;
+position: relative;
+height: 30px;
+font-size: 13px;
+cursor: pointer;
+outline: none;
+}
+#searchbutton{
+border : none;
+padding-left: 10px;
+padding-right :  10px;
+border-radius: 12px;
+background:  #E0DEC3;
+font-size: 13px;
+cursor: pointer;
+height: 25px;
+}
+.table {
+border-collapse:collapse;
+
+border: none;
+font-size: 13px;
+text-align: center;
+width: 400px;
+margin-left: auto;
+margin-right: auto;
+white-space: nowrap;
+table-layout: fixed;
+
+}
+
+body {
+text-align: center;
+}
+
+a {
+text-decoration: none;
+color: black;
+}
+
+a:visited {
+text-decoration: none;
+}
+
+a:hover {
+text-decoration: none;
+}
+
+a:focus {
+text-decoration: none;
+}
+
+a:hover, a:active {
+text-decoration: none;
+}
+
+
+
+#hide {
+border-bottom: 0px;
+}
+
+#p {
+margin-top: 10;
+margin-left: 50px;
+float: left;
+font-size: 20px;
+font-weight: bold;
+color : #66612D;
+}
+#p2 {
+clear:both;
+margin-top: 10;
+margin-left: 50px;
+float: left;
+font-size: 20px;
+font-weight: bold;
+color : #66612D;
+}
+
+.no {
+width: 30px;
+}
+
+.subj {
+width: 225px;
+white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden;
+}
+.subj2 {
+width: 370px;
+white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden;
+}
+.btnc{
             background-color: white;
             border : 0;
             outline: 0;
@@ -56,104 +204,45 @@
          width: 200px;
          text-align: left;
         }
-         .btnc:hover{
-            color: purple;
-            text-decoration: underline;
-        }
-        .ans{
-           width: 85px;
-           text-align: center;
-        }
-        .ansbtn{
-           text-align: center;
-           
-        }
-      .mainTable{
-         width : 415px;
-         table-layout:fixed;
-         margin-left:auto; 
-          margin-right:auto;
-          border-collapse : collapse;
-          
-      }
-      .subTable{
-         margin-left:auto; 
-          margin-right:auto;
-          border-collapse : collapse;
-      }
-      .mainTable td{
-         white-space:nowrap;  
-         text-overflow:ellipsis; 
-         overflow:hidden;
-      }
-        .no{
-           width: 30px;
-        }
-        .subj{
-           width: 200px;
-        }
-        .writer{
-           width: 100px;
-        }
-        tr{
-           border-bottom:1px solid aquamarine;
-             height: 25px;
-        }
-      table * tr:first-child{
-         background-color: aquamarine;
-           font-weight:bold;
-           text-align:center;
-      }
-        .minisearch{
-         width: 150px;
-         height: 20px;
-         
-      }
-      .minisearchbtn{
-         width: 20px;
-         height: 20px;
-         background: aquamarine;
-      }
-      .sub{
-         display: none;
-         position: relative;
-         width: 500px;
-         overflow: visible;
-         text-overflow: clip;
-      }
+.writer {
+width: 70px;
+}
+
+.date {
+width: 75px;
+}
+
+.like {
+width: 30px;
+}
 
 
-      
-
-    </style>
+</style>
 <body>
 
 <div style="position: relative;">
 <input type="hidden" name ="list" value="${list }">
-<h1>문의사항</h1>
+<p id="p">문의사항</p>
 <hr>
-   <form action="<%=request.getContextPath() %>/userqna" method="get">
-      <input type="search" class="minisearch" name="search" value="${search}">
-      <button type="submit" class="minisearchbtn"><i class="fas fa-search fa-lg"></i></button>
-   </form>
-<h2>자주묻는질문</h2>
+<br>
+<p id="p2">자주묻는질문</p>
    <c:if test="${ empty list }">
       <p>게시글이 없습니다.</p>
    </c:if>
    <c:if test="${not empty list }">
    
-      <table  class="table subTable">
-         <tr>
+       <table class="table">
+         <tr class="tr" id="hide">
             <th class="no">No</th>
-            <th class="subj">제목</th>
-
+            <th class="subj2">제목</th>
          </tr>
+         
           <c:forEach items="${list3 }" var="i" >
-            <tr>
-               <td>${i.faq_no }</td>
+            <tr class="tr">
+               <td class="td">${i.faq_no }</td>
                <form method="post" action="<%=request.getContextPath()%>/adminqnaanswer">
-               <td>
-                  <input type="submit" class="btnc" value="${i.faq_subject }">
+               <td class="td">
+                  <input type="submit" style="width: 350px;" class="btnc" value="${i.faq_subject }">
                   <input type="hidden" value="${i.faq_no }" name="no">
                   <input type="hidden" value="${i.faq_subject }" name="sub">
                   <input type="hidden" value="${i.faq_content }" name="con">
@@ -164,34 +253,36 @@
          </c:forEach>
       </table>
       <form method="post" action="<%=request.getContextPath()%>/adminqnaanswer">
-         <input type="submit" value="글쓰기">
+         <input type="submit" id="write" value="글쓰기" class="button">
          <input type="hidden" value="5" name="a_num">         
       </form>
+      <br><br>
 </c:if>
 
-<h2>QNA</h2>
+<p id="p">QNA</p>
+<br><br><br>
    <c:if test="${ empty list }">
       <p>게시글이 없습니다.</p>
    </c:if>
    <c:if test="${not empty list }">
    
-      <table  class="table mainTable">
-         <tr>
+      <table class="table" >
+         <tr class="tr" id="hide">
             <th class="no">No</th>
             <th class="subj">제목</th>
             <th class="writer">작성자</th>
-            <th class="ans">답변하기</th>
+            <th class="date">답변하기</th>
 
          </tr>
           <c:forEach items="${list }" var="i" >
-         <tr>
-            <td>${i.qna_no }</td>
+         <tr class="tr">
+            <td class="td">${i.qna_no }</td>
 
             <form method="post" action="<%=request.getContextPath()%>/adminqnaanswer">
-               <td>
-                  <input type="submit" class="btnc btnc${i.qna_no }" value="${i.qna_subject }">
+               <td class="td">
+                  <input type="submit" class="btnc" style="width: 205px;" value="${i.qna_subject }">
                   <input type="hidden" value="${i.qna_no }" name="no">
-                  <input type="text" value="${i.qna_subject }" name="sub" class="sub sub${i.qna_no }">
+                  <input type="hidden" value="${i.qna_subject }" name="sub" class="sub sub${i.qna_no }">
                   <input type="hidden" value="${i.qna_content }" name="con">
                   <input type="hidden" value="${i.a_content }" name="a_con">
                   <input type="hidden" value="${i.qna_kind }" name="kind">
@@ -204,18 +295,18 @@
             </form>
             <c:forEach items="${list2 }" var="j">
             <c:if test="${i.qna_no == j.qna_no }">
-               <td class="writer">${j.nickname }</td>
+               <td class="td">${j.nickname }</td>
             </c:if>
             </c:forEach>
             <c:forEach items="${list2 }" var="j">
                <c:if test="${i.qna_no == j.qna_no && j.a_content !=null}">
-                  <td class="ans">완료</td>
+                  <td class="td">완료</td>
                </c:if>
                
                <c:if test="${i.qna_no == j.qna_no && j.a_content ==null}">
-                  <td class="ansbtn">
+                  <td class="td">
                      <form method="post" action="<%=request.getContextPath()%>/adminqnaanswer">
-                        <input type="submit" value="답변하기" >
+                        <input class="button" type="submit"id="write" value="답변하기" >
                         <input type="hidden" value="${i.qna_no }" name="no">
                         <input type="hidden" value="${i.qna_subject }" name="sub">
                         <input type="hidden" value="${i.qna_content }" name="con">
@@ -232,7 +323,12 @@
          </c:forEach>
       </table>
    </c:if>
-   
+   <br>
+      <form action="<%=request.getContextPath() %>/userqna" method="get">
+      <input type="search" id="textinput" name="search" value="${search}">
+      <button type="submit" id="searchbutton">검색</button>
+   </form>
+   <br>
    <c:if test="${startPage != 1 }">
       <a href="<%=request.getContextPath() %>/userqna?pageNum=${startPage-1}&search=${search}">이전</a> 
    </c:if>
@@ -244,9 +340,11 @@
    </c:if>
    
    <br>
-   <input type="button" value="메인화면" onclick="location.href='<%=request.getContextPath()%>/admin/adminmain';">
+   <br>
+   <br>
+   <input type="button" class="button" value="메인화면" id="backtolist" onclick="location.href='<%=request.getContextPath()%>/admin/adminmain';">
    <c:if test="${not empty search}">
-      <input type="button" value="전체글목록" onclick="window.location='<%=request.getContextPath()%>/userqna';">
+      <input type="button" class="button" value="전체글목록" id="backtolist" onclick="window.location='<%=request.getContextPath()%>/userqna';">
    </c:if>
    </div>
 </body>

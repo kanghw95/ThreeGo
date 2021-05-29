@@ -123,24 +123,17 @@ public class BoardUpdateCtrl2 extends HttpServlet {
       ArrayList<String> images = null;
       String imageNames = null;
       String bd_content_no = mReq.getParameter("bd_content_no");
-      String bd_category_1 = request.getParameter("bd_category_1");
+      String bd_category_1 = mReq.getParameter("bd_category_1");
+      System.out.println("bdcontentno"+bd_category_1);//here
       String uploads = mReq.getParameter("uploads");
-      System.out.println("무시하지 말라고 "+uploads);
       
       vo.setBd_content_no(Integer.parseInt(bd_content_no));
 
 //기존 첨부파일 삭제
       try {
-         if (bd_content_no != null && uploads != null && !uploads.equals("")) {
-
             int deleteR = 0;
             deleteR = sv.getFileDelete(vo); // 파일 delete 제거
-             System.out.println("첨부파일 삭제가 됨!!!!!");
-
-         }
-         else { 
-         }
-         
+             System.out.println("첨부파일 삭제");
 
          // 게시판 글 수정
 
@@ -148,7 +141,6 @@ public class BoardUpdateCtrl2 extends HttpServlet {
          vo.setBd_subject(mReq.getParameter("bd_subject"));
          vo.setBd_content(mReq.getParameter("bd_content"));
          int resultU = sv.getBoardUpdate(vo);
-         System.out.println("게시글 수정2");
 
 //변경된 첨부파일 insert 
          try {
@@ -174,7 +166,6 @@ public class BoardUpdateCtrl2 extends HttpServlet {
             request.setAttribute("images", images); // 담긴 이미지
             System.out.println("수정할 이미지들 입니다" + images);
          } catch (Exception e) {
-            System.out.println("첨부파일 유지1");
             e.printStackTrace();
          }
 
@@ -188,11 +179,11 @@ public class BoardUpdateCtrl2 extends HttpServlet {
             } else {
                System.out.println("파일 수정 성공 : "); // 파일 크기 확인
             }
-
+            System.out.println();
             System.out.println("게시물 수정완료");
             String msg = "글 수정 완료";
             out.println("<script>alert('글 수정 완료')</script>");
-			out.println("<script>location.href='"+ request.getContextPath()+"/board/boardlist"+"';</script>");
+			out.println("<script>location.href='"+ request.getContextPath()+"/boardRead"+"?"+"bd_content_no"+"="+bd_content_no+"';</script>");
 
 
          } else { // 입력 실패
@@ -202,7 +193,6 @@ public class BoardUpdateCtrl2 extends HttpServlet {
          }
 
       } catch (Exception e) {
-         System.out.println("첨부파일 유지2");
          e.printStackTrace();
       }
    }

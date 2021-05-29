@@ -69,11 +69,11 @@ public class CommentUpdateCtrl2 extends HttpServlet {
 		 
 		PrintWriter out = response.getWriter();
 		if (result== 1) {
-			out.println("<script>alert('글 수정 완료')</script>");
-			out.println("<script>location.href='./boardlist1';</script>");
+			out.println("<script>alert('댓글 수정 완료')</script>");
+			out.println("<script>history.back();</script>");
 		} else {
-			out.println("<script>alert('글 수정에 실패하였습니다!')</script>");
-			out.println("<script>location.href='./boardlist1';</script>");
+			out.println("<script>alert('댓글 수정에 실패하였습니다!')</script>");
+			out.println("<script>history.back();</script>");
 		}
 	
 }

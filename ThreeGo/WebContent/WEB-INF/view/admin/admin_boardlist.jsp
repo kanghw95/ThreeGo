@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/table.css" type="text/css">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="threego.model.vo.User"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -8,24 +7,148 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<style>
+tr {
+	border-bottom: 1px solid #EFEFEF;
+	border-top: 0px;
+	height: 50px;
+}
+
+#backtolist {
+
+  margin: 0;
+  padding: 1 4 1 4;
+  border: 3px solid #CFCFCF;
+  border-radius: 12px;
+	background : white;
+	color: black;
+  position:relative;
+  height:30px;
+  font-size:13px;
+  cursor:pointer;
+  outline:none;
+}
+
+.button {
+
+  margin: 0;
+  padding: 1 4 1 4;
+  border: 3px solid #CFCFCF;
+  border-radius: 12px;
+	background : white;
+	color: black;
+  position:relative;
+  height:30px;
+  font-size:13px;
+  cursor:pointer;
+  outline:none;
+}
+	
+}
+
+table {
+	font-size: 13px;
+	text-align: center;
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	border-collapse: collapse;
+	border: 0px;
+	white-space: nowrap;
+	table-layout: fixed;
+}
+
+body {
+	text-align: center;
+}
+
+
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a:focus {
+	text-decoration: none;
+}
+
+a:hover, a:active {
+	text-decoration: none;
+}
+
+#th {
+	color: 00376b;
+}
+
+#hide {
+	border-bottom: 0px;
+}
+
+p {
+	margin-top: 10;
+	margin-left: 50px;
+	float: left;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.no {
+	width: 30px;
+}
+
+.subj {
+	width: 200px;
+	white-space:nowrap;  
+	text-overflow:ellipsis; 
+	overflow:hidden;
+}
+
+.writer {
+	width: 70px;
+}
+.date{
+width: 70px;
+}
+.like{
+width: 30px;
+}
+td{
+			white-space:nowrap;  
+			text-overflow:ellipsis; 
+			overflow:hidden;
+		}
+</style>
+
 <title>평가 게시판</title>
 </head>
-<body>
+<body style="font-family:'서울남산 장체 L', sans-serif;">
+<p>
 <c:if test="${bd_category eq 'bd_category_1'}">
-<h3>주차장 평가게시판</h3>
+주차장 평가게시판
 </c:if>
 <c:if test="${bd_category eq 'bd_category_2'}">
-<h3>주차장 쉐어링게시판</h3>
+주차장 쉐어링게시판
 </c:if>
 <c:if test="${bd_category eq 'bd_category_3'}">
-<h3>드라이브코스 추천게시판</h3>
+드라이브코스 추천게시판
 </c:if>
 <c:if test="${bd_category eq 'bd_category_4'}">
-<h3>자유게시판</h3>
+자유게시판
 </c:if>
 <c:if test="${bd_category eq 'bd_category_5'}">
-<h3>자랑게시판</h3>
+자랑게시판
 </c:if>
+</p>
 <%
 	Admin admin = (Admin) session.getAttribute("admin");
 %>
@@ -42,13 +165,13 @@
      <strong>${search}</strong>에 대한 검색 결과입니다.
    </c:if>
    <c:if test="${not empty boardList}">
-      <table border="1">
-         <tr>
-            <th>No</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>공감</th>
+      <table >
+         <tr id="hide">
+            <th class="no">No</th>
+            <th class="subject">제목</th>
+            <th class="writer">작성자</th>
+            <th class="date">작성일</th>
+            <th class="like">공감</th>
          </tr>
       <c:forEach items="${boardList }" var="v">
          <tr>
@@ -112,13 +235,13 @@
      <strong>${search}</strong>에 대한 검색 결과입니다.
    </c:if>
    <c:if test="${not empty boardList}">
-      <table border="1">
-         <tr>
-            <th>No</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>공감</th>
+      <table>
+         <tr id="hide">
+            <th class="no">No</th>
+            <th class="subject">제목</th>
+            <th class="writer">작성자</th>
+            <th class="date">작성일</th>
+            <th class="like">공감</th>
          </tr>
       <c:forEach items="${boardList }" var="v">
          <tr>
@@ -148,7 +271,7 @@
      <form action="<%=request.getContextPath() %>/boardlist" method="get">
       <input type="search" name="search" value="${search}">
       <input type="hidden" name="bd_category_1" value="${bd_category}">
-      <button type="submit">검색</button>
+      <button class="button" type="submit">검색</button>
    </form>
   
    <br>
@@ -165,7 +288,7 @@
    
    <br>
       
-   <input type="button" value="목록으로"
+   <input type="button" class="button" value="목록으로" id="backtolist"
 		onclick="window.location='<%=request.getContextPath()%>/board/boardlist';">
    <%
       }

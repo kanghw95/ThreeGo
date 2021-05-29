@@ -55,21 +55,23 @@ public class BoardLikeCtrl extends HttpServlet {
          likech = 0;
       }
       BoardService sv = new BoardService();
-      result= sv.giveLike(bd_no, user_no, likech);
       
       BoardLike blvo = new BoardLike();
       blvo =sv.getLike(Integer.toString(likech),Integer.toString(user_no)); 
       request.setAttribute("like", blvo);
+      PrintWriter out = response.getWriter();
       
-      if(result != 0) {
-    	  PrintWriter out = response.getWriter();
-      if(blvo != null) {
+      if(str ==null||str.equals("")) {
     	  out.println("<script>alert('추천이 되었습니다.');</script>");
       }else {
     	  out.println("<script>alert('추천이 취소 되었습니다.');</script>");
       }
-      out.println("<script>location.href='"+ request.getContextPath()+"/board/boardlist"+"';</script>");
-      out.close();
+      
+      result= sv.giveLike(bd_no, user_no, likech);
+      if(result != 0) {
+    	  System.out.println("??"+blvo);
+	      out.println("<script>location.href='"+ request.getContextPath()+"/board/boardlist"+"';</script>");
+	      out.close();
       }
    
       

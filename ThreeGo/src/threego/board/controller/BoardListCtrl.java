@@ -42,13 +42,15 @@ public class BoardListCtrl extends HttpServlet {
 	}
 
 	private void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		final int pageSize = 10;  // 
-		final int pageBlock = 5;  // 
+		String a =request.getParameter("bd_category");
+		System.out.println("라이트에서 넘어온 컨테트넘버"+a);
+		final int pageSize = 10;  
+		final int pageBlock = 5;   
 		System.out.println("이동완료");
 		BoardService sv = new BoardService();
 		
 		int cnt = 0;   // 
-		/********** �˻� *************/
+	
 		String search = request.getParameter("search");
 		if(search != null && !search.equals("")) {
 		} else {

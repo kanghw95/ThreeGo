@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="/ThreeGo/css/main.css" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,39 +6,94 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+
 <style>
-a{
-text-decoration: none;
-color : black;
-}
-section{
-height: 800px;
-position: relative;
-float: left;
-width: 70%;
-}
-aside{
-position: relative;
-float: left;
-width: 30%;
-height: 800px;
-clear: both;
+a {
+   text-decoration: none;
+   color: black;
+   
 }
 
+
+
+.button1 {
+	/* margin : 0 auto; */
+	margin-left: 65;
+	margin-bottom: 20;
+	display: block; text-align;
+	font-weight: bold;
+	height: 40px;
+	font-size: 20px;
+	padding: 2em 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+	color: #black;
+	background: none;
+	border: none;
+}
+
+.button1 {
+	letter-spacing: 0;
+	-webkit-transition: all .28s ease-in-out;
+	transition: all .28s ease-in-out;
+}
+
+.button1:hover, .button1:focus, .button1:active {
+	letter-spacing: 6px;
+}
+
+.button1:after, .button1:before {
+	border: 1px solid rgba(255, 255, 255, 0);
+	bottom: 0;
+	content: " ";
+	display: block;
+	margin: 0 auto;
+	position: relative;
+	-webkit-transition: all .28s ease-in-out;
+	transition: all .28s ease-in-out;
+	width: 0;
+}
+
+.button1:hover:after, .button1:hover:before {
+	border-color: #fff;
+	-webkit-transition: width 350ms ease-in-out;
+	transition: width 350ms ease-in-out;
+	width: 70%;
+}
+
+.button1:hover:before {
+	bottom: auto;
+	top: 0;
+}
 </style>
 
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script type="text/javascript">
 
-</script>
 </head>
 <body>
 
-		<h1><a href="<%=request.getContextPath()%>/adminctrl" >회원관리</a></h1>
-		<h1><a href="<%=request.getContextPath() %>/admin/adminboard">게시판관리</a></h1>
-		<h1><a href="<%=request.getContextPath() %>/adminnotify">공지사항관리</a></h1>
-		<h1><a href="<%=request.getContextPath() %>/userqna">이용자문의사항관리</a></h1>
-		<input type="button" id="btnLogout" value="로그아웃" onclick="location.href='<%=request.getContextPath()%>/userlogout'">
+	<form action="<%=request.getContextPath()%>/adminctrl" method="get">
+		<h1>
+			<button type="submit" class="button1" style="padding-top: 80">회원관리</button>
+		</h1>
+	</form>
+	<form action="<%=request.getContextPath()%>/admin/adminboard" method="get">
+		<h1>
+			<button type="submit" class="button1">게시판관리</button>
+		</h1>
+	</form>
+	<form action="<%=request.getContextPath()%>/adminnotify" method="get">
+		<h1>
+			<button type="submit" class="button1">공지사항관리</button>
+		</h1>
+	</form>
+	<form action="<%=request.getContextPath()%>/userqna" method="get">
+		<h1>
+			<button type="submit" class="button1">이용자문의사항관리</button>
+		</h1>
+	</form>
+	
 
 </body>
 </html>

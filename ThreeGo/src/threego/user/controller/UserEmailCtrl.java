@@ -54,6 +54,7 @@ public class UserEmailCtrl extends HttpServlet {
 		String pwfind = request.getParameter("pwfind");
 		String drawemail = request.getParameter("email"); 
 		String modemil = request.getParameter("modcheck"); 
+		String useremail = request.getParameter("useremail"); 
 		
 		PrintWriter out = response.getWriter();
 		
@@ -150,6 +151,13 @@ public class UserEmailCtrl extends HttpServlet {
 		}
 		
 		if(modemil != null) {
+	         if(!useremail.equals(email) ) {
+	             out.println("회원가입시 입력한 이메일을 입력해주세요");
+	             out.flush();
+	             out.close();
+	             return;
+	          }
+			
 			searchemail.clear();
 		}
 

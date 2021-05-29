@@ -5,16 +5,33 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+.main_footer {
+background: #f9f9f9;
+
+}
+
+#info table{
+border : none;
+margin-left : auto;
+margin-right : auto;
+margin-top : 25;
+text-align: center;
+color : #66612D;
+}
+</style>
 </head>
-<body>
+<body style="font-family:'서울남산 장체 L', sans-serif;">
 	<footer class="main_footer">
 		<div id="info">
-			<ul>
-				<li><a>소개</a></li>
-				<li><a>이용약관</a></li>
-				<li><a>개인정보처리방침</a></li>
-				<li><a>이용안내</a></li>
-			</ul>
+			<table>
+				<tr>
+					<td>얻다대GO | ThreeGo | ThreeGo@parking.com | Tel.010-3333-3333</td>
+				</tr>
+				<tr>				
+					<td>Jongro-gu, Republic of Korea | Biz.License 333-33-33333</td>
+				</tr>
+			</table>
 		</div>
 	</footer>
 </body>

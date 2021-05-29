@@ -9,6 +9,271 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style>
+#read_frm{
+
+   padding-top: 100;
+}
+#table1{
+   margin-top : 20px;
+   
+   width: 400px;
+   margin-left: auto;
+   margin-right: auto;
+   border-collapse: collapse;
+   border-radius: 12px;
+}
+
+#table3{
+   margin-left: 265px;
+   margin-right: 10px;
+}
+
+#table2 {
+   width: 400px;
+   margin-left: auto;
+   margin-right: auto;
+   border-collapse: collapse;
+}
+
+.tr {
+   border-bottom: 1px solid #66612D;
+   height: 25px;
+   
+}
+
+#submitbtn, #canclebtn {
+   width: 90px;
+   position: relative;
+   height: 25px;
+   font-size: 13px;
+   cursor: pointer;
+   margin-top: 3px;
+   padding: 1 4 1 4;
+   border: none;
+   border-radius: 12px;
+   background: #E0DEC3;
+   color: black;
+   cursor: pointer;
+   outline: none;
+}
+
+.button {
+   margin: 0;
+   padding: 1 4 1 4;
+   border: none;
+   border-radius: 12px;
+   background: #E0DEC3;
+   color: black;
+   position: relative;
+   height: 30px;
+   font-size: 13px;
+   cursor: pointer;
+   outline: none;
+}
+
+#btnlike {
+   background: none;
+   color: none;
+   margin-right: 50px;
+}
+
+#likelike {
+   text-aglin: right;
+   font-size: 12px;
+   height: 30px;
+    clear: both;
+   width: 420;
+   padding-top: 20;
+}
+
+#boardname {
+   font-size: 13px;
+}
+
+#textform {
+   maxlength: 2048;
+   border: none;
+   width: 400px;
+   height: 250px;
+   resize: none;
+   text-aglin: left;
+}
+#textform1 {
+   maxlength: 2048;
+   border: none;
+   width: 400px;
+   height: 250px;
+   resize: none;
+   text-aglin: left;
+   border-radius: 5px;
+   color :  #66612D;
+   background : #efefef;
+}
+
+#inputA {
+   maxlength: 2048;
+   width: 400px;
+   height: 100px;
+   overflow-y: scroll;
+   resize: none;
+   border-radius: 5px;
+    border: none;
+   background : #efefef;
+}
+
+#comtable {
+   border-radius: 10px;
+   
+}
+
+#updateupdate {
+   display: none;
+}
+
+#subject {
+   font-size: 26px;
+   text-align: left;
+   
+}
+
+#writer {
+   font-size: 13px
+}
+
+#bthchat {
+   margin: 0;
+   padding: 1 4 1 4;
+   border: 3px solid #E0DEC3;
+   border-radius: 12px;
+   background: white;
+   color: black;
+   position: relative;
+   height: 25px;
+   font-size: 12px;
+   cursor: pointer;
+   outline: none;
+}
+
+#date {
+   font-size: 12px
+}
+
+#like {
+   height: 10px;
+   text-align: right;
+}
+
+.nounderline {
+   border: 0px;
+}
+
+#updateupdate {
+   font-size: 12px;
+   height: 100px;
+   padding: 0px 0px;
+   width: 70px;
+   color: #black;
+   text-align: center;
+}
+
+#insertinsert {
+   font-size: 12px;
+   height: 100px;
+   padding: 0px 0px;
+   width: 70px;
+   color: #black;
+   text-align: center;
+}
+
+.comud {
+   border : none;
+   color: #66612D;
+   text-align: center;
+   background: none;
+   padding : 3px;
+}
+
+#back {
+   text-align: center;
+}
+#buttontolist{
+   margin: 0;
+   padding: 1 4 1 4;
+   border: 3px solid #E0DEC3;
+   border-radius: 12px;
+   background: white;
+   color: black;
+   position: relative;
+   height: 25px;
+   font-size: 12px;
+   cursor: pointer;
+   outline: none;
+}
+.likep {
+   background: none;
+   margin-right: 50px;
+}
+
+#udbtn {
+   text-align: right;
+}
+
+#tablemargin {
+   margin: auto;
+   width: 400px;
+   box-sizing: border-box;
+}
+
+#tablemargin td {
+   padding: 0;
+}
+#report{
+   margin: 0;
+   padding: 1 4 1 4;
+   border: 3px solid #E0DEC3;
+   border-radius: 12px;
+   background: white;
+   color: black;
+   position: relative;
+   height: 25px;
+   font-size: 12px;
+   cursor: pointer;
+   outline: none;
+}
+#p {
+margin-top: 10;
+margin-left: 50px;
+float: left;
+font-size: 20px;
+font-weight: bold;
+color : #66612D;
+}
+#backtolist {
+margin: 0;
+padding: 1 4 1 4;
+border: 3px solid #E0DEC3;
+border-radius: 12px;
+background: white;
+color: black;
+position: relative;
+height: 25px;
+font-size: 12px;
+cursor: pointer;
+outline: none;
+}
+#writebtn {
+	border:none;
+	float: right;
+	/* 	padding-left: 10px;
+	padding-right: 10px; */
+	background-color: white;
+	background: #E0DEC3;
+	border-radius: 12px;
+	cursor: pointer;
+	padding: 5 10 5 10;
+}
+</style>
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
@@ -16,72 +281,62 @@
 <!-- FAQ 답 -->
 <c:if test="${empty qna_kind }">
 
-<h2>자주묻는질문</h2>
+<p id="p">자주묻는질문</p>
 
-	<table border="1">
-		<tr>
-			<td>번호</td>
-			<td>${qna_no }</td>
+	<table id="table1">
+
+		<tr class="tr">
+			<td id="subject">${qna_subject }</td>
 		</tr>
 
-		<tr>
-			<td >제목</td>
-			<td><input type="text" value="${qna_subject }" name="sub" readonly></td>
-		</tr>
-
-		<tr>
-			<td>내용</td>
+		<tr class="tr">
 			<td>
-				<textarea name="con" maxlength="2048" readonly
-					style="height: 200px; width:200px; color:black;" >${qna_content }
+				<textarea name="con" id="textform" >${qna_content }
 				</textarea>
 			</td>
 		</tr>
-		<tr>
-			<td colspan="2">
-				<input type="submit" value="확인" onclick="history.back();">
-				<input type="button" value="메인페이지" readonly
-				onclick="window.location='<%=request.getContextPath()%>/main';">
+		<tr class="nounderline">
+			<td id="udbtn">
+				<input type="submit" id="writebtn" value="확인" onclick="history.back();">
 			</td>
 		</tr>
 	</table>
-
+	<br>
+	<div id="back">
+		<input type="button" value="메인페이지" class="button" id="backtolist"
+			onclick="window.location='<%=request.getContextPath()%>/main';">
+	</div>
 </c:if>
 
 
 <!-- QNA -->
 <c:if test="${not empty qna_kind }">
 <!-- 내가 등록한 QNA -->
-<h1>이용자문의사항</h1>
+<p id="p">이용자문의사항</p>
 <c:if test="${nickname == user.getNickname() }">
 <form action="<%=request.getContextPath()%>/userqnaupdate" method="POST">
 <input type="hidden" value="${qna_no }" name="no">
-		<table border="1">
-			<tr>
-			
-				<td>번호</td>
-				<td>${qna_no }</td>
-			</tr>
-			<tr>
-				<td>닉네임</td>
-				<td>${nickname }</td>
-			</tr>
+		<table id="table1">
+		
 			<c:if test="${empty a_content }">
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="sub" value="${qna_subject }"></td>
+			<tr class="tr">
+				<td><input type="text" name="sub" id="subject" style="border : none;" value="${qna_subject }"></td>
 			</tr>
 			</c:if>
 			<c:if test="${not empty a_content }">
-			<tr>
-				<td>제목</td>
-				<td><input type="text" value="${qna_subject }" readonly></td>
+			<tr class="tr">
+				<td id="subject" >${qna_subject}</td>
 			</tr>
 			</c:if>
+			<tr class="nounderline">
+				<td id="writer">${nickname }</td>
+			</tr>
 			<c:if test="${empty a_content }">
-			<tr>
-				<td>문의항목</td>
-				<td>
+			<tr class="nounderline">
+				<td  id="writer">문의항목</td>
+			</tr>
+			<tr class="tr">
+				<td  id="writer">
 				<select id="select" name="select">
 					<option value="${qna_kind }">${qna_kind }</option>
 					<option value="계정">계정</option>
@@ -94,102 +349,91 @@
 			</tr>
 			</c:if>
 			<c:if test="${not empty a_content }">
-			<tr>
-				<td>문의항목</td>
-				<td>${qna_kind }</td>
+			<tr class="tr">
+				<td id="writer">문의항목 :${qna_kind }</td>
 			</tr>
 			</c:if>	
 			<c:if test="${empty a_content }">
-			<tr>
-				<td>내용</td>
+			<tr class="tr">
 				<td>
-					<textarea name="con" maxlength="2048" 
-					style="height: 200px; width:200px; color:black;" >${qna_content }
+					<textarea name="con" maxlength="2048" id="textform"
+					>${qna_content }
 					</textarea>
 				</td>
 			</tr>
 			</c:if>
 			<c:if test="${not empty a_content }">
-			<tr>
-				<td>내용</td>
+			<tr class="tr">
 				<td>
-					<textarea name="con" maxlength="2048" 
-					style="height: 200px; width:200px; color:black;" readonly>${qna_content }
+				<textarea name="con" id="textform" readonly>${qna_content }
 					</textarea>
 				</td>
 			</tr>
 			</c:if>
-			<tr>
-				<td colspan="2">
+			<tr class="nounderline">
+				<td id="udbtn">
 				<c:if test="${empty a_content }">
-					<input type="submit" value="질문 수정">
+					<input type="submit" class="button" value="질문 수정">
 				</c:if>
 				<c:if test="${not empty a_content }">
-					<input type="button" value="확인"
+					<input type="button" value="확인" id="writebtn" 
 						onclick="history.back();">
 				</c:if>
+				</td>
 			</tr>
 		</table>
 </form>
 </c:if>
 <c:if test="${nickname != user.getNickname() }">
-		<table border="1">
-			<tr>
-				<td>번호</td>
-				<td>${qna_no }</td>
+		<table id="table1">
+		
+
+			<tr class="tr">
+				<td id="subject" >${qna_subject}</td>
 			</tr>
-			<tr>
-				<td>닉네임</td>
-				<td>${nickname }</td>
+			<tr class="nounderline">
+				<td id="writer">${nickname }</td>
+			</tr>
+			<tr class="tr">
+				<td id="writer">문의항목: ${qna_kind }</td>
 			</tr>
 
-			<tr>
-				<td>제목</td>
-				<td><input type="text" value="${qna_subject }" readonly></td>
-			</tr>
-			<tr>
-				<td>문의항목</td>
-				<td>${qna_kind }</td>
-			</tr>
-
-			<tr>
-				<td>내용</td>
+			<tr class="tr">
 				<td>
-					<textarea name="con" maxlength="2048" 
-					style="height: 200px; width:200px; color:black;" readonly>${qna_content }
+					<textarea name="con" id="textform" readonly>${qna_content }
 					</textarea>
 				</td>
 			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="button" value="확인"
+			<tr class="nounderline">
+				<td id="udbtn">
+					<input type="button" value="확인" id="writebtn" 
 						onclick="history.back();">
 				</td>
 			</tr>
 		</table>
+		<br>
 </c:if>
-	<h1>답변내용</h1>
+	<p id="p">답변내용</p>
 
 		
 		<input type="hidden" name="qnano" value="${qna_no }">
-		<table border="1">
-			<tr>
-				<td>내용</td>
+		<table id="table1">
+			<tr >
 				<c:if test="${empty a_content }">
-					<td><textarea name="answer" placeholder="아직답변이 없습니다." readonly
-						 maxlength="2048" style="height: 200px; width:200px;"></textarea>
+					<td><textarea name="answer" placeholder="아직답변이 없습니다." id="inputA"></textarea>
 					</td>
 				</c:if>
 				<c:if test="${not empty a_content }">
-					<td><textarea name="answer" readonly
-						 maxlength="2048" style="height: 200px; width:200px; color:black;">${a_content }</textarea>
+					<td><textarea name="answer" id="inputA">${a_content }</textarea>
 					</td>
 				</c:if>
 			</tr>
 		</table>
-		<input type="button" value="메인페이지"
+		<br>
+		<div id="back">
+		<input type="button" value="메인페이지" class="button" id="backtolist"
 			onclick="window.location='<%=request.getContextPath()%>/main';">
-
+		</div>
 		
 
 </c:if>

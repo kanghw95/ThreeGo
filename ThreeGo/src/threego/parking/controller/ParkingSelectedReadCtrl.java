@@ -37,16 +37,16 @@ public class ParkingSelectedReadCtrl extends HttpServlet {
 		System.out.println(search);
 			ArrayList<Parking> searchlist = new ParkingService().p_selectSearch("parking_name", search);
 		
-		if (searchlist != null) {
-			System.out.println("조회 성공");
-			System.out.println("파킹셀렉트리드컨트롤러" + searchlist);
-			request.setAttribute("listpark",searchlist);
-			request.getRequestDispatcher("WEB-INF/main/main.jsp").forward(request, response);
-		} else {
-			System.out.println("조회 실패");
-			request.getRequestDispatcher("WEB-INF/main/main.jsp").forward(request, response);
-		}
-	}
+		      if (searchlist != null) {
+		          System.out.println("조회 성공");
+		          System.out.println("파킹셀렉트리드컨트롤러" + searchlist);
+		          request.setAttribute("listpark",searchlist);
+		          request.getRequestDispatcher("WEB-INF/main/review_main/list.jsp").forward(request, response);
+		       } else {
+		          System.out.println("조회 실패");
+		          request.getRequestDispatcher("WEB-INF/main/review_main/list.jsp").forward(request, response);
+		       }
+		    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

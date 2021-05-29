@@ -59,7 +59,6 @@ public class BoardReadCtrl extends HttpServlet {
       BoardService sv = new BoardService();
       Admin admin = (Admin) request.getSession().getAttribute("admin");
       Board vo = new Board();
-//      Board_Attach inputF = new Board_Attach();
       List<Board_Attach> inputF = null;
       String str = request.getParameter("bd_content_no");
       String bd_category_1 = request.getParameter("bd_category_1");
@@ -82,7 +81,7 @@ public class BoardReadCtrl extends HttpServlet {
                   request.setAttribute("files", inputF);
                   request.setAttribute("bd_category", bd_category_1);
                   if(admin !=null) {
-                	  request.getRequestDispatcher("/WEB-INF/view/admin/admin_boardread.jsp").forward(request, response);
+                	  request.getRequestDispatcher("/WEB-INF/main/admin_main/adminboardread.jsp").forward(request, response);
                   }else {
                   request.getRequestDispatcher("/WEB-INF/main/board_main/read.jsp").forward(request, response);
                   }

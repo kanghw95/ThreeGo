@@ -8,20 +8,100 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>얻다대Go</title>
+<style type="text/css">
+#userinsert{
+  clear: both;
+   width: 420;
+   padding-top: 20;
+}
+
+#userinsert input[type=text]{
+  margin: 0;
+  padding: 1 4 1 4;
+  border: none;
+  border-radius: 12px;
+  background :#EFEFEF;
+  color: black;
+  position:relative;
+  height:30px;
+  font-size:13px;
+  outline:none;
+}
+#userinsert input[type=password]{
+  margin: 0;
+  padding: 1 4 1 4;
+  border: none;
+  border-radius: 12px;
+  background :#EFEFEF;
+  color: black;
+  position:relative;
+  height:30px;
+  font-size:13px;
+  outline:none;
+}
+
+#userinsert select{
+  margin: 0;
+  padding: 1 4 1 4;
+  border: 3px solid #CFCFCF;
+  border-radius: 12px;
+  background :white;
+  color: black;
+  position:relative;
+  height:30px;
+  font-size:13px;
+  outline:none;
+}
+#userinsert input[type=submit],input[type=button]{
+   padding: 1 4 1 4;
+   margin : 0 5 0 5;
+   background-color: white;
+   border :  none;
+   height: 30;
+}
+#chk{
+width: 150;
+}
+#ok{
+text-align: center;
+}
+#email{
+text-align: center;
+}
+#nickok{
+text-align: center;
+}
+
+#idcheck{
+text-align: center;
+}
+</style>
 </head>
-<body>
-	<h2>회원가입 페이지입니다.</h2>
+<body style="font-family:'서울남산 장체 L', sans-serif;">
+
+<div id="userinsert" style="margin: 0 auto;">
+	<h3 style="text-align: left; color: #66612D; font-size: 20px; font-weight: bold;">회원가입 </h3><br>
+	
 		<form action="<%=request.getContextPath()%>/userinsert" method="post" name="loginform">
-			<label>아이디 : <input type="text" id="id" name="id" ></label>
-			<input type="button" id="btnid" name="btnid" value="아이디 중복확인"><br><br>
-			<label>비밀번호 : <input type="password" id="paswwd" name="paswwd" onblur="passcheck();"></label><br><br>
-			<label>비밀번호 확인 : <input type="password" id="paswwdcheck" name="paswwdcheck" onblur="passcheck();"></label>
-			&nbsp;<input type="text" style="border-width: 0px; font-weight: bold" id="chk" name="chk" value="비밀번호를 입력하세요" readonly="readonly"><br><br>
-			<label>이름 : <input type="text" id="name" name="name"></label><br><br>
-			<label>닉네임 : <input type="text" id="nickname" name="nickname"></label>
-			<input type="button" id="btnnick" name="btnnick" value="닉네임 중복확인"><br><br>
-			<label>주소 : <input type="text" id="address" name="address"></label><br><br>
-			 휴대폰 : <select name="ph1">
+			<label>아이디 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="id" name="id" ></label>
+			<div id="idcheck">
+			<input type="button" id="btnid" name="btnid" value="아이디 중복확인">
+			</div>
+			<label>비밀번호 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" id="paswwd" name="paswwd" onblur="passcheck();"></label><br><br>
+			<label>비밀번호 확인&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" id="paswwdcheck" name="paswwdcheck" onblur="passcheck();"></label><br><br>
+			<input type="text" style="border-width: 0px; font-weight: bold; background: white" id="chk" name="chk" value="비밀번호를 입력하세요" readonly="readonly"><br><br>
+			
+			<label>이름&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="text" id="name" name="name"></label><br><br>
+			
+			<label>닉네임&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="text" id="nickname" name="nickname"></label>
+			<div id="nickok">
+			<input type="button" id="btnnick" name="btnnick" value="닉네임 중복확인">
+			</div>
+			<label>주소 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="text" id="address" name="address"></label><br><br>
+			 휴대폰 <select name="ph1">
 			       <option value="010">010</option>
 			       <option value="011">011</option>
 			       <option value="016">016</option>
@@ -29,13 +109,16 @@
 			       <option value="019">019</option>
 	    		 </select>
      	- <input type="text" id="ph2" name="ph2" size="5" maxlength="4"> - <input type="text"  id="ph3" name="ph3" size="5" maxlength="4"><br><br>
-			이메일 : <input type="text" size="15" id="email1" name="email1">&nbsp;@&nbsp;<input type="text" size="15" id="email2" name="email2">
-			<input type="button" id="btnemail" name="btnemail" value="이메일 인증하기"><br><br>
-			<label>인증번호 : <input type="text" id="emailnum" name="emailnum"></label>
+			이메일 <input type="text" size="15" id="email1" name="email1">&nbsp;@&nbsp;<input type="text" size="15" id="email2" name="email2">
+			<div id="email">
+			<input type="button" id="btnemail" name="btnemail" value="이메일 인증하기">
+			</div>
+			<label>인증번호  <input type="text" id="emailnum" name="emailnum"></label>
 			<input type="button" id="btnemailcheck" name="btnemailcheck" value="인증번호 확인"><br><br>
-			<label>남 : <input type="radio" name="gender" value='M' checked="checked"></label>
-			<label>여 : <input type="radio" name="gender" value='F'></label><br><br>
-			생년월일 : <select name="birth1">
+			
+			<label>남  <input type="radio" name="gender" value='M' checked="checked"></label>
+			<label>여  <input type="radio" name="gender" value='F'></label><br><br>
+			생년월일  <select name="birth1">
 		       <%for(int i=2021; i>=1900; i--){ %>
 		       <option value="<%=i %>"><%=i %></option>
 		       <%} %>
@@ -50,11 +133,32 @@
 		       <option value="<%=i %>"><%=i %></option>
 		       <%} %>
 		     </select>일<br><br>
-			<hr>
-	
-			<input type="button" value="회원가입" onclick="inputCheck();">
-			<input type="button" value="취소" onclick="history.back()">
+			<div id="ok">
+				<input style="  margin: 0;
+   padding: 1 4 1 4;
+   border: none;
+   border-radius: 12px;
+   background: #E0DEC3;
+   color: black;
+   position: relative;
+   height: 30px;
+   font-size: 13px;
+   cursor: pointer;
+   outline: none;" type="button" value="회원가입" onclick="inputCheck();">
+				<input style="margin: 0;
+   padding: 1 4 1 4;
+   border: 3px solid #E0DEC3;
+   border-radius: 12px;
+   background: white;
+   color: black;
+   position: relative;
+   height: 30px;
+   font-size: 13px;
+   cursor: pointer;
+   outline: none;" type="button" value="취소" onclick="history.back()">
+			</div>
 		</form>
+		</div>
 	<script>
 	var right = 0; // inputcheck 비밀번호 입력체크를 위한 변수
 	var idCheck = 0; // 아이디 중복확인 체크용

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
-<body>
+<body style="font-family:'서울남산 장체 L', sans-serif;">
  <h1>댓글수정</h1>
 <form name="frm_update" >
       <input type="hidden" name="com_no" value="${com_no}">

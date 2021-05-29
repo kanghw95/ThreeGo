@@ -91,6 +91,7 @@ public class BoardWriteCtrl extends HttpServlet {
 		String imageNames = null;
 		System.out.println("여기로 들어왔음 ");
 		String bd_category_1 = mReq.getParameter("bd_category_1");
+		
 		Board vo = new Board();
 
 		// 게시판 글 등록
@@ -112,15 +113,13 @@ public class BoardWriteCtrl extends HttpServlet {
 
 			// 첨부파일
 			try {
-				System.out.println("제발ㄴㄴㅁㅇㅁㄴㅇ"+uploadPath);
 				images = mReq.saveFiles("uploads", uploadPath);
 				
 				if (images != null) {
 
 					Board_Attach ao = new Board_Attach();
 
-//       String bd_content_no =  request.getParameter("bd_content_no");
-//       vo.setBd_content_no(Integer.parseInt(bd_content_no));
+
 
 					for (int cnt = 0; cnt < images.size(); cnt++) {
 						System.out.println("cnt" + cnt);
@@ -161,7 +160,7 @@ public class BoardWriteCtrl extends HttpServlet {
 				String msg = "글 등록 완료";
 
 				out.println("<script>alert('" + msg + "')</script>");
-				out.println("<script>location.href='"+ request.getContextPath()+"/board/boardlist"+"';</script>");
+				out.println("<script>location.href='"+ request.getContextPath()+"/boardlist"+"?"+"bd_category_1"+"="+bd_category_1+"';</script>");
 			} else { // 입력 실패
 				System.out.println("입력 실패!!");
 

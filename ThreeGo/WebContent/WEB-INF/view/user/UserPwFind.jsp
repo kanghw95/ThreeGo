@@ -8,21 +8,110 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>비밀번호 찾기</title>
+<style type="text/css">
+#userpwfind{
+  clear: both;
+   width: 420;
+   padding-top: 20;
+}
+
+#userpwfind input[type=text]{
+  margin: 0;
+  padding: 1 4 1 4;
+  border: none;
+  border-radius: 12px;
+  background :#EFEFEF;
+  color: black;
+  position:relative;
+  height:30px;
+  font-size:13px;
+  outline:none;
+}
+#userpwfind input[type=password]{
+  margin: 0;
+  padding: 1 4 1 4;
+  border: none;
+  border-radius: 12px;
+  background :#EFEFEF;
+  color: black;
+  position:relative;
+  height:30px;
+  font-size:13px;
+  outline:none;
+}
+
+#userpwfind select{
+  margin: 0;
+  padding: 1 4 1 4;
+  border: 3px solid #CFCFCF;
+  border-radius: 12px;
+  background :white;
+  color: black;
+  position:relative;
+  height:30px;
+  font-size:13px;
+  outline:none;
+}
+#userpwfind input[type=submit],input[type=button]{
+   padding: 1 4 1 4;
+   margin : 0 5 0 5;
+   background-color: white;
+   border :  none;
+   height: 30;
+}
+#chk{
+width: 150;
+}
+#ok{
+text-align: center;
+}
+#email{
+text-align: center;
+}
+#nickok{
+text-align: center;
+}
+</style>
 </head>
-<body>
-	<h2>비밀번호 찾기 페이지입니다.</h2>
-	<form action="<%=request.getContextPath()%>/userpwfind" method="post" name="pwfind">
-		이메일 : <input type="text" size="15" id="email1" name="email1">&nbsp;@&nbsp;<input type="text" size="15" id="email2" name="email2">
-		&nbsp;<input type="text" size="30" style="border-width: 0px; font-weight: bold" id="chk" name="chk" value="회원가입시 입력한  정보를 입력하세요" readonly="readonly"><br><br>
-		이름 : <input type="text" id="name" name="name"> <br><br>
-		아이디 : <input type="text" id="id" name="id"> <br><br>
-		<input type="button" id="btnemail" name="btnemail" value="이메일 코드 발송"><br><br>
-		<label>인증번호 : <input type="text" id="emailnum" name="emailnum"></label>
-		<input type="button" id="btnemailcheck"name="btnemailcheck" value="인증번호 확인"><br><br>
-		<input type="button" id="btnpwfind" name="btnpwfind" value="비밀번호 찾기" onclick="inputCheck();">
-		<input type="button" value="메인페이지"  onclick="location.href ='<%=request.getContextPath() %>/main'"><br><br>
-	
-	</form>
+<body style="font-family:'서울남산 장체 L', sans-serif;">
+<div id="userpwfind" style="margin: 0 auto;">
+
+		<h3 style="text-align: left; color: #66612D; font-size: 20px; font-weight: bold;">비밀번호 찾기</h3><br>
+		<form action="<%=request.getContextPath()%>/userpwfind" method="post" name="pwfind">
+			이메일 &nbsp;&nbsp;&nbsp;<input type="text" size="15" id="email1" name="email1">&nbsp;@&nbsp;<input type="text" size="15" id="email2" name="email2"><br><br>
+			이름&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <input type="text" id="name" name="name"> <br><br>
+			아이디 &nbsp;&nbsp;&nbsp;<input type="text" id="id" name="id"> <br><br>
+			<input type="text" style="width: 240px; border-width: 0px; font-weight: bold;  background: white" id="chk" name="chk" value="회원가입시 입력한  정보를 입력하세요" readonly="readonly"><br><br>
+			<input style="margin: 0; padding: 0;" type="button" id="btnemail" name="btnemail" value="이메일 코드 발송"><br><br>
+			<label>인증번호  <input type="text" id="emailnum" name="emailnum"></label>
+			<input type="button" id="btnemailcheck"name="btnemailcheck" value="인증번호 확인"><br><br>
+			
+			<div style="text-align: center;">
+				<input style="  margin: 0;
+   padding: 1 4 1 4;
+   border: none;
+   border-radius: 12px;
+   background: #E0DEC3;
+   color: black;
+   position: relative;
+   height: 30px;
+   font-size: 13px;
+   cursor: pointer;
+   outline: none;" type="button" id="btnpwfind" name="btnpwfind" value="비밀번호 찾기" onclick="inputCheck();">
+				<input style="margin: 0;
+   padding: 1 4 1 4;
+   border: 3px solid #E0DEC3;
+   border-radius: 12px;
+   background: white;
+   color: black;
+   position: relative;
+   height: 30px;
+   font-size: 13px;
+   cursor: pointer;
+   outline: none;" type="button" value="메인페이지"  onclick="location.href ='<%=request.getContextPath() %>/main'"><br><br>
+			</div>
+		</form>
+	</div>
 	<script>
 	var emailCheck = 0; // 이메일 인증 확인 체크용
 	//이메일 인증번호 발송하기

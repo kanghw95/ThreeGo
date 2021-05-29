@@ -6,6 +6,28 @@
 <head>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <meta charset="UTF-8">
+<style>
+a {
+   text-decoration: none;
+   color: black;
+}
+
+.button1 {
+   margin-top: 10;
+   margin-left: 50px;
+
+   font-weight: bold;
+   height: 40px;
+   font-size: 20px;
+   padding: 2em 2em;
+   cursor: pointer;
+   transition: 800ms ease all;
+   outline: none;
+   color: #black;
+   background: none;
+   border: none;
+}
+</style>
 <title>index</title>
 
 </head>
